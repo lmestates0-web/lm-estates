@@ -7,7 +7,19 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>LM Estates – Ihr Partner für exklusive Immobilien in Zürich</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --ev-blue: #0077B6;
+            --ev-black: #1a1a1a;
+            --ev-white: #ffffff;
+            --ev-gray-light: #f5f5f5;
+            --ev-gray: #666666;
+            --ev-gray-dark: #333333;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -15,10 +27,14 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #333;
-            background: #fff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--ev-gray-dark);
+            background: var(--ev-white);
             line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', Georgia, serif;
         }
 
         /* Navigation */
@@ -26,10 +42,9 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: var(--ev-white);
             z-index: 1000;
-            padding: 1.5rem 5%;
+            border-bottom: 1px solid #eee;
         }
 
         .nav-container {
@@ -38,16 +53,27 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 1rem 2rem;
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: 300;
-            letter-spacing: 2px;
-            color: #2c3e50;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            color: var(--ev-black);
             text-decoration: none;
             position: relative;
             z-index: 1002;
+        }
+
+        .logo::after {
+            content: '';
+            display: block;
+            width: 30px;
+            height: 3px;
+            background: var(--ev-blue);
+            margin-top: 4px;
         }
 
         .nav-links {
@@ -58,15 +84,16 @@
 
         .nav-links a {
             text-decoration: none;
-            color: #555;
-            font-weight: 300;
+            color: var(--ev-gray-dark);
+            font-weight: 400;
             transition: color 0.3s;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         .nav-links a:hover {
-            color: #c9a961;
+            color: var(--ev-blue);
         }
 
         /* Hamburger Menu */
@@ -82,7 +109,7 @@
         .hamburger span {
             width: 25px;
             height: 2px;
-            background: #2c3e50;
+            background: var(--ev-black);
             transition: all 0.3s;
         }
 
@@ -116,7 +143,7 @@
 
         /* Hero Section */
         .hero {
-            margin-top: 80px;
+            margin-top: 70px;
             height: 85vh;
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
                         url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600') center/cover;
@@ -129,7 +156,7 @@
 
         .hero-content h1 {
             font-size: 3.5rem;
-            font-weight: 300;
+            font-weight: 400;
             margin-bottom: 1rem;
             letter-spacing: 1px;
         }
@@ -144,13 +171,13 @@
         .cta-button {
             display: inline-block;
             padding: 1rem 3rem;
-            background: #c9a961;
+            background: var(--ev-blue);
             color: white;
             text-decoration: none;
             font-weight: 400;
             letter-spacing: 1px;
             transition: all 0.3s;
-            border: 2px solid #c9a961;
+            border: 2px solid var(--ev-blue);
         }
 
         .cta-button:hover {
@@ -161,21 +188,21 @@
         /* Services Section */
         .services {
             padding: 6rem 5%;
-            background: #fafafa;
+            background: var(--ev-gray-light);
         }
 
         .section-title {
             text-align: center;
             font-size: 2.5rem;
-            font-weight: 300;
+            font-weight: 400;
             margin-bottom: 1rem;
-            color: #2c3e50;
+            color: var(--ev-black);
             letter-spacing: 1px;
         }
 
         .section-subtitle {
             text-align: center;
-            color: #666;
+            color: var(--ev-gray);
             margin-bottom: 4rem;
             font-weight: 300;
         }
@@ -191,7 +218,7 @@
         .service-card {
             text-align: center;
             padding: 2rem;
-            background: white;
+            background: var(--ev-white);
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
@@ -203,67 +230,84 @@
         .service-icon {
             font-size: 3rem;
             margin-bottom: 1.5rem;
-            color: #c9a961;
+            color: var(--ev-blue);
         }
 
         .service-card h3 {
             font-size: 1.4rem;
             font-weight: 400;
             margin-bottom: 1rem;
-            color: #2c3e50;
+            color: var(--ev-black);
         }
 
         .service-card p {
-            color: #666;
+            color: var(--ev-gray);
             font-weight: 300;
             line-height: 1.8;
         }
 
         /* Footer */
         footer {
-            background: #2c3e50;
-            color: white;
-            padding: 3rem 5%;
-            text-align: center;
+            background: var(--ev-blue);
+            color: var(--ev-white);
+            padding: 4rem 2rem 2rem;
         }
 
         .footer-content {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+            text-align: center;
         }
 
-        .footer-info {
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-address {
-            font-weight: 300;
-            opacity: 0.9;
+        .footer-logo {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 3px;
             margin-bottom: 0.5rem;
         }
 
-        .footer-contact {
-            font-weight: 300;
+        .footer-logo-underline {
+            width: 30px;
+            height: 3px;
+            background: var(--ev-white);
+            margin: 0 auto 2rem;
+        }
+
+        .footer-info {
+            margin-bottom: 2rem;
+        }
+
+        .footer-address {
+            font-weight: 400;
             opacity: 0.9;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-contact {
+            font-weight: 400;
+            opacity: 0.9;
+            font-size: 0.95rem;
         }
 
         .footer-contact a {
-            color: #c9a961;
+            color: var(--ev-white);
             text-decoration: none;
             transition: color 0.3s;
         }
 
         .footer-contact a:hover {
-            color: #fff;
+            color: var(--ev-black);
         }
 
         .footer-copyright {
-            font-weight: 300;
-            opacity: 0.7;
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 1.5rem;
-            margin-top: 1rem;
+            font-weight: 400;
+            opacity: 0.6;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 2rem;
+            margin-top: 2rem;
         }
 
         /* Responsive */
@@ -276,13 +320,13 @@
                 position: fixed;
                 top: 0;
                 right: -100%;
-                width: 70%;
-                max-width: 300px;
+                width: 80%;
+                max-width: 320px;
                 height: 100vh;
-                background: white;
+                background: var(--ev-white);
                 flex-direction: column;
                 padding: 80px 30px 30px;
-                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                box-shadow: -5px 0 20px rgba(0,0,0,0.15);
                 transition: right 0.3s ease;
                 gap: 0;
             }
@@ -298,7 +342,7 @@
             .nav-links a {
                 display: block;
                 padding: 15px 0;
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
 
             .hero-content h1 {
@@ -384,9 +428,14 @@
     <!-- Footer -->
     <footer>
         <div class="footer-content">
+            <div class="footer-logo">LM ESTATES</div>
+            <div class="footer-logo-underline"></div>
             <div class="footer-info">
-                <p class="footer-address">Seestrasse 20, 8802 Kilchberg</p>
-                <p class="footer-contact">Tel: <a href="tel:+41763046887">076 304 68 87</a> | E-Mail: <a href="mailto:lmestates0@gmail.com">lmestates0@gmail.com</a></p>
+                <p class="footer-address">Seestrasse 20, 8802 Kilchberg, Schweiz</p>
+                <p class="footer-contact">
+                    Tel: <a href="tel:+41763046887">076 304 68 87</a> | 
+                    E-Mail: <a href="mailto:lmestates0@gmail.com">lmestates0@gmail.com</a>
+                </p>
             </div>
             <p class="footer-copyright">&copy; 2024 LM Estates. Alle Rechte vorbehalten.</p>
         </div>
