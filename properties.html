@@ -260,6 +260,13 @@
             right: 10px;
         }
 
+        /* Hide carousel controls for single image */
+        .carousel-container.single-image .carousel-btn,
+        .carousel-container.single-image .carousel-dots,
+        .carousel-container.single-image .image-counter {
+            display: none;
+        }
+
         /* Carousel Dots */
         .carousel-dots {
             position: absolute;
@@ -536,9 +543,8 @@
         <div class="properties-grid">
             <!-- Motorrad Parkplatz -->
             <div class="property-card" onclick="window.location.href='property-detail.html'">
-                <div class="carousel-container" data-carousel>
+                <div class="carousel-container single-image" data-carousel>
                     <span class="property-badge">Zu vermieten</span>
-                    <span class="image-counter">1 / 1</span>
                     <div class="carousel-slides">
                         <div class="carousel-slide">
                             <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800" alt="Motorrad Parkplatz">

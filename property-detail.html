@@ -218,6 +218,16 @@
             right: 20px;
         }
 
+        /* Hide controls for single image galleries */
+        .main-image-container.single-image .gallery-nav,
+        .main-image-container.single-image .gallery-counter {
+            display: none;
+        }
+
+        .thumbnail-grid.single-image {
+            display: none;
+        }
+
         .thumbnail-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -577,14 +587,15 @@
 
     <!-- Gallery -->
     <section class="gallery">
-        <div class="main-image-container">
+        <div class="main-image-container single-image">
             <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600" alt="Motorrad Parkplatz" class="main-image" id="mainImage">
             <span class="gallery-counter"><span id="currentImage">1</span> / <span id="totalImages">1</span></span>
             <button class="gallery-nav prev" onclick="prevImage()">❮</button>
             <button class="gallery-nav next" onclick="nextImage()">❯</button>
         </div>
-        <div class="thumbnail-grid">
+        <div class="thumbnail-grid single-image">
             <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400" alt="Parkplatz Ansicht" class="thumbnail active" onclick="setImage(0)">
+        </div>
         </div>
     </section>
 
