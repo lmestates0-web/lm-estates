@@ -174,49 +174,6 @@
             font-weight: 400;
         }
 
-        /* Filters - E&V Style */
-        .filters {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            background: var(--ev-gray-light);
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .filter-group label {
-            font-size: 0.8rem;
-            color: var(--ev-gray);
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .filter-group select {
-            padding: 0.75rem 1.5rem 0.75rem 1rem;
-            border: 1px solid #ddd;
-            background: var(--ev-white);
-            color: var(--ev-gray-dark);
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: border-color 0.3s;
-            min-width: 180px;
-        }
-
-        .filter-group select:hover,
-        .filter-group select:focus {
-            border-color: var(--ev-blue);
-            outline: none;
-        }
-
         /* Properties Grid */
         .properties-container {
             max-width: 1400px;
@@ -547,15 +504,6 @@
                 font-size: 2rem;
             }
 
-            .filters {
-                flex-direction: column;
-                padding: 1.5rem;
-            }
-
-            .filter-group select {
-                width: 100%;
-            }
-
             .carousel-btn {
                 opacity: 1;
                 width: 36px;
@@ -604,34 +552,7 @@
         <p>Entdecken Sie unsere ausgewählten Objekte in Zürich und Umgebung</p>
     </section>
 
-    <!-- Filters -->
-    <div class="filters">
-        <div class="filter-group">
-            <label>Immobilientyp</label>
-            <select>
-                <option>Alle Typen</option>
-                <option>Parkplatz</option>
-                <option>Wohnung</option>
-                <option>Haus</option>
-            </select>
-        </div>
-        <div class="filter-group">
-            <label>Angebotsart</label>
-            <select>
-                <option>Alle Angebote</option>
-                <option>Miete</option>
-                <option>Kauf</option>
-            </select>
-        </div>
-        <div class="filter-group">
-            <label>Standort</label>
-            <select>
-                <option>Alle Standorte</option>
-                <option>Pfäffikon ZH</option>
-                <option>Zürich</option>
-            </select>
-        </div>
-    </div>
+
 
     <!-- Properties Grid -->
     <div class="properties-container">
