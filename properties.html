@@ -216,9 +216,43 @@
             text-align: center;
         }
 
-        footer p {
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-info {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-address {
             font-weight: 300;
             opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-contact {
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .footer-contact a {
+            color: #c9a961;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-contact a:hover {
+            color: #fff;
+        }
+
+        .footer-copyright {
+            font-weight: 300;
+            opacity: 0.7;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1.5rem;
+            margin-top: 1rem;
         }
 
         /* Responsive */
@@ -394,7 +428,13 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2024 LM Estates. Alle Rechte vorbehalten.</p>
+        <div class="footer-content">
+            <div class="footer-info">
+                <p class="footer-address">Seestrasse 20, 8802 Kilchberg</p>
+                <p class="footer-contact">Tel: <a href="tel:+41763046887">076 304 68 87</a> | E-Mail: <a href="mailto:lmestates0@gmail.com">lmestates0@gmail.com</a></p>
+            </div>
+            <p class="footer-copyright">&copy; 2024 LM Estates. Alle Rechte vorbehalten.</p>
+        </div>
     </footer>
 </body>
 </html>
