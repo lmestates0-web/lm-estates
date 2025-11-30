@@ -7,7 +7,19 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Motorrad-Parkplatz Pfäffikon ZH – LM Estates</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <style>
+        :root {
+            --ev-red: #e4002b;
+            --ev-black: #1a1a1a;
+            --ev-white: #ffffff;
+            --ev-gray-light: #f5f5f5;
+            --ev-gray: #666666;
+            --ev-gray-dark: #333333;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -15,21 +27,24 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #333;
-            background: #fff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--ev-gray-dark);
+            background: var(--ev-white);
             line-height: 1.6;
         }
 
-        /* Navigation */
+        h1, h2, h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        /* Navigation - Engel & Völkers Style */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: var(--ev-white);
             z-index: 1000;
-            padding: 1.5rem 5%;
+            border-bottom: 1px solid #eee;
         }
 
         .nav-container {
@@ -38,16 +53,27 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 1rem 2rem;
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: 300;
-            letter-spacing: 2px;
-            color: #2c3e50;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            color: var(--ev-black);
             text-decoration: none;
             position: relative;
             z-index: 1002;
+        }
+
+        .logo::after {
+            content: '';
+            display: block;
+            width: 30px;
+            height: 3px;
+            background: var(--ev-red);
+            margin-top: 4px;
         }
 
         .nav-links {
@@ -58,15 +84,16 @@
 
         .nav-links a {
             text-decoration: none;
-            color: #555;
-            font-weight: 300;
+            color: var(--ev-gray-dark);
+            font-weight: 400;
             transition: color 0.3s;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         .nav-links a:hover {
-            color: #c9a961;
+            color: var(--ev-red);
         }
 
         /* Hamburger Menu */
@@ -82,7 +109,7 @@
         .hamburger span {
             width: 25px;
             height: 2px;
-            background: #2c3e50;
+            background: var(--ev-black);
             transition: all 0.3s;
         }
 
@@ -114,322 +141,516 @@
             display: block;
         }
 
-        /* Property Header */
-        .property-header {
-            margin-top: 80px;
-            padding: 3rem 5%;
-            background: #fafafa;
-        }
-
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .property-badge {
-            display: inline-block;
-            background: #c9a961;
-            color: white;
-            padding: 6px 14px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 1rem;
-        }
-
-        .property-title {
-            font-size: 2.8rem;
-            font-weight: 300;
-            color: #2c3e50;
-            margin-bottom: 0.5rem;
-        }
-
-        .property-location {
-            color: #666;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Gallery */
-        .gallery {
-            max-width: 1400px;
-            margin: 3rem auto;
-            padding: 0 5%;
-        }
-
-        .main-image-container {
+        /* Full-Width Hero Gallery - E&V Style */
+        .hero-gallery {
+            margin-top: 70px;
             position: relative;
             width: 100%;
-            height: 500px;
+            height: 70vh;
+            min-height: 500px;
+            max-height: 800px;
             overflow: hidden;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
+            background: var(--ev-black);
         }
 
-        .main-image {
+        .hero-gallery .main-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: opacity 0.5s ease;
         }
 
-        /* Image Counter Overlay */
-        .gallery-counter {
+        .hero-gallery .gallery-overlay {
             position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 4px;
-            font-size: 0.9rem;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.6));
+            padding: 3rem 2rem 2rem;
         }
 
-        /* Gallery Navigation */
-        .gallery-nav {
+        .hero-gallery .gallery-nav {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.9);
+            background: var(--ev-white);
             border: none;
             width: 50px;
             height: 50px;
-            border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            color: #333;
+            font-size: 1.2rem;
+            color: var(--ev-black);
             z-index: 10;
-            transition: background 0.3s;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
         }
 
-        .gallery-nav:hover {
-            background: white;
+        .hero-gallery .gallery-nav:hover {
+            background: var(--ev-red);
+            color: var(--ev-white);
         }
 
-        .gallery-nav.prev {
+        .hero-gallery .gallery-nav.prev {
             left: 20px;
         }
 
-        .gallery-nav.next {
+        .hero-gallery .gallery-nav.next {
             right: 20px;
         }
 
+        .gallery-counter {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--ev-white);
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .gallery-actions {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .gallery-action-btn {
+            background: var(--ev-white);
+            border: none;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: var(--ev-black);
+            transition: all 0.3s;
+        }
+
+        .gallery-action-btn:hover {
+            background: var(--ev-red);
+            color: var(--ev-white);
+        }
+
         /* Hide controls for single image galleries */
-        .main-image-container.single-image .gallery-nav,
-        .main-image-container.single-image .gallery-counter {
+        .hero-gallery.single-image .gallery-nav,
+        .hero-gallery.single-image .gallery-counter {
             display: none;
         }
 
-        .thumbnail-grid.single-image {
+        /* Thumbnail Strip */
+        .thumbnail-strip {
+            background: var(--ev-black);
+            padding: 15px 2rem;
+            overflow-x: auto;
+        }
+
+        .thumbnail-strip.single-image {
             display: none;
         }
 
-        .thumbnail-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
+        .thumbnail-container {
+            display: flex;
+            gap: 10px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .thumbnail {
-            width: 100%;
-            height: 120px;
+            width: 100px;
+            height: 70px;
             object-fit: cover;
             cursor: pointer;
-            transition: opacity 0.3s;
-            border-radius: 4px;
-            border: 3px solid transparent;
+            opacity: 0.6;
+            transition: all 0.3s;
+            flex-shrink: 0;
         }
 
         .thumbnail:hover {
-            opacity: 0.8;
+            opacity: 0.9;
         }
 
         .thumbnail.active {
-            border-color: #c9a961;
+            opacity: 1;
+            outline: 2px solid var(--ev-red);
+            outline-offset: 2px;
         }
 
-        /* Details Section */
-        .details-section {
+        /* Property Header Section - E&V Style */
+        .property-header {
             max-width: 1400px;
-            margin: 0 auto 5rem;
-            padding: 0 5%;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid #eee;
+        }
+
+        .property-header-left {
+            flex: 1;
+        }
+
+        .property-badge {
+            display: inline-block;
+            background: var(--ev-red);
+            color: var(--ev-white);
+            padding: 6px 16px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1rem;
+        }
+
+        .property-title {
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--ev-black);
+            margin-bottom: 0.75rem;
+            line-height: 1.2;
+        }
+
+        .property-location {
+            color: var(--ev-gray);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 400;
+        }
+
+        .property-location svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--ev-red);
+        }
+
+        .property-header-right {
+            text-align: right;
+        }
+
+        .property-price {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.2rem;
+            color: var(--ev-black);
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .property-price-detail {
+            font-size: 0.9rem;
+            color: var(--ev-gray);
+            font-weight: 400;
+        }
+
+        /* Key Facts Section - E&V Style */
+        .key-facts {
+            background: var(--ev-gray-light);
+            padding: 2.5rem 2rem;
+        }
+
+        .key-facts-container {
+            max-width: 1400px;
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+        }
+
+        .key-fact {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .key-fact-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--ev-red);
+        }
+
+        .key-fact-value {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.4rem;
+            color: var(--ev-black);
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .key-fact-label {
+            font-size: 0.8rem;
+            color: var(--ev-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        /* Main Content Area */
+        .content-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 380px;
             gap: 4rem;
         }
 
-        .main-details h2 {
-            font-size: 2rem;
-            font-weight: 300;
-            margin-bottom: 2rem;
-            color: #2c3e50;
+        /* Description Section */
+        .description-section h2 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--ev-black);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 1rem;
         }
 
-        .price-tag {
-            font-size: 2.5rem;
-            color: #c9a961;
-            font-weight: 500;
-            margin-bottom: 0.3rem;
+        .description-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--ev-red);
         }
 
-        .price-detail {
+        .description-text {
+            color: var(--ev-gray-dark);
+            line-height: 1.9;
             font-size: 1rem;
-            color: #888;
             margin-bottom: 2rem;
         }
 
-        .features-grid {
+        .description-text p {
+            margin-bottom: 1.25rem;
+        }
+
+        /* Features Section */
+        .features-section {
+            margin-top: 3rem;
+        }
+
+        .features-section h3 {
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--ev-black);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        .features-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--ev-red);
+        }
+
+        .features-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            margin-bottom: 3rem;
+            gap: 1rem;
         }
 
         .feature-item {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
         }
 
-        .feature-icon {
-            font-size: 1.8rem;
+        .feature-item svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--ev-red);
+            flex-shrink: 0;
         }
 
-        .feature-text {
-            display: flex;
-            flex-direction: column;
+        .feature-item span {
+            color: var(--ev-gray-dark);
+            font-size: 0.95rem;
         }
 
-        .feature-label {
-            font-size: 0.85rem;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        /* Sidebar Contact Card */
+        .sidebar {
+            position: sticky;
+            top: 90px;
+            height: fit-content;
         }
 
-        .feature-value {
-            font-size: 1.1rem;
-            color: #2c3e50;
+        .contact-card {
+            background: var(--ev-white);
+            border: 1px solid #e0e0e0;
+            padding: 2rem;
+        }
+
+        .contact-card-header {
+            text-align: center;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-card h3 {
+            font-size: 1.3rem;
             font-weight: 400;
-        }
-
-        .description {
-            color: #555;
-            line-height: 1.9;
-            margin-bottom: 3rem;
-        }
-
-        .description h3 {
-            font-size: 1.5rem;
-            font-weight: 400;
-            margin-bottom: 1rem;
-            color: #2c3e50;
-        }
-
-        .description p {
-            margin-bottom: 1rem;
-        }
-
-        .description ul {
-            margin: 1rem 0 1rem 1.5rem;
-        }
-
-        .description li {
+            color: var(--ev-black);
             margin-bottom: 0.5rem;
         }
 
-        /* Sidebar */
-        .sidebar {
-            background: #fafafa;
-            padding: 2.5rem;
-            height: fit-content;
-            border-radius: 8px;
+        .contact-card-subtitle {
+            font-size: 0.85rem;
+            color: var(--ev-gray);
         }
 
-        .sidebar h3 {
-            font-size: 1.5rem;
-            font-weight: 400;
+        .agent-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
             margin-bottom: 1.5rem;
-            color: #2c3e50;
+            padding: 1rem;
+            background: var(--ev-gray-light);
+        }
+
+        .agent-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .agent-details h4 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--ev-black);
+            margin-bottom: 0.25rem;
+        }
+
+        .agent-details p {
+            font-size: 0.85rem;
+            color: var(--ev-gray);
         }
 
         .contact-info {
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .contact-item {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            color: #555;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            color: var(--ev-gray-dark);
+            font-size: 0.95rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .contact-item svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--ev-red);
+        }
+
+        .contact-item a {
+            color: var(--ev-gray-dark);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: var(--ev-red);
         }
 
         .cta-button {
             display: block;
             width: 100%;
-            padding: 1rem;
-            background: #c9a961;
-            color: white;
+            padding: 1rem 1.5rem;
+            background: var(--ev-red);
+            color: var(--ev-white);
             text-align: center;
             text-decoration: none;
-            font-weight: 400;
-            letter-spacing: 0.5px;
-            transition: background 0.3s;
-            margin-bottom: 1rem;
-            border-radius: 4px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            margin-bottom: 0.75rem;
+            border: 2px solid var(--ev-red);
         }
 
         .cta-button:hover {
-            background: #b39651;
+            background: #c70024;
+            border-color: #c70024;
         }
 
         .secondary-button {
             display: block;
             width: 100%;
-            padding: 1rem;
+            padding: 1rem 1.5rem;
             background: transparent;
-            color: #2c3e50;
+            color: var(--ev-black);
             text-align: center;
             text-decoration: none;
-            font-weight: 400;
-            letter-spacing: 0.5px;
-            border: 2px solid #2c3e50;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 2px solid var(--ev-black);
             transition: all 0.3s;
-            border-radius: 4px;
         }
 
         .secondary-button:hover {
-            background: #2c3e50;
-            color: white;
+            background: var(--ev-black);
+            color: var(--ev-white);
         }
 
-        /* Map */
+        /* Map Section */
         .map-section {
+            background: var(--ev-gray-light);
+            padding: 4rem 2rem;
+        }
+
+        .map-container-wrapper {
             max-width: 1400px;
-            margin: 4rem auto;
-            padding: 0 5%;
+            margin: 0 auto;
         }
 
         .map-section h2 {
-            font-size: 2rem;
-            font-weight: 300;
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--ev-black);
             margin-bottom: 2rem;
-            color: #2c3e50;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .map-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--ev-red);
         }
 
         .map-container {
             width: 100%;
-            height: 400px;
-            border-radius: 8px;
-            overflow: hidden;
+            height: 450px;
+            background: #ddd;
         }
 
         .map-container iframe {
@@ -438,70 +659,174 @@
             border: 0;
         }
 
-        /* Footer */
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--ev-white);
+            border: none;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--ev-black);
+            z-index: 2001;
+            transition: all 0.3s;
+        }
+
+        .lightbox-close:hover {
+            background: var(--ev-red);
+            color: var(--ev-white);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--ev-white);
+            border: none;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--ev-black);
+            transition: all 0.3s;
+        }
+
+        .lightbox-nav:hover {
+            background: var(--ev-red);
+            color: var(--ev-white);
+        }
+
+        .lightbox-nav.prev {
+            left: 20px;
+        }
+
+        .lightbox-nav.next {
+            right: 20px;
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--ev-white);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        /* Footer - E&V Style */
         footer {
-            background: #2c3e50;
-            color: white;
-            padding: 3rem 5%;
-            text-align: center;
-            margin-top: 5rem;
+            background: var(--ev-black);
+            color: var(--ev-white);
+            padding: 4rem 2rem 2rem;
         }
 
         .footer-content {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+            text-align: center;
         }
 
-        .footer-info {
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-address {
-            font-weight: 300;
-            opacity: 0.9;
+        .footer-logo {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 3px;
             margin-bottom: 0.5rem;
         }
 
+        .footer-logo-underline {
+            width: 30px;
+            height: 3px;
+            background: var(--ev-red);
+            margin: 0 auto 2rem;
+        }
+
+        .footer-info {
+            margin-bottom: 2rem;
+        }
+
+        .footer-address {
+            font-weight: 400;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
         .footer-contact {
-            font-weight: 300;
-            opacity: 0.9;
+            font-weight: 400;
+            opacity: 0.8;
+            font-size: 0.95rem;
         }
 
         .footer-contact a {
-            color: #c9a961;
+            color: var(--ev-white);
             text-decoration: none;
             transition: color 0.3s;
         }
 
         .footer-contact a:hover {
-            color: #fff;
+            color: var(--ev-red);
         }
 
         .footer-copyright {
-            font-weight: 300;
-            opacity: 0.7;
-            font-size: 0.9rem;
+            font-weight: 400;
+            opacity: 0.5;
+            font-size: 0.85rem;
             border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 1.5rem;
-            margin-top: 1rem;
+            padding-top: 2rem;
+            margin-top: 2rem;
         }
 
         /* Responsive */
-        @media (max-width: 968px) {
-            .details-section {
+        @media (max-width: 1024px) {
+            .content-section {
                 grid-template-columns: 1fr;
             }
 
-            .thumbnail-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .sidebar {
+                position: static;
             }
 
-            .features-grid {
-                grid-template-columns: 1fr;
+            .property-header {
+                flex-direction: column;
+                gap: 1.5rem;
             }
 
-            .property-title {
-                font-size: 2rem;
+            .property-header-right {
+                text-align: left;
             }
         }
 
@@ -514,13 +839,13 @@
                 position: fixed;
                 top: 0;
                 right: -100%;
-                width: 70%;
-                max-width: 300px;
+                width: 80%;
+                max-width: 320px;
                 height: 100vh;
-                background: white;
+                background: var(--ev-white);
                 flex-direction: column;
                 padding: 80px 30px 30px;
-                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                box-shadow: -5px 0 20px rgba(0,0,0,0.15);
                 transition: right 0.3s ease;
                 gap: 0;
             }
@@ -536,17 +861,42 @@
             .nav-links a {
                 display: block;
                 padding: 15px 0;
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
 
-            .main-image-container {
-                height: 300px;
+            .hero-gallery {
+                height: 50vh;
+                min-height: 350px;
+            }
+
+            .property-title {
+                font-size: 1.8rem;
+            }
+
+            .property-price {
+                font-size: 1.8rem;
+            }
+
+            .key-facts-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+
+            .content-section {
+                padding: 2rem 1rem;
+            }
+
+            .map-section {
+                padding: 3rem 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Navigation - Engel & Völkers Style -->
     <nav>
         <div class="nav-container">
             <a href="index.html" class="logo">LM ESTATES</a>
@@ -565,52 +915,215 @@
     </nav>
     <div class="menu-overlay" onclick="closeMenu()"></div>
 
-    <script>
-        function toggleMenu() {
-            document.querySelector('.hamburger').classList.toggle('active');
-            document.querySelector('.nav-links').classList.toggle('active');
-            document.querySelector('.menu-overlay').classList.toggle('active');
-        }
+    <!-- Full-Width Hero Gallery -->
+    <section class="hero-gallery single-image" id="heroGallery" onclick="openLightbox()">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920" alt="Motorrad Parkplatz" class="main-image" id="mainImage">
+        <div class="gallery-actions">
+            <button class="gallery-action-btn" onclick="event.stopPropagation(); shareProperty()" title="Teilen">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                </svg>
+            </button>
+            <button class="gallery-action-btn" onclick="event.stopPropagation(); openLightbox()" title="Vollbild">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+                </svg>
+            </button>
+        </div>
+        <button class="gallery-nav prev" onclick="event.stopPropagation(); prevImage()">❮</button>
+        <button class="gallery-nav next" onclick="event.stopPropagation(); nextImage()">❯</button>
+        <span class="gallery-counter"><span id="currentImage">1</span> / <span id="totalImages">1</span></span>
+    </section>
 
-        function closeMenu() {
-            document.querySelector('.hamburger').classList.remove('active');
-            document.querySelector('.nav-links').classList.remove('active');
-            document.querySelector('.menu-overlay').classList.remove('active');
-        }
-    </script>
+    <!-- Thumbnail Strip -->
+    <div class="thumbnail-strip single-image" id="thumbnailStrip">
+        <div class="thumbnail-container">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200" alt="Ansicht 1" class="thumbnail active" onclick="setImage(0)">
+        </div>
+    </div>
 
     <!-- Property Header -->
     <section class="property-header">
-        <div class="header-content">
+        <div class="property-header-left">
             <span class="property-badge">Zu vermieten</span>
             <h1 class="property-title">Motorrad-Parkplatz</h1>
-            <p class="property-location">📍 Pfäffikon ZH</p>
+            <p class="property-location">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                Pfäffikon ZH, Schweiz
+            </p>
+        </div>
+        <div class="property-header-right">
+            <div class="property-price">CHF 45.–</div>
+            <div class="property-price-detail">pro Monat, inkl. Nebenkosten</div>
         </div>
     </section>
 
-    <!-- Gallery -->
-    <section class="gallery">
-        <div class="main-image-container single-image">
-            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600" alt="Motorrad Parkplatz" class="main-image" id="mainImage">
-            <span class="gallery-counter"><span id="currentImage">1</span> / <span id="totalImages">1</span></span>
-            <button class="gallery-nav prev" onclick="prevImage()">❮</button>
-            <button class="gallery-nav next" onclick="nextImage()">❯</button>
-        </div>
-        <div class="thumbnail-grid single-image">
-            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400" alt="Parkplatz Ansicht" class="thumbnail active" onclick="setImage(0)">
-        </div>
+    <!-- Key Facts Section -->
+    <section class="key-facts">
+        <div class="key-facts-container">
+            <div class="key-fact">
+                <div class="key-fact-icon">🏍️</div>
+                <div class="key-fact-value">Motorrad</div>
+                <div class="key-fact-label">Parkplatztyp</div>
+            </div>
+            <div class="key-fact">
+                <div class="key-fact-icon">📍</div>
+                <div class="key-fact-value">Pfäffikon ZH</div>
+                <div class="key-fact-label">Standort</div>
+            </div>
+            <div class="key-fact">
+                <div class="key-fact-icon">✓</div>
+                <div class="key-fact-value">Inklusive</div>
+                <div class="key-fact-label">Nebenkosten</div>
+            </div>
+            <div class="key-fact">
+                <div class="key-fact-icon">🔒</div>
+                <div class="key-fact-value">Gesichert</div>
+                <div class="key-fact-label">Zugang</div>
+            </div>
+            <div class="key-fact">
+                <div class="key-fact-icon">📅</div>
+                <div class="key-fact-value">Sofort</div>
+                <div class="key-fact-label">Verfügbar</div>
+            </div>
         </div>
     </section>
+
+    <!-- Main Content -->
+    <section class="content-section">
+        <div class="description-section">
+            <h2>Objektbeschreibung</h2>
+            <div class="description-text">
+                <p>Praktischer Motorrad-Parkplatz in zentraler Lage in Pfäffikon ZH. Ideal für Motorradfahrer, die einen sicheren und gut erreichbaren Stellplatz suchen.</p>
+                <p>Der Parkplatz befindet sich in einer geschützten Umgebung und bietet optimale Bedingungen für die sichere Aufbewahrung Ihres Motorrads. Die zentrale Lage ermöglicht eine bequeme Erreichbarkeit und gute Anbindung an das Verkehrsnetz.</p>
+            </div>
+
+            <div class="features-section">
+                <h3>Highlights</h3>
+                <div class="features-list">
+                    <div class="feature-item">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <span>Zentrale Lage in Pfäffikon ZH</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <span>Günstiger Mietpreis</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <span>Nebenkosten inklusive</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <span>Sofort verfügbar</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <span>Sicherer Stellplatz</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <span>Gute Verkehrsanbindung</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h3>Lage & Umgebung</h3>
+                <div class="description-text">
+                    <p>Der Parkplatz befindet sich in Pfäffikon ZH und ist gut erreichbar. Die Umgebung bietet eine hervorragende Infrastruktur mit Einkaufsmöglichkeiten und öffentlichen Verkehrsanbindungen in der Nähe. Die S-Bahn-Station ist nur wenige Gehminuten entfernt.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Contact Card -->
+        <aside class="sidebar">
+            <div class="contact-card">
+                <div class="contact-card-header">
+                    <h3>Interesse an diesem Objekt?</h3>
+                    <p class="contact-card-subtitle">Kontaktieren Sie uns für weitere Informationen</p>
+                </div>
+
+                <div class="agent-info">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=120" alt="LM Estates" class="agent-avatar">
+                    <div class="agent-details">
+                        <h4>LM Estates</h4>
+                        <p>Ihr Immobilienpartner</p>
+                    </div>
+                </div>
+
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        <a href="tel:+41763046887">076 304 68 87</a>
+                    </div>
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        <a href="mailto:lmestates0@gmail.com">lmestates0@gmail.com</a>
+                    </div>
+                </div>
+
+                <a href="contact.html" class="cta-button">Anfrage senden</a>
+                <a href="tel:+41763046887" class="secondary-button">Jetzt anrufen</a>
+            </div>
+        </aside>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="map-container-wrapper">
+            <h2>Lage</h2>
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d21700.08680437427!2d8.771985531591797!3d47.36619889999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479aa7c34eaa63ab%3A0x400ff8840193920!2s8330%20Pf%C3%A4ffikon%20ZH!5e0!3m2!1sde!2sch!4v1700000000000!5m2!1sde!2sch" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+        <button class="lightbox-nav prev" onclick="prevImage()">❮</button>
+        <div class="lightbox-content">
+            <img src="" alt="Property Image" class="lightbox-image" id="lightboxImage">
+        </div>
+        <button class="lightbox-nav next" onclick="nextImage()">❯</button>
+        <span class="lightbox-counter"><span id="lightboxCurrent">1</span> / <span id="lightboxTotal">1</span></span>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">LM ESTATES</div>
+            <div class="footer-logo-underline"></div>
+            <div class="footer-info">
+                <p class="footer-address">Seestrasse 20, 8802 Kilchberg, Schweiz</p>
+                <p class="footer-contact">
+                    Tel: <a href="tel:+41763046887">076 304 68 87</a> | 
+                    E-Mail: <a href="mailto:lmestates0@gmail.com">lmestates0@gmail.com</a>
+                </p>
+            </div>
+            <p class="footer-copyright">&copy; 2024 LM Estates. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
 
     <script>
+        // Gallery functionality
         const images = [
-            'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600'
+            'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920'
         ];
         let currentIndex = 0;
 
         function updateImage() {
             document.getElementById('mainImage').src = images[currentIndex];
             document.getElementById('currentImage').textContent = currentIndex + 1;
+            document.getElementById('lightboxImage').src = images[currentIndex];
+            document.getElementById('lightboxCurrent').textContent = currentIndex + 1;
             
             document.querySelectorAll('.thumbnail').forEach((thumb, index) => {
                 thumb.classList.toggle('active', index === currentIndex);
@@ -632,117 +1145,72 @@
             updateImage();
         }
 
-        document.getElementById('totalImages').textContent = images.length;
-    </script>
+        // Lightbox functionality
+        function openLightbox() {
+            document.getElementById('lightbox').classList.add('active');
+            document.getElementById('lightboxImage').src = images[currentIndex];
+            document.body.style.overflow = 'hidden';
+        }
 
-    <!-- Details Section -->
-    <section class="details-section">
-        <div class="main-details">
-            <div class="price-tag">CHF 45.– / Monat</div>
-            <div class="price-detail">inkl. Nebenkosten</div>
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close lightbox with Escape key - only when lightbox is active
+        document.addEventListener('keydown', function(e) {
+            const lightbox = document.getElementById('lightbox');
+            const isLightboxActive = lightbox && lightbox.classList.contains('active');
             
-            <div class="features-grid">
-                <div class="feature-item">
-                    <span class="feature-icon">🏍️</span>
-                    <div class="feature-text">
-                        <span class="feature-label">Typ</span>
-                        <span class="feature-value">Motorrad-Parkplatz</span>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">📍</span>
-                    <div class="feature-text">
-                        <span class="feature-label">Standort</span>
-                        <span class="feature-value">Pfäffikon ZH</span>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">💰</span>
-                    <div class="feature-text">
-                        <span class="feature-label">Miete</span>
-                        <span class="feature-value">CHF 45.– / Monat</span>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">✅</span>
-                    <div class="feature-text">
-                        <span class="feature-label">Nebenkosten</span>
-                        <span class="feature-value">Inklusive</span>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">🔒</span>
-                    <div class="feature-text">
-                        <span class="feature-label">Sicherheit</span>
-                        <span class="feature-value">Geschützt</span>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">📅</span>
-                    <div class="feature-text">
-                        <span class="feature-label">Verfügbarkeit</span>
-                        <span class="feature-value">Sofort verfügbar</span>
-                    </div>
-                </div>
-            </div>
+            if (e.key === 'Escape' && isLightboxActive) closeLightbox();
+            if (e.key === 'ArrowRight' && isLightboxActive) nextImage();
+            if (e.key === 'ArrowLeft' && isLightboxActive) prevImage();
+        });
 
-            <div class="description">
-                <h3>Objektbeschreibung</h3>
-                <p>Praktischer Motorrad-Parkplatz in zentraler Lage in Pfäffikon ZH. Ideal für Motorradfahrer, die einen sicheren und gut erreichbaren Stellplatz suchen.</p>
-                
-                <h3>Highlights</h3>
-                <ul>
-                    <li>Zentrale Lage in Pfäffikon ZH</li>
-                    <li>Günstiger Mietpreis von nur CHF 45.– pro Monat</li>
-                    <li>Nebenkosten bereits inklusive</li>
-                    <li>Sofort verfügbar</li>
-                    <li>Sicherer Stellplatz für Ihr Motorrad</li>
-                </ul>
+        // Share functionality
+        function shareProperty() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Motorrad-Parkplatz - LM Estates',
+                    text: 'Motorrad-Parkplatz in Pfäffikon ZH - CHF 45.– pro Monat',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback: copy to clipboard and show toast notification
+                navigator.clipboard.writeText(window.location.href);
+                showToast('Link wurde kopiert!');
+            }
+        }
 
-                <h3>Lage</h3>
-                <p>Der Parkplatz befindet sich in Pfäffikon ZH und ist gut erreichbar. Die Umgebung bietet eine gute Infrastruktur mit Einkaufsmöglichkeiten und öffentlichen Verkehrsanbindungen in der Nähe.</p>
-            </div>
-        </div>
+        // Toast notification
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:12px 24px;font-size:0.9rem;z-index:3000;opacity:0;transition:opacity 0.3s;';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.style.opacity = '1', 10);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
 
-        <aside class="sidebar">
-            <h3>Kontakt</h3>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <span>📞</span>
-                    <span>076 304 68 87</span>
-                </div>
-                <div class="contact-item">
-                    <span>✉️</span>
-                    <span>lmestates0@gmail.com</span>
-                </div>
-            </div>
-            <a href="contact.html" class="cta-button">ANFRAGEN</a>
-            <a href="tel:+41763046887" class="secondary-button">ANRUFEN</a>
-        </aside>
-    </section>
+        // Mobile menu
+        function toggleMenu() {
+            document.querySelector('.hamburger').classList.toggle('active');
+            document.querySelector('.nav-links').classList.toggle('active');
+            document.querySelector('.menu-overlay').classList.toggle('active');
+        }
 
-    <!-- Map Section -->
-    <section class="map-section">
-        <h2>Lage</h2>
-        <div class="map-container">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d21700.08680437427!2d8.771985531591797!3d47.36619889999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479aa7c34eaa63ab%3A0x400ff8840193920!2s8330%20Pf%C3%A4ffikon%20ZH!5e0!3m2!1sde!2sch!4v1700000000000!5m2!1sde!2sch" 
-                allowfullscreen="" 
-                loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div>
-    </section>
+        function closeMenu() {
+            document.querySelector('.hamburger').classList.remove('active');
+            document.querySelector('.nav-links').classList.remove('active');
+            document.querySelector('.menu-overlay').classList.remove('active');
+        }
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-info">
-                <p class="footer-address">Seestrasse 20, 8802 Kilchberg</p>
-                <p class="footer-contact">Tel: <a href="tel:+41763046887">076 304 68 87</a> | E-Mail: <a href="mailto:lmestates0@gmail.com">lmestates0@gmail.com</a></p>
-            </div>
-            <p class="footer-copyright">&copy; 2024 LM Estates. Alle Rechte vorbehalten.</p>
-        </div>
-    </footer>
+        // Initialize
+        document.getElementById('totalImages').textContent = images.length;
+        document.getElementById('lightboxTotal').textContent = images.length;
+    </script>
 </body>
 </html>
