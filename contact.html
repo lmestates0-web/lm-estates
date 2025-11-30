@@ -222,80 +222,18 @@
             color: #b39651;
         }
 
-        .social-links {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            background: #2c3e50;
-            color: white;
-            text-decoration: none;
-            font-size: 1.3rem;
-            transition: background 0.3s;
-        }
-
-        .social-links a:hover {
-            background: #c9a961;
-        }
-
-        /* Map Section */
-        .map-section {
-            max-width: 1200px;
-            margin: 5rem auto;
-            padding: 0 5%;
-        }
-
-        .map-section h2 {
-            font-size: 2rem;
-            font-weight: 300;
-            color: #2c3e50;
-            margin-bottom: 2rem;
-        }
-
-        .map-placeholder {
-            width: 100%;
-            height: 450px;
-            background: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            font-size: 1.2rem;
-            border: 1px solid #ddd;
-        }
-
-        /* Office Hours */
-        .office-hours {
-            background: #fafafa;
+        /* Success Message */
+        .success-message {
+            background: #d4edda;
+            color: #155724;
             padding: 1.5rem;
-            margin-top: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid #c3e6cb;
+            display: none;
         }
 
-        .office-hours h4 {
-            font-size: 1.1rem;
-            font-weight: 400;
-            color: #2c3e50;
-            margin-bottom: 1rem;
-        }
-
-        .hours-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .hours-item {
-            display: flex;
-            justify-content: space-between;
-            color: #555;
-            font-size: 0.95rem;
+        .success-message.show {
+            display: block;
         }
 
         /* Footer */
@@ -419,6 +357,14 @@
             document.querySelector('.hamburger').classList.toggle('active');
             document.querySelector('.nav-links').classList.toggle('active');
         }
+
+        // Show success message if form was submitted successfully
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === 'true') {
+                document.getElementById('successMessage').classList.add('show');
+            }
+        });
     </script>
 
     <!-- Page Header -->
@@ -432,7 +378,17 @@
         <!-- Contact Form -->
         <div class="contact-form">
             <h2>Senden Sie uns eine Nachricht</h2>
-            <form>
+            <div class="success-message" id="successMessage">
+                ✅ Vielen Dank für Ihre Nachricht! Wir werden uns so schnell wie möglich bei Ihnen melden.
+            </div>
+            <form action="https://formsubmit.co/lcaveng@gmail.com" method="POST">
+                <!-- FormSubmit configuration -->
+                <input type="hidden" name="_cc" value="mohsenj453@gmail.com">
+                <input type="hidden" name="_subject" value="Neue Kontaktanfrage von LM Estates Website">
+                <input type="hidden" name="_captcha" value="true">
+                <input type="hidden" name="_next" value="https://lmestates.ch/contact.html?success=true">
+                <input type="text" name="_honey" style="display:none">
+                
                 <div class="form-group">
                     <label for="name">Name *</label>
                     <input type="text" id="name" name="name" required>
@@ -479,43 +435,10 @@
                 <p><a href="mailto:lmestates0@gmail.com">lmestates0@gmail.com</a></p>
             </div>
 
-            <div class="office-hours">
-                <h4>Öffnungszeiten</h4>
-                <div class="hours-list">
-                    <div class="hours-item">
-                        <span>Montag - Freitag:</span>
-                        <span>09:00 - 18:00 Uhr</span>
-                    </div>
-                    <div class="hours-item">
-                        <span>Samstag:</span>
-                        <span>10:00 - 14:00 Uhr</span>
-                    </div>
-                    <div class="hours-item">
-                        <span>Sonntag:</span>
-                        <span>Geschlossen</span>
-                    </div>
-                </div>
-            </div>
 
-            <div class="info-block">
-                <h3>🌐 Social Media</h3>
-                <div class="social-links">
-                    <a href="#" title="Facebook">f</a>
-                    <a href="#" title="Instagram">📷</a>
-                    <a href="#" title="LinkedIn">in</a>
-                </div>
-            </div>
         </div>
     </section>
 
-    <!-- Map Section -->
-    <section class="map-section">
-        <h2>Unser Standort</h2>
-        <div class="map-placeholder">
-            🗺️ Google Maps Integration<br>
-            (Seestrasse 20, 8802 Kilchberg)
-        </div>
-    </section>
 
     <!-- Footer -->
     <footer>
