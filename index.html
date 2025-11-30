@@ -146,13 +146,35 @@
         .hero {
             margin-top: 70px;
             height: 85vh;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
-                        url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600') center/cover;
+            min-height: 360px;
+            background-image: url('images/hero.jpg');
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: white;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+            position: relative;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3));
+            z-index: 0;
+        }
+
+        .hero-content {
+            z-index: 1;
+            text-align: center;
+            padding: 1rem;
         }
 
         .hero-content h1 {
