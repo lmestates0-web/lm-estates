@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Immobilien – LM Estates Zürich</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            background: #fff;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 1.5rem 5%;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #2c3e50;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 300;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a:hover {
+            color: #c9a961;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-top: 80px;
+            padding: 4rem 5%;
+            background: #fafafa;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        /* Filters */
+        .filters {
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 5%;
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .filter-group select {
+            padding: 0.7rem 1rem;
+            border: 1px solid #ddd;
+            background: white;
+            color: #333;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .filter-group select:hover {
+            border-color: #c9a961;
+        }
+
+        /* Properties Grid */
+        .properties-container {
+            max-width: 1400px;
+            margin: 0 auto 5rem;
+            padding: 0 5%;
+        }
+
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 3rem;
+        }
+
+        .property-card {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+        }
+
+        .property-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .property-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .property-info {
+            padding: 2rem;
+        }
+
+        .property-price {
+            font-size: 1.8rem;
+            color: #c9a961;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .property-location {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .property-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .property-features {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .property-button {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: #2c3e50;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            transition: background 0.3s;
+        }
+
+        .property-button:hover {
+            background: #c9a961;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        footer p {
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .properties-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .filters {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">LM ESTATES</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="properties.html">Immobilien</a></li>
+                <li><a href="services.html">Dienstleistungen</a></li>
+                <li><a href="about.html">Über uns</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>Exklusive Immobilien in Zürich</h1>
+        <p>Entdecken Sie unsere ausgewählten Objekte</p>
+    </section>
+
+    <!-- Filters -->
+    <div class="filters">
+        <div class="filter-group">
+            <label>Immobilientyp</label>
+            <select>
+                <option>Alle</option>
+                <option>Wohnung</option>
+                <option>Haus</option>
+                <option>Penthouse</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Preisbereich</label>
+            <select>
+                <option>Alle</option>
+                <option>bis CHF 1 Mio.</option>
+                <option>CHF 1-2 Mio.</option>
+                <option>CHF 2-5 Mio.</option>
+                <option>über CHF 5 Mio.</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Standort</label>
+            <select>
+                <option>Alle Stadtteile</option>
+                <option>Zürich Zentrum</option>
+                <option>Zürichberg</option>
+                <option>Seefeld</option>
+                <option>Enge</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Properties Grid -->
+    <div class="properties-container">
+        <div class="properties-grid">
+            <!-- Property 1 -->
+            <div class="property-card">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800" alt="Luxuswohnung" class="property-image">
+                <div class="property-info">
+                    <div class="property-price">CHF 2'850'000</div>
+                    <div class="property-location">📍 Zürichberg, Zürich</div>
+                    <h3 class="property-title">Exklusive Wohnung mit Seeblick</h3>
+                    <div class="property-features">
+                        <span class="feature">🛏 4 Zimmer</span>
+                        <span class="feature">📐 180 m²</span>
+                        <span class="feature">🅿 2 Parkplätze</span>
+                    </div>
+                    <a href="property-detail.html" class="property-button">MEHR ERFAHREN</a>
+                </div>
+            </div>
+
+            <!-- Property 2 -->
+            <div class="property-card">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800" alt="Penthouse" class="property-image">
+                <div class="property-info">
+                    <div class="property-price">CHF 4'200'000</div>
+                    <div class="property-location">📍 Seefeld, Zürich</div>
+                    <h3 class="property-title">Luxuriöses Penthouse am See</h3>
+                    <div class="property-features">
+                        <span class="feature">🛏 5 Zimmer</span>
+                        <span class="feature">📐 250 m²</span>
+                        <span class="feature">🌿 Terrasse</span>
+                    </div>
+                    <a href="property-detail.html" class="property-button">MEHR ERFAHREN</a>
+                </div>
+            </div>
+
+            <!-- Property 3 -->
+            <div class="property-card">
+                <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800" alt="Villa" class="property-image">
+                <div class="property-info">
+                    <div class="property-price">CHF 6'500'000</div>
+                    <div class="property-location">📍 Zürich Enge</div>
+                    <h3 class="property-title">Herrschaftliche Villa mit Garten</h3>
+                    <div class="property-features">
+                        <span class="feature">🛏 7 Zimmer</span>
+                        <span class="feature">📐 400 m²</span>
+                        <span class="feature">🌳 Garten</span>
+                    </div>
+                    <a href="property-detail.html" class="property-button">MEHR ERFAHREN</a>
+                </div>
+            </div>
+
+            <!-- Property 4 -->
+            <div class="property-card">
+                <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800" alt="Stadtwohnung" class="property-image">
+                <div class="property-info">
+                    <div class="property-price">CHF 1'650'000</div>
+                    <div class="property-location">📍 Zürich Zentrum</div>
+                    <h3 class="property-title">Moderne Stadtwohnung</h3>
+                    <div class="property-features">
+                        <span class="feature">🛏 3 Zimmer</span>
+                        <span class="feature">📐 120 m²</span>
+                        <span class="feature">🏢 Lift</span>
+                    </div>
+                    <a href="property-detail.html" class="property-button">MEHR ERFAHREN</a>
+                </div>
+            </div>
+
+            <!-- Property 5 -->
+            <div class="property-card">
+                <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800" alt="Dachwohnung" class="property-image">
+                <div class="property-info">
+                    <div class="property-price">CHF 3'100'000</div>
+                    <div class="property-location">📍 Zürichberg</div>
+                    <h3 class="property-title">Lichtdurchflutete Dachwohnung</h3>
+                    <div class="property-features">
+                        <span class="feature">🛏 4.5 Zimmer</span>
+                        <span class="feature">📐 165 m²</span>
+                        <span class="feature">☀️ Dachterrasse</span>
+                    </div>
+                    <a href="property-detail.html" class="property-button">MEHR ERFAHREN</a>
+                </div>
+            </div>
+
+            <!-- Property 6 -->
+            <div class="property-card">
+                <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800" alt="Einfamilienhaus" class="property-image">
+                <div class="property-info">
+                    <div class="property-price">CHF 5'200'000</div>
+                    <div class="property-location">📍 Kilchberg</div>
+                    <h3 class="property-title">Einfamilienhaus mit Pool</h3>
+                    <div class="property-features">
+                        <span class="feature">🛏 6 Zimmer</span>
+                        <span class="feature">📐 320 m²</span>
+                        <span class="feature">🏊 Pool</span>
+                    </div>
+                    <a href="property-detail.html" class="property-button">MEHR ERFAHREN</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 LM Estates. Alle Rechte vorbehalten.</p>
+    </footer>
+</body>
+</html>

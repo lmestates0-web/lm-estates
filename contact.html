@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt – LM Estates Zürich</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            background: #fff;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 1.5rem 5%;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #2c3e50;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 300;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a:hover {
+            color: #c9a961;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-top: 80px;
+            padding: 4rem 5%;
+            background: #fafafa;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+        }
+
+        /* Contact Form */
+        .contact-form h2 {
+            font-size: 2rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 400;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            background: white;
+            color: #333;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #c9a961;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1.2rem;
+            background: #c9a961;
+            color: white;
+            border: none;
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-button:hover {
+            background: #b39651;
+        }
+
+        /* Contact Info */
+        .contact-info h2 {
+            font-size: 2rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+
+        .info-block {
+            margin-bottom: 3rem;
+        }
+
+        .info-block h3 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .info-block p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-block a {
+            color: #c9a961;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .info-block a:hover {
+            color: #b39651;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: #2c3e50;
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #c9a961;
+        }
+
+        /* Map Section */
+        .map-section {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 5%;
+        }
+
+        .map-section h2 {
+            font-size: 2rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 450px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 1.2rem;
+            border: 1px solid #ddd;
+        }
+
+        /* Office Hours */
+        .office-hours {
+            background: #fafafa;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .office-hours h4 {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .hours-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .hours-item {
+            display: flex;
+            justify-content: space-between;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+            margin-top: 5rem;
+        }
+
+        footer p {
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .contact-section {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">LM ESTATES</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="properties.html">Immobilien</a></li>
+                <li><a href="services.html">Dienstleistungen</a></li>
+                <li><a href="about.html">Über uns</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>Kontaktieren Sie uns</h1>
+        <p>Wir freuen uns auf Ihre Nachricht</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <!-- Contact Form -->
+        <div class="contact-form">
+            <h2>Senden Sie uns eine Nachricht</h2>
+            <form>
+                <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-Mail *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefon</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                <div class="form-group">
+                    <label for="subject">Betreff</label>
+                    <input type="text" id="subject" name="subject">
+                </div>
+                <div class="form-group">
+                    <label for="message">Nachricht *</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">NACHRICHT SENDEN</button>
+            </form>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact-info">
+            <h2>Kontaktinformationen</h2>
+            
+            <div class="info-block">
+                <h3>📍 Adresse</h3>
+                <p>LM Estates AG<br>
+                Bahnhofstrasse 100<br>
+                8001 Zürich<br>
+                Schweiz</p>
+            </div>
+
+            <div class="info-block">
+                <h3>📞 Telefon</h3>
+                <p><a href="tel:+41441234567">+41 44 123 45 67</a></p>
+            </div>
+
+            <div class="info-block">
+                <h3>✉️ E-Mail</h3>
+                <p><a href="mailto:info@lm-estates.ch">info@lm-estates.ch</a></p>
+            </div>
+
+            <div class="office-hours">
+                <h4>Öffnungszeiten</h4>
+                <div class="hours-list">
+                    <div class="hours-item">
+                        <span>Montag - Freitag:</span>
+                        <span>09:00 - 18:00 Uhr</span>
+                    </div>
+                    <div class="hours-item">
+                        <span>Samstag:</span>
+                        <span>10:00 - 14:00 Uhr</span>
+                    </div>
+                    <div class="hours-item">
+                        <span>Sonntag:</span>
+                        <span>Geschlossen</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-block">
+                <h3>🌐 Social Media</h3>
+                <div class="social-links">
+                    <a href="#" title="Facebook">f</a>
+                    <a href="#" title="Instagram">📷</a>
+                    <a href="#" title="LinkedIn">in</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <h2>Unser Standort</h2>
+        <div class="map-placeholder">
+            🗺️ Google Maps Integration<br>
+            (Bahnhofstrasse 100, 8001 Zürich)
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 LM Estates. Alle Rechte vorbehalten.</p>
+    </footer>
+</body>
+</html>
