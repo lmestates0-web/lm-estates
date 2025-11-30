@@ -278,9 +278,43 @@
             margin-top: 5rem;
         }
 
-        footer p {
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-info {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-address {
             font-weight: 300;
             opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-contact {
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .footer-contact a {
+            color: #c9a961;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-contact a:hover {
+            color: #fff;
+        }
+
+        .footer-copyright {
+            font-weight: 300;
+            opacity: 0.7;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1.5rem;
+            margin-top: 1rem;
         }
 
         /* Responsive */
@@ -353,20 +387,20 @@
             
             <div class="info-block">
                 <h3>📍 Adresse</h3>
-                <p>LM Estates AG<br>
-                Bahnhofstrasse 100<br>
-                8001 Zürich<br>
+                <p>LM Estates<br>
+                Seestrasse 20<br>
+                8802 Kilchberg<br>
                 Schweiz</p>
             </div>
 
             <div class="info-block">
                 <h3>📞 Telefon</h3>
-                <p><a href="tel:+41441234567">+41 44 123 45 67</a></p>
+                <p><a href="tel:+41763046887">076 304 68 87</a></p>
             </div>
 
             <div class="info-block">
                 <h3>✉️ E-Mail</h3>
-                <p><a href="mailto:info@lm-estates.ch">info@lm-estates.ch</a></p>
+                <p><a href="mailto:lmestates0@gmail.com">lmestates0@gmail.com</a></p>
             </div>
 
             <div class="office-hours">
@@ -403,13 +437,19 @@
         <h2>Unser Standort</h2>
         <div class="map-placeholder">
             🗺️ Google Maps Integration<br>
-            (Bahnhofstrasse 100, 8001 Zürich)
+            (Seestrasse 20, 8802 Kilchberg)
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2024 LM Estates. Alle Rechte vorbehalten.</p>
+        <div class="footer-content">
+            <div class="footer-info">
+                <p class="footer-address">Seestrasse 20, 8802 Kilchberg</p>
+                <p class="footer-contact">Tel: <a href="tel:+41763046887">076 304 68 87</a> | E-Mail: <a href="mailto:lmestates0@gmail.com">lmestates0@gmail.com</a></p>
+            </div>
+            <p class="footer-copyright">&copy; 2024 LM Estates. Alle Rechte vorbehalten.</p>
+        </div>
     </footer>
 </body>
 </html>
