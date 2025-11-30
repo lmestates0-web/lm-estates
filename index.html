@@ -205,12 +205,80 @@
             background: #2c3e50;
             color: white;
             padding: 3rem 5%;
-            text-align: center;
+            text-align: left;
         }
 
-        footer p {
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 2rem;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+
+        .footer-column {
+            flex: 1 1 220px;
+            min-width: 220px;
+        }
+
+        .footer-column h4 {
+            color: #f3f3f3;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .footer-contact p,
+        .footer-contact a,
+        .footer-hours p {
+            color: #e6e6e6;
             font-weight: 300;
-            opacity: 0.9;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+
+        .footer-contact a {
+            color: #c9a961;
+            text-decoration: none;
+        }
+
+        .footer-contact a:hover {
+            text-decoration: underline;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.08);
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.15s;
+        }
+
+        .social-icons a:hover {
+            background: rgba(201,169,97,0.95);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            text-align: center;
+            color: #cfcfcf;
+            font-weight: 300;
+            font-size: 0.9rem;
         }
 
         /* Responsive */
@@ -230,8 +298,39 @@
             .section-title {
                 font-size: 2rem;
             }
+
+            footer {
+                padding: 2.5rem 5%;
+            }
+
+            .footer-grid {
+                gap: 1.5rem;
+            }
+
+            .footer-bottom {
+                margin-top: 1.5rem;
+            }
         }
     </style>
+
+    <!-- JSON-LD für strukturierte Kontaktdaten (ersetzt die Felder unten mit echten Werten) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "RealEstateAgent",
+      "name": "LM Estates",
+      "url": "https://www.lm-estates.ch",
+      "telephone": "+41 44 000 00 00",
+      "email": "info@lm-estates.ch",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Beispielstrasse 1",
+        "addressLocality": "Zürich",
+        "postalCode": "8000",
+        "addressCountry": "CH"
+      }
+    }
+    </script>
 </head>
 <body>
     <!-- Navigation -->
@@ -298,7 +397,43 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2024 LM Estates. Alle Rechte vorbehalten.</p>
+        <div class="footer-grid" role="contentinfo" aria-label="Kontaktinformationen LM Estates">
+            <!-- Kontaktspalte -->
+            <div class="footer-column footer-contact">
+                <h4>Kontakt</h4>
+                <p><strong>LM Estates</strong></p>
+                <p>Beispielstrasse 1<br>8000 Zürich</p>
+                <p>Telefon: <a href="tel:+41440000000">+41 44 000 00 00</a></p>
+                <p>Email: <a href="mailto:info@lm-estates.ch">info@lm-estates.ch</a></p>
+                <div class="social-icons" aria-hidden="false">
+                    <!-- Ersetze die Links durch eure echten Profile -->
+                    <a href="#" title="LinkedIn" aria-label="LinkedIn">in</a>
+                    <a href="#" title="Facebook" aria-label="Facebook">f</a>
+                    <a href="#" title="Instagram" aria-label="Instagram">ig</a>
+                </div>
+            </div>
+
+            <!-- Öffnungszeiten oder zusätzliche Infos -->
+            <div class="footer-column footer-hours">
+                <h4>Öffnungszeiten</h4>
+                <p>Mo–Fr: 09:00 – 18:00</p>
+                <p>Sa: nach Vereinbarung</p>
+                <p>So: geschlossen</p>
+            </div>
+
+            <!-- Schneller Kontakt / Link zur Kontaktseite -->
+            <div class="footer-column footer-links">
+                <h4>Schnellzugriff</h4>
+                <p><a href="properties.html">Unsere Immobilien</a></p>
+                <p><a href="about.html">Über uns</a></p>
+                <p><a href="contact.html">Kontaktformular</a></p>
+                <p><a href="https://maps.google.com/?q=Beispielstrasse+1+Zürich" target="_blank" rel="noopener">Anfahrt (Google Maps)</a></p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 LM Estates. Alle Rechte vorbehalten. | Datenschutzerklärung | AGB</p>
+        </div>
     </footer>
 </body>
 </html>
