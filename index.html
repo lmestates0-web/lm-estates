@@ -147,7 +147,10 @@
             margin-top: 70px;
             height: 85vh;
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
-                        url('images/energiegesesetz-stadtzuerich-see-luftaufnahmen-header-energie360.jpg__1260x708_q85_crop-smart_subject_location-1500,1000_subsampling-2_upscale.jpg') center/cover;
+                        url('images/energiegesesetz-stadtzuerich-see-luftaufnahmen-header-energie360.jpg__1260x708_q85_crop-smart_subject_location-1500,1000_subsampling-2_upscale.jpg');
+            background-size: cover;
+            background-position: center 40%;
+            background-repeat: no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -348,6 +351,11 @@
                 display: block;
                 padding: 15px 0;
                 font-size: 1rem;
+            }
+
+            .hero {
+                height: 70vh;
+                background-position: center center;
             }
 
             .hero-content h1 {
