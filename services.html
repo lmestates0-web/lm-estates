@@ -71,7 +71,7 @@
         .logo::after {
             content: '';
             display: block;
-            width: 30px;
+            width: 40px;
             height: 3px;
             background: var(--ev-blue);
             margin-top: 4px;
@@ -378,6 +378,10 @@
         }
 
         @media (max-width: 768px) {
+            .nav-container {
+                align-items: flex-end;
+            }
+
             .hamburger {
                 display: flex;
             }
