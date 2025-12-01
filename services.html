@@ -142,24 +142,34 @@
             display: block;
         }
 
-        /* Page Header */
+        /* Page Header - E&V Style */
         .page-header {
             margin-top: 70px;
-            padding: 4rem 5%;
-            background: var(--ev-gray-light);
+            padding: 4rem 2rem;
+            background: var(--ev-black);
             text-align: center;
+            color: var(--ev-white);
         }
 
         .page-header h1 {
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 400;
-            color: var(--ev-black);
+            color: var(--ev-white);
             margin-bottom: 1rem;
             letter-spacing: 1px;
         }
 
+        .page-header h1::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--ev-blue);
+            margin: 1rem auto 0;
+        }
+
         .page-header p {
-            color: var(--ev-gray);
+            color: rgba(255, 255, 255, 0.8);
             font-size: 1.1rem;
             font-weight: 400;
             max-width: 700px;

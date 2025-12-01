@@ -142,23 +142,36 @@
             display: block;
         }
 
-        /* Hero Section */
-        .about-hero {
+        /* Page Header - E&V Style */
+        .page-header {
             margin-top: 70px;
-            height: 60vh;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600') center/cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 4rem 2rem;
+            background: var(--ev-black);
             text-align: center;
-            color: white;
+            color: var(--ev-white);
         }
 
-        .about-hero h1 {
-            font-size: 3.5rem;
+        .page-header h1 {
+            font-size: 2.8rem;
             font-weight: 400;
+            color: var(--ev-white);
+            margin-bottom: 1rem;
             letter-spacing: 1px;
+        }
+
+        .page-header h1::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--ev-blue);
+            margin: 1rem auto 0;
+        }
+
+        .page-header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            font-weight: 400;
         }
 
         /* Story Section */
@@ -372,8 +385,8 @@
                 font-size: 1rem;
             }
 
-            .about-hero h1 {
-                font-size: 2.5rem;
+            .page-header h1 {
+                font-size: 2rem;
             }
 
             .story-section h2,
@@ -418,9 +431,10 @@
         }
     </script>
 
-    <!-- Hero Section -->
-    <section class="about-hero">
-        <h1>Über LM Estates</h1>
+    <!-- Page Header - E&V Style -->
+    <section class="page-header">
+        <h1>Über uns</h1>
+        <p>Lernen Sie unser Team kennen</p>
     </section>
 
     <!-- Story Section -->
