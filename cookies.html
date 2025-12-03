@@ -6,8 +6,8 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <meta name="description" content="LM Estates – Ihr Partner für Immobilien in der Deutschschweiz. Professionelle Beratung für Verkauf, Vermietung und Bewertung von Immobilien.">
-    <title>LM Estates – Ihr Partner für Immobilien in der Deutschschweiz</title>
+    <meta name="description" content="Cookie-Richtlinie von LM Estates – Informationen zur Verwendung von Cookies auf unserer Website.">
+    <title>Cookie-Richtlinie – LM Estates</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -143,112 +143,115 @@
             display: block;
         }
 
-        /* Hero Section */
-        .hero {
+        /* Page Header */
+        .page-header {
             margin-top: 70px;
-            height: 85vh;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
-                        url('images/energiegesesetz-stadtzuerich-see-luftaufnahmen-header-energie360.jpg__1260x708_q85_crop-smart_subject_location-1500,1000_subsampling-2_upscale.jpg');
-            background-size: cover;
-            background-position: center 40%;
-            background-repeat: no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 4rem 2rem;
+            background: var(--ev-black);
             text-align: center;
-            color: white;
+            color: var(--ev-white);
         }
 
-        .hero-content h1 {
-            font-size: 3.5rem;
+        .page-header h1 {
+            font-size: 2.8rem;
             font-weight: 400;
+            color: var(--ev-white);
             margin-bottom: 1rem;
             letter-spacing: 1px;
         }
 
-        .hero-content p {
-            font-size: 1.3rem;
-            font-weight: 300;
-            margin-bottom: 2.5rem;
-            opacity: 0.95;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 3rem;
+        .page-header h1::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
             background: var(--ev-blue);
-            color: white;
-            text-decoration: none;
+            margin: 1rem auto 0;
+        }
+
+        .page-header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
             font-weight: 400;
-            letter-spacing: 1px;
-            transition: all 0.3s;
-            border: 2px solid var(--ev-blue);
         }
 
-        .cta-button:hover {
-            background: transparent;
-            transform: translateY(-2px);
+        /* Content Section */
+        .content-section {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 0 5%;
         }
 
-        /* Services Section */
-        .services {
-            padding: 6rem 5%;
-            background: var(--ev-gray-light);
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
+        .content-section h2 {
+            font-size: 1.8rem;
             font-weight: 400;
-            margin-bottom: 1rem;
             color: var(--ev-black);
-            letter-spacing: 1px;
+            margin: 2.5rem 0 1rem;
         }
 
-        .section-subtitle {
-            text-align: center;
-            color: var(--ev-gray);
-            margin-bottom: 4rem;
-            font-weight: 300;
-        }
-
-        .services-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-        }
-
-        .service-card {
-            text-align: center;
-            padding: 2rem;
-            background: var(--ev-white);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .service-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            color: var(--ev-blue);
-        }
-
-        .service-card h3 {
-            font-size: 1.4rem;
+        .content-section h3 {
+            font-size: 1.3rem;
             font-weight: 400;
-            margin-bottom: 1rem;
             color: var(--ev-black);
+            margin: 2rem 0 0.8rem;
         }
 
-        .service-card p {
-            color: var(--ev-gray);
-            font-weight: 300;
+        .content-section p {
+            color: var(--ev-gray-dark);
+            line-height: 1.9;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .content-section ul {
+            margin: 1rem 0 1.5rem 1.5rem;
+            color: var(--ev-gray-dark);
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
             line-height: 1.8;
+        }
+
+        .content-section a {
+            color: var(--ev-blue);
+            text-decoration: none;
+        }
+
+        .content-section a:hover {
+            text-decoration: underline;
+        }
+
+        /* Cookie Table */
+        .cookie-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .cookie-table th,
+        .cookie-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cookie-table th {
+            background: var(--ev-gray-light);
+            font-weight: 500;
+            color: var(--ev-black);
+        }
+
+        .cookie-table td {
+            color: var(--ev-gray-dark);
+        }
+
+        .last-updated {
+            color: var(--ev-gray);
+            font-size: 0.9rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
         }
 
         /* Footer */
@@ -371,21 +374,21 @@
                 font-size: 1rem;
             }
 
-            .hero {
-                height: 70vh;
-                background-position: center center;
-            }
-
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-content p {
-                font-size: 1.1rem;
-            }
-
-            .section-title {
+            .page-header h1 {
                 font-size: 2rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .cookie-table {
+                font-size: 0.9rem;
+            }
+
+            .cookie-table th,
+            .cookie-table td {
+                padding: 0.8rem 0.5rem;
             }
         }
     </style>
@@ -424,36 +427,86 @@
         }
     </script>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>LM Estates – Ihr Partner für Immobilien in der Deutschschweiz</h1>
-            <p>Wir vermitteln Immobilien mit Expertise und persönlichem Service.</p>
-            <a href="properties.html" class="cta-button">UNSERE IMMOBILIEN ANSEHEN</a>
-        </div>
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>Cookie-Richtlinie</h1>
+        <p>Informationen zur Verwendung von Cookies</p>
     </section>
 
-    <!-- Services Section -->
-    <section class="services">
-        <h2 class="section-title">Unsere Dienstleistungen</h2>
-        <p class="section-subtitle">Professionelle Beratung für Ihre Immobilienanliegen</p>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">🏠</div>
-                <h3>Immobilienverkauf</h3>
-                <p>Professionelle Vermarktung Ihrer Immobilie zum optimalen Preis. Wir begleiten Sie von der Bewertung bis zum erfolgreichen Verkauf.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🔑</div>
-                <h3>Immobilienvermietung</h3>
-                <p>Wir vermitteln Immobilien mit Expertise und persönlichem Service. Wir kümmern uns um Besichtigungen, Verträge und alle administrativen Belange.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">📊</div>
-                <h3>Beratung & Bewertung</h3>
-                <p>Fundierte Marktanalysen und präzise Immobilienbewertungen durch unsere erfahrenen Experten im Deutschschweizer Markt.</p>
-            </div>
-        </div>
+    <!-- Content Section -->
+    <section class="content-section">
+        <h2>1. Was sind Cookies?</h2>
+        <p>Cookies sind kleine Textdateien, die von Websites auf Ihrem Computer, Tablet oder Smartphone gespeichert werden. Sie ermöglichen es der Website, Ihre Aktionen und Präferenzen (wie Login, Sprache, Schriftgrösse und andere Anzeigeeinstellungen) über einen bestimmten Zeitraum zu speichern, sodass Sie diese nicht bei jedem Besuch der Website neu eingeben müssen.</p>
+
+        <h2>2. Welche Cookies verwenden wir?</h2>
+        <p>Unsere Website verwendet verschiedene Arten von Cookies:</p>
+
+        <h3>2.1 Notwendige Cookies</h3>
+        <p>Diese Cookies sind für das Funktionieren der Website unerlässlich. Sie ermöglichen grundlegende Funktionen wie die Seitennavigation und den Zugriff auf sichere Bereiche der Website. Die Website kann ohne diese Cookies nicht richtig funktionieren.</p>
+
+        <table class="cookie-table">
+            <thead>
+                <tr>
+                    <th>Cookie-Name</th>
+                    <th>Zweck</th>
+                    <th>Speicherdauer</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Session-Cookie</td>
+                    <td>Speichert den Sitzungszustand</td>
+                    <td>Sitzungsende</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>2.2 Funktionale Cookies</h3>
+        <p>Diese Cookies ermöglichen es der Website, erweiterte Funktionen und Personalisierung bereitzustellen. Sie können von uns oder von Drittanbietern gesetzt werden, deren Dienste wir auf unseren Seiten verwenden.</p>
+
+        <h3>2.3 Analytische Cookies</h3>
+        <p>Diese Cookies helfen uns zu verstehen, wie Besucher mit der Website interagieren, indem sie Informationen sammeln und melden. Alle Informationen, die diese Cookies sammeln, sind aggregiert und daher anonym.</p>
+
+        <h2>3. Wie können Sie Cookies verwalten?</h2>
+        <p>Sie können Cookies über Ihre Browser-Einstellungen verwalten. Die meisten Browser ermöglichen Ihnen:</p>
+        <ul>
+            <li>Alle Cookies anzuzeigen und zu löschen</li>
+            <li>Cookies von bestimmten Websites zu blockieren</li>
+            <li>Cookies von Drittanbietern zu blockieren</li>
+            <li>Alle Cookies zu blockieren</li>
+            <li>Alle Cookies beim Schliessen des Browsers zu löschen</li>
+        </ul>
+
+        <p>Hier finden Sie Anleitungen für die gängigsten Browser:</p>
+        <ul>
+            <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer">Google Chrome</a></li>
+            <li><a href="https://support.mozilla.org/de/kb/cookies-erlauben-und-ablehnen" target="_blank" rel="noopener noreferrer">Mozilla Firefox</a></li>
+            <li><a href="https://support.apple.com/de-ch/guide/safari/sfri11471/mac" target="_blank" rel="noopener noreferrer">Safari</a></li>
+            <li><a href="https://support.microsoft.com/de-de/microsoft-edge/cookies-in-microsoft-edge-l%C3%B6schen-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener noreferrer">Microsoft Edge</a></li>
+        </ul>
+
+        <p><strong>Hinweis:</strong> Wenn Sie Cookies deaktivieren, können einige Funktionen unserer Website möglicherweise nicht ordnungsgemäss funktionieren.</p>
+
+        <h2>4. Drittanbieter-Cookies</h2>
+        <p>Unsere Website kann Inhalte von Drittanbietern einbetten, wie z.B. Videos oder Karten. Wenn Sie diese Inhalte aufrufen, können die jeweiligen Drittanbieter Cookies auf Ihrem Gerät setzen. Wir haben keinen Einfluss auf diese Cookies. Bitte informieren Sie sich direkt bei den Drittanbietern über deren Cookie-Richtlinien.</p>
+
+        <h2>5. Änderungen dieser Cookie-Richtlinie</h2>
+        <p>Wir können diese Cookie-Richtlinie von Zeit zu Zeit aktualisieren, um Änderungen an unseren Praktiken oder aus anderen betrieblichen, rechtlichen oder regulatorischen Gründen widerzuspiegeln. Bitte besuchen Sie diese Seite regelmässig, um über Änderungen informiert zu bleiben.</p>
+
+        <h2>6. Kontakt</h2>
+        <p>Bei Fragen zu unserer Cookie-Richtlinie können Sie sich jederzeit an uns wenden:</p>
+        <p>
+            LM Estates<br>
+            Seestrasse 20<br>
+            8802 Kilchberg<br>
+            Schweiz<br>
+            E-Mail: <a href="mailto:lmestates0@gmail.com">lmestates0@gmail.com</a><br>
+            Telefon: <a href="tel:+41763046887">076 304 68 87</a>
+        </p>
+
+        <p>Weitere Informationen zum Datenschutz finden Sie in unserer <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+
+        <p class="last-updated">Stand: Dezember 2024</p>
     </section>
 
     <!-- Footer -->
