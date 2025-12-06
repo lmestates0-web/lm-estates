@@ -33,6 +33,21 @@
             color: var(--ev-gray-dark);
             background: var(--ev-white);
             line-height: 1.6;
+            overflow-x: hidden;
+            animation: pageLoad 0.5s ease-out;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        @keyframes pageLoad {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
         h1, h2, h3 {
@@ -76,6 +91,17 @@
             height: 3px;
             background: var(--ev-blue);
             margin-top: 4px;
+            transform-origin: left;
+            animation: expandLine 0.8s ease-out;
+        }
+        
+        @keyframes expandLine {
+            from {
+                transform: scaleX(0);
+            }
+            to {
+                transform: scaleX(1);
+            }
         }
 
         .nav-links {
@@ -92,10 +118,26 @@
             font-size: 0.9rem;
             letter-spacing: 0.5px;
             text-transform: uppercase;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--ev-blue);
+            transition: width 0.3s ease;
         }
 
         .nav-links a:hover {
             color: var(--ev-blue);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         /* Hamburger Menu */
@@ -152,18 +194,59 @@
             background-size: cover;
             background-position: center 40%;
             background-repeat: no-repeat;
+            background-attachment: fixed;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: inherit;
+            animation: zoomIn 20s ease-in-out infinite alternate;
+        }
+        
+        @keyframes zoomIn {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.1);
+            }
         }
 
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         .hero-content h1 {
             font-size: 3.5rem;
             font-weight: 400;
             margin-bottom: 1rem;
             letter-spacing: 1px;
+            animation: fadeInUp 1s ease-out 0.2s both;
         }
 
         .hero-content p {
@@ -171,6 +254,7 @@
             font-weight: 300;
             margin-bottom: 2.5rem;
             opacity: 0.95;
+            animation: fadeInUp 1s ease-out 0.4s both;
         }
 
         .cta-button {
@@ -183,11 +267,33 @@
             letter-spacing: 1px;
             transition: all 0.3s;
             border: 2px solid var(--ev-blue);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .cta-button:hover {
             background: transparent;
             transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 40, 85, 0.3);
         }
 
         /* Services Section */
@@ -203,6 +309,8 @@
             margin-bottom: 1rem;
             color: var(--ev-black);
             letter-spacing: 1px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.1s forwards;
         }
 
         .section-subtitle {
@@ -210,6 +318,8 @@
             color: var(--ev-gray);
             margin-bottom: 4rem;
             font-weight: 300;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
         }
 
         .services-grid {
@@ -225,17 +335,38 @@
             padding: 2rem;
             background: var(--ev-white);
             transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .service-card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+        
+        .service-card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+        
+        .service-card:nth-child(3) {
+            animation-delay: 0.6s;
         }
 
         .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
         }
 
         .service-icon {
             font-size: 3rem;
             margin-bottom: 1.5rem;
             color: var(--ev-blue);
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+        
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .service-card h3 {
@@ -316,11 +447,13 @@
             text-decoration: none;
             opacity: 0.8;
             margin: 0 1rem;
-            transition: opacity 0.3s;
+            transition: all 0.3s;
+            display: inline-block;
         }
 
         .footer-links a:hover {
             opacity: 1;
+            transform: translateY(-2px);
         }
 
         .footer-copyright {
@@ -374,6 +507,11 @@
             .hero {
                 height: 70vh;
                 background-position: center center;
+                background-attachment: scroll;
+            }
+            
+            .hero::before {
+                animation: none;
             }
 
             .hero-content h1 {
