@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="description" content="Vielseitiges Gastro- und Ladenlokal in Bazenheid – LM Estates, Ihr Partner für Immobilien in der Deutschschweiz.">
+    <title>Café & Shop – Wilerstrasse 7, Bazenheid – LM Estates</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        :root {
+            --ev-blue: #002855;
+            --ev-blue-hover: #001a35;
+            --ev-red: #c70024;
+            --ev-black: #1a1a1a;
+            --ev-white: #ffffff;
+            --ev-gray-light: #f5f5f5;
+            --ev-gray: #666666;
+            --ev-gray-dark: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--ev-gray-dark);
+            background: var(--ev-white);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        /* Navigation - Engel & Völkers Style */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--ev-white);
+            z-index: 1000;
+            border-bottom: 1px solid #eee;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            color: var(--ev-black);
+            text-decoration: none;
+            position: relative;
+            z-index: 1002;
+        }
+
+        .logo::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 3px;
+            background: var(--ev-blue);
+            margin-top: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--ev-gray-dark);
+            font-weight: 400;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .nav-links a:hover {
+            color: var(--ev-blue);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--ev-black);
+            transition: all 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Menu Overlay */
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .menu-overlay.active {
+            display: block;
+        }
+
+        /* Full-Width Hero Gallery - E&V Style */
+        .hero-gallery {
+            margin-top: 70px;
+            position: relative;
+            width: 100%;
+            height: 70vh;
+            min-height: 500px;
+            max-height: 800px;
+            overflow: hidden;
+            background: var(--ev-black);
+        }
+
+        .hero-gallery .main-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.5s ease;
+        }
+
+        .hero-gallery .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.6));
+            padding: 3rem 2rem 2rem;
+        }
+
+        .hero-gallery .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--ev-white);
+            border: none;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--ev-black);
+            z-index: 10;
+            transition: all 0.3s;
+        }
+
+        .hero-gallery .gallery-nav:hover {
+            background: var(--ev-blue);
+            color: var(--ev-white);
+        }
+
+        .hero-gallery .gallery-nav.prev {
+            left: 20px;
+        }
+
+        .hero-gallery .gallery-nav.next {
+            right: 20px;
+        }
+
+        .gallery-counter {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--ev-white);
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .gallery-actions {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .gallery-action-btn {
+            background: var(--ev-white);
+            border: none;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: var(--ev-black);
+            transition: all 0.3s;
+        }
+
+        .gallery-action-btn:hover {
+            background: var(--ev-blue);
+            color: var(--ev-white);
+        }
+
+        /* Hide controls for single image galleries */
+        .hero-gallery.single-image .gallery-nav,
+        .hero-gallery.single-image .gallery-counter {
+            display: none;
+        }
+
+        /* Thumbnail Strip */
+        .thumbnail-strip {
+            background: var(--ev-black);
+            padding: 15px 2rem;
+            overflow-x: auto;
+        }
+
+        .thumbnail-strip.single-image {
+            display: none;
+        }
+
+        .thumbnail-container {
+            display: flex;
+            gap: 10px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .thumbnail {
+            width: 100px;
+            height: 70px;
+            object-fit: cover;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .thumbnail:hover {
+            opacity: 0.9;
+        }
+
+        .thumbnail.active {
+            opacity: 1;
+            outline: 2px solid var(--ev-blue);
+            outline-offset: 2px;
+        }
+
+        /* Property Header Section - E&V Style */
+        .property-header {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid #eee;
+        }
+
+        .property-header-left {
+            flex: 1;
+        }
+
+        .property-badge {
+            display: inline-block;
+            background: var(--ev-blue);
+            color: var(--ev-white);
+            padding: 6px 16px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1rem;
+        }
+
+        .property-title {
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--ev-black);
+            margin-bottom: 0.75rem;
+            line-height: 1.2;
+        }
+
+        .property-location {
+            color: var(--ev-gray);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 400;
+        }
+
+        .property-location svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--ev-blue);
+        }
+
+        .property-header-right {
+            text-align: right;
+        }
+
+        .property-price {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.2rem;
+            color: var(--ev-black);
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .property-price-detail {
+            font-size: 0.9rem;
+            color: var(--ev-gray);
+            font-weight: 400;
+        }
+
+        /* Key Facts Section - E&V Style */
+        .key-facts {
+            background: var(--ev-gray-light);
+            padding: 2.5rem 2rem;
+        }
+
+        .key-facts-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+        }
+
+        .key-fact {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .key-fact-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--ev-blue);
+        }
+
+        .key-fact-value {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.4rem;
+            color: var(--ev-black);
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .key-fact-label {
+            font-size: 0.8rem;
+            color: var(--ev-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        /* Main Content Area */
+        .content-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 4rem;
+        }
+
+        /* Description Section */
+        .description-section h2 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--ev-black);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .description-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--ev-blue);
+        }
+
+        .description-text {
+            color: var(--ev-gray-dark);
+            line-height: 1.9;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .description-text p {
+            margin-bottom: 1.25rem;
+        }
+
+        /* Features Section */
+        .features-section {
+            margin-top: 3rem;
+        }
+
+        .features-section h3 {
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--ev-black);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        .features-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--ev-blue);
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .feature-item svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--ev-blue);
+            flex-shrink: 0;
+        }
+
+        .feature-item span {
+            color: var(--ev-gray-dark);
+            font-size: 0.95rem;
+        }
+
+        /* Sidebar Contact Card */
+        .sidebar {
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+        }
+
+        .contact-card {
+            background: var(--ev-white);
+            border: 1px solid #e0e0e0;
+            padding: 2rem;
+        }
+
+        .contact-card-header {
+            text-align: center;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-card h3 {
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--ev-black);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card-subtitle {
+            font-size: 0.85rem;
+            color: var(--ev-gray);
+        }
+
+        .agent-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--ev-gray-light);
+        }
+
+        .agent-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .agent-details h4 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--ev-black);
+            margin-bottom: 0.25rem;
+        }
+
+        .agent-details p {
+            font-size: 0.85rem;
+            color: var(--ev-gray);
+        }
+
+        .contact-info {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            color: var(--ev-gray-dark);
+            font-size: 0.95rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .contact-item svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--ev-blue);
+        }
+
+        .contact-item a {
+            color: var(--ev-gray-dark);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: var(--ev-blue);
+        }
+
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: var(--ev-blue);
+            color: var(--ev-white);
+            text-align: center;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            margin-bottom: 0.75rem;
+            border: 2px solid var(--ev-blue);
+        }
+
+        .cta-button:hover {
+            background: var(--ev-red);
+            border-color: var(--ev-red);
+        }
+
+        .secondary-button {
+            display: block;
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: transparent;
+            color: var(--ev-black);
+            text-align: center;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 2px solid var(--ev-black);
+            transition: all 0.3s;
+        }
+
+        .secondary-button:hover {
+            background: var(--ev-black);
+            color: var(--ev-white);
+        }
+
+        /* Map Section */
+        .map-section {
+            background: var(--ev-gray-light);
+            padding: 4rem 2rem;
+        }
+
+        .map-container-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .map-section h2 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--ev-black);
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .map-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--ev-blue);
+        }
+
+        .map-container {
+            width: 100%;
+            height: 450px;
+            background: #ddd;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--ev-white);
+            border: none;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--ev-black);
+            z-index: 2001;
+            transition: all 0.3s;
+        }
+
+        .lightbox-close:hover {
+            background: var(--ev-blue);
+            color: var(--ev-white);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--ev-white);
+            border: none;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--ev-black);
+            transition: all 0.3s;
+        }
+
+        .lightbox-nav:hover {
+            background: var(--ev-blue);
+            color: var(--ev-white);
+        }
+
+        .lightbox-nav.prev {
+            left: 20px;
+        }
+
+        .lightbox-nav.next {
+            right: 20px;
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--ev-white);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        /* Footer - E&V Style */
+        footer {
+            background: var(--ev-blue);
+            color: var(--ev-white);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-logo-underline {
+            width: 30px;
+            height: 3px;
+            background: var(--ev-white);
+            margin: 0 auto 2rem;
+        }
+
+        .footer-info {
+            margin-bottom: 2rem;
+        }
+
+        .footer-address {
+            font-weight: 400;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-contact {
+            font-weight: 400;
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        .footer-contact a {
+            color: var(--ev-white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-contact a:hover {
+            color: var(--ev-black);
+        }
+
+        .footer-links {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a {
+            color: var(--ev-white);
+            text-decoration: none;
+            opacity: 0.8;
+            margin: 0 1rem;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-copyright {
+            font-weight: 400;
+            opacity: 0.5;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .content-section {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .property-header {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .property-header-right {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                align-items: flex-end;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 78px;
+                right: -100%;
+                width: 80%;
+                max-width: 320px;
+                height: calc(100vh - 78px);
+                background: var(--ev-white);
+                flex-direction: column;
+                padding: 0 30px 30px;
+                box-shadow: -5px 0 20px rgba(0,0,0,0.15);
+                transition: right 0.3s ease;
+                gap: 0;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                border-bottom: 1px solid #eee;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 15px 0;
+                font-size: 1rem;
+            }
+
+            .hero-gallery {
+                height: 50vh;
+                min-height: 350px;
+            }
+
+            .property-title {
+                font-size: 1.8rem;
+            }
+
+            .property-price {
+                font-size: 1.8rem;
+            }
+
+            .key-facts-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+
+            .content-section {
+                padding: 2rem 1rem;
+            }
+
+            .map-section {
+                padding: 3rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation - Engel & Völkers Style -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">LM ESTATES</a>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="properties.html">Immobilien</a></li>
+                <li><a href="services.html">Dienstleistungen</a></li>
+                <li><a href="about.html">Über uns</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="menu-overlay" onclick="closeMenu()"></div>
+
+    <!-- Full-Width Hero Gallery -->
+    <section class="hero-gallery" id="heroGallery" onclick="openLightbox()">
+        <img src="images/IMG_0935.jpeg" alt="Café & Shop Bazenheid" class="main-image" id="mainImage">
+        <div class="gallery-actions">
+            <button class="gallery-action-btn" onclick="event.stopPropagation(); shareProperty()" title="Teilen">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                </svg>
+            </button>
+            <button class="gallery-action-btn" onclick="event.stopPropagation(); openLightbox()" title="Vollbild">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+                </svg>
+            </button>
+        </div>
+        <button class="gallery-nav prev" onclick="event.stopPropagation(); prevImage()">❮</button>
+        <button class="gallery-nav next" onclick="event.stopPropagation(); nextImage()">❯</button>
+        <span class="gallery-counter"><span id="currentImage">1</span> / <span id="totalImages">11</span></span>
+    </section>
+
+    <!-- Thumbnail Strip -->
+    <div class="thumbnail-strip" id="thumbnailStrip">
+        <div class="thumbnail-container">
+            <img src="images/IMG_0935.jpeg" alt="Ansicht 1" class="thumbnail active" onclick="setImage(0)">
+            <img src="images/IMG_4190.jpeg" alt="Ansicht 2" class="thumbnail" onclick="setImage(1)">
+            <img src="images/IMG_4193.jpeg" alt="Ansicht 3" class="thumbnail" onclick="setImage(2)">
+            <img src="images/IMG_4194.jpeg" alt="Ansicht 4" class="thumbnail" onclick="setImage(3)">
+            <img src="images/IMG_4195.jpeg" alt="Ansicht 5" class="thumbnail" onclick="setImage(4)">
+            <img src="images/IMG_4197.jpeg" alt="Ansicht 6" class="thumbnail" onclick="setImage(5)">
+            <img src="images/IMG_4200.jpeg" alt="Ansicht 7" class="thumbnail" onclick="setImage(6)">
+            <img src="images/IMG_4201.jpeg" alt="Ansicht 8" class="thumbnail" onclick="setImage(7)">
+            <img src="images/IMG_4210.jpeg" alt="Ansicht 9" class="thumbnail" onclick="setImage(8)">
+            <img src="images/IMG_4215.jpeg" alt="Ansicht 10" class="thumbnail" onclick="setImage(9)">
+            <img src="images/IMG_4216.jpeg" alt="Ansicht 11" class="thumbnail" onclick="setImage(10)">
+        </div>
+    </div>
+
+    <!-- Property Header -->
+    <section class="property-header">
+        <div class="property-header-left">
+            <span class="property-badge">Geschäftsübernahme</span>
+            <h1 class="property-title">Vielseitiges Café & Shop Lokal</h1>
+            <p class="property-location">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                Wilerstrasse 7, 9602 Bazenheid
+            </p>
+        </div>
+        <div class="property-header-right">
+            <div class="property-price">Auf Anfrage</div>
+            <div class="property-price-detail">Geschäftsübernahme</div>
+        </div>
+    </section>
+
+    <!-- Key Facts Section -->
+    <section class="key-facts">
+        <div class="key-facts-container">
+            <div class="key-fact">
+                <div class="key-fact-icon">☕</div>
+                <div class="key-fact-value">Café</div>
+                <div class="key-fact-label">Gastrobereich</div>
+            </div>
+            <div class="key-fact">
+                <div class="key-fact-icon">🛒</div>
+                <div class="key-fact-value">Shop</div>
+                <div class="key-fact-label">Verkaufsfläche</div>
+            </div>
+            <div class="key-fact">
+                <div class="key-fact-icon">🪑</div>
+                <div class="key-fact-value">7 Plätze</div>
+                <div class="key-fact-label">Sitzgelegenheiten</div>
+            </div>
+            <div class="key-fact">
+                <div class="key-fact-icon">🌞</div>
+                <div class="key-fact-value">Aussensitzplätze</div>
+                <div class="key-fact-label">Terrasse</div>
+            </div>
+            <div class="key-fact">
+                <div class="key-fact-icon">📦</div>
+                <div class="key-fact-value">Lagerraum</div>
+                <div class="key-fact-label">Mit Tiefkühler</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="content-section">
+        <div class="description-section">
+            <h2>Objektbeschreibung</h2>
+            <div class="description-text">
+                <p>Dieses vielseitige Gastro- und Ladenlokal steht zur Übernahme bereit und bietet eine ideale Kombination aus Kaffee, Kiosk und Shop. Das bestehende Konzept kann nahtlos weitergeführt oder flexibel angepasst werden.</p>
+                <p>Der vordere Bereich umfasst eine einladende Kaffeezone mit mehreren Sitzgelegenheiten sowie einer offenen Front mit zusätzlichen Aussenplätzen. Die großzügige Verkaufstheke ermöglicht einen effizienten Service für Kaffee, Getränke, Snacks und weitere Produkte.</p>
+                <p>Im hinteren Teil befindet sich ein praktischer Shop-Bereich für den Verkauf von Artikeln wie Getränken, Snacks oder Alltagswaren. Direkt dahinter liegt ein gut dimensionierter Lagerraum, ausgestattet mit einem großen Tiefkühler und weiterem Stauraum.</p>
+                <p>Ergänzt wird das Angebot durch einen zusätzlichen, aktuell nicht genutzten Nebenraum, der vielseitig eingesetzt werden kann.</p>
+            </div>
+
+            <div class="features-section">
+                <h3>Highlights</h3>
+                <div class="features-list">
+                    <div class="feature-item">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <span>Einladende Kaffeezone</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <span>7 Sitzplätze innen</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <span>Offene Front mit Aussenplätzen</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <span>Großzügige Verkaufstheke</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <span>Shop-Bereich</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <span>Lagerraum mit Tiefkühler</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <span>Zusätzlicher Nebenraum</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <span>Flexibles Konzept</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h3>Lage & Umgebung</h3>
+                <div class="description-text">
+                    <p>Das Lokal befindet sich an der Wilerstrasse 7 in 9602 Bazenheid. Die zentrale Lage bietet eine hervorragende Anbindung und hohe Frequenz für Laufkundschaft.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Contact Card -->
+        <aside class="sidebar">
+            <div class="contact-card">
+                <div class="contact-card-header">
+                    <h3>Interesse an diesem Objekt?</h3>
+                    <p class="contact-card-subtitle">Kontaktieren Sie uns für weitere Informationen</p>
+                </div>
+
+                <div class="agent-info">
+                    <div class="agent-details">
+                        <h4>LM Estates</h4>
+                        <p>Ihr Immobilienpartner</p>
+                    </div>
+                </div>
+
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        <a href="tel:+41763046887">076 304 68 87</a>
+                    </div>
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        <a href="mailto:lmestates0@gmail.com">lmestates0@gmail.com</a>
+                    </div>
+                </div>
+
+                <a href="contact.html" class="cta-button">Anfrage senden</a>
+                <a href="tel:+41763046887" class="secondary-button">Jetzt anrufen</a>
+            </div>
+        </aside>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="map-container-wrapper">
+            <h2>Lage</h2>
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2686.5!2d9.0833!3d47.4500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sWilerstrasse%207%2C%209602%20Bazenheid!5e0!3m2!1sde!2sch!4v1733514000000!5m2!1sde!2sch" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+        <button class="lightbox-nav prev" onclick="prevImage()">❮</button>
+        <div class="lightbox-content">
+            <img src="" alt="Property Image" class="lightbox-image" id="lightboxImage">
+        </div>
+        <button class="lightbox-nav next" onclick="nextImage()">❯</button>
+        <span class="lightbox-counter"><span id="lightboxCurrent">1</span> / <span id="lightboxTotal">11</span></span>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">LM ESTATES</div>
+            <div class="footer-logo-underline"></div>
+            <div class="footer-info">
+                <p class="footer-address">Seestrasse 20, 8802 Kilchberg, Schweiz</p>
+                <p class="footer-contact">
+                    Tel: <a href="tel:+41763046887">076 304 68 87</a> | 
+                    E-Mail: <a href="mailto:lmestates0@gmail.com">lmestates0@gmail.com</a>
+                </p>
+            </div>
+            <div class="footer-links">
+                <a href="datenschutz.html">Datenschutz</a>
+                <a href="cookies.html">Cookies</a>
+            </div>
+            <p class="footer-copyright">&copy; 2024 LM Estates. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Gallery functionality
+        const images = [
+            'images/IMG_0935.jpeg',
+            'images/IMG_4190.jpeg',
+            'images/IMG_4193.jpeg',
+            'images/IMG_4194.jpeg',
+            'images/IMG_4195.jpeg',
+            'images/IMG_4197.jpeg',
+            'images/IMG_4200.jpeg',
+            'images/IMG_4201.jpeg',
+            'images/IMG_4210.jpeg',
+            'images/IMG_4215.jpeg',
+            'images/IMG_4216.jpeg'
+        ];
+        let currentIndex = 0;
+
+        function updateImage() {
+            document.getElementById('mainImage').src = images[currentIndex];
+            document.getElementById('currentImage').textContent = currentIndex + 1;
+            document.getElementById('lightboxImage').src = images[currentIndex];
+            document.getElementById('lightboxCurrent').textContent = currentIndex + 1;
+            
+            document.querySelectorAll('.thumbnail').forEach((thumb, index) => {
+                thumb.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            updateImage();
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            updateImage();
+        }
+
+        function setImage(index) {
+            currentIndex = index;
+            updateImage();
+        }
+
+        // Lightbox functionality
+        function openLightbox() {
+            document.getElementById('lightbox').classList.add('active');
+            document.getElementById('lightboxImage').src = images[currentIndex];
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close lightbox with Escape key - only when lightbox is active
+        document.addEventListener('keydown', function(e) {
+            const lightbox = document.getElementById('lightbox');
+            const isLightboxActive = lightbox && lightbox.classList.contains('active');
+            
+            if (e.key === 'Escape' && isLightboxActive) closeLightbox();
+            if (e.key === 'ArrowRight' && isLightboxActive) nextImage();
+            if (e.key === 'ArrowLeft' && isLightboxActive) prevImage();
+        });
+
+        // Swipe support for hero gallery
+        (function() {
+            const heroGallery = document.getElementById('heroGallery');
+            let startX = 0;
+            let endX = 0;
+            
+            heroGallery.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+            }, { passive: true });
+            
+            heroGallery.addEventListener('touchmove', (e) => {
+                endX = e.touches[0].clientX;
+            }, { passive: true });
+            
+            heroGallery.addEventListener('touchend', () => {
+                const diff = startX - endX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        nextImage();
+                    } else {
+                        prevImage();
+                    }
+                }
+            });
+
+            // Swipe support for lightbox
+            const lightbox = document.getElementById('lightbox');
+            let lbStartX = 0;
+            let lbEndX = 0;
+            
+            lightbox.addEventListener('touchstart', (e) => {
+                lbStartX = e.touches[0].clientX;
+            }, { passive: true });
+            
+            lightbox.addEventListener('touchmove', (e) => {
+                lbEndX = e.touches[0].clientX;
+            }, { passive: true });
+            
+            lightbox.addEventListener('touchend', () => {
+                const diff = lbStartX - lbEndX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        nextImage();
+                    } else {
+                        prevImage();
+                    }
+                }
+            });
+        })();
+
+        // Share functionality
+        function shareProperty() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Vielseitiges Café & Shop Lokal - LM Estates',
+                    text: 'Vielseitiges Café & Shop Lokal - Wilerstrasse 7, 9602 Bazenheid',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback: copy to clipboard and show toast notification
+                navigator.clipboard.writeText(window.location.href);
+                showToast('Link wurde kopiert!');
+            }
+        }
+
+        // Toast notification
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:12px 24px;font-size:0.9rem;z-index:3000;opacity:0;transition:opacity 0.3s;';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.style.opacity = '1', 10);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+
+        // Mobile menu
+        function toggleMenu() {
+            document.querySelector('.hamburger').classList.toggle('active');
+            document.querySelector('.nav-links').classList.toggle('active');
+            document.querySelector('.menu-overlay').classList.toggle('active');
+        }
+
+        function closeMenu() {
+            document.querySelector('.hamburger').classList.remove('active');
+            document.querySelector('.nav-links').classList.remove('active');
+            document.querySelector('.menu-overlay').classList.remove('active');
+        }
+
+        // Initialize
+        document.getElementById('totalImages').textContent = images.length;
+        document.getElementById('lightboxTotal').textContent = images.length;
+    </script>
+</body>
+</html>
