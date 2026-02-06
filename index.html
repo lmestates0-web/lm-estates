@@ -1127,7 +1127,7 @@
             function autoScroll() {
                 if (!isAutoScrolling) return;
                 
-                carousel.scrollBy({ left: 1, behavior: 'auto' });
+                carousel.scrollBy({ left: -1, behavior: 'auto' });
                 checkInfiniteScroll();
             }
 
@@ -1319,7 +1319,7 @@
             
             // Set initial scroll position to show seamless loop
             const halfPoint = carousel.scrollWidth / 2;
-            carousel.scrollLeft = 1; // Start slightly offset
+            carousel.scrollLeft = halfPoint - 100; // Start from middle to allow scrolling right
             
             startAutoScroll();
         });
@@ -1373,7 +1373,7 @@
             function autoScrollProps() {
                 if (!isAutoScrollingProps) return;
                 
-                propertiesCarousel.scrollBy({ left: -1, behavior: 'auto' });
+                propertiesCarousel.scrollBy({ left: 1, behavior: 'auto' });
                 checkInfiniteScrollProps();
             }
 
