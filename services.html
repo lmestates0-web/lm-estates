@@ -3,48 +3,665 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services Overview</title>
-    <link rel="stylesheet" href="style.css">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="description" content="Unsere Dienstleistungen – LM Estates, Ihr Partner für Immobilien in der Deutschschweiz. Verkauf, Vermietung und Beratung.">
+    <title>Dienstleistungen – LM Estates</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ev-blue: #002855;
+            --ev-blue-hover: #001a35;
+            --ev-black: #1a1a1a;
+            --ev-white: #ffffff;
+            --ev-gray-light: #f5f5f5;
+            --ev-gray: #666666;
+            --ev-gray-dark: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--ev-gray-dark);
+            background: var(--ev-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            animation: pageLoad 0.3s ease-out;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        @keyframes pageLoad {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes expandLine {
+            from {
+                transform: scaleX(0);
+            }
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--ev-white);
+            z-index: 1000;
+            border-bottom: 1px solid #eee;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            color: var(--ev-black);
+            text-decoration: none;
+            position: relative;
+            z-index: 1002;
+        }
+
+        .logo::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 3px;
+            background: var(--ev-blue);
+            margin-top: 4px;
+            transform-origin: left;
+            animation: expandLine 0.5s ease-out;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--ev-gray-dark);
+            font-weight: 400;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--ev-blue);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--ev-blue);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--ev-black);
+            transition: all 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Menu Overlay */
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .menu-overlay.active {
+            display: block;
+        }
+
+        /* Page Header - E&V Style */
+        .page-header {
+            margin-top: 70px;
+            padding: 4rem 2rem;
+            background: var(--ev-black);
+            text-align: center;
+            color: var(--ev-white);
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            font-weight: 400;
+            color: var(--ev-white);
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .page-header h1::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--ev-blue);
+            margin: 1rem auto 0;
+        }
+
+        .page-header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            font-weight: 400;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Services Section */
+        .services-section {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 5%;
+        }
+
+        .service-block {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 5rem;
+            align-items: center;
+            opacity: 0;
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+        
+        .service-block:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+        
+        .service-block:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .service-block:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+        
+        .service-block:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .service-block:nth-child(even) {
+            direction: rtl;
+        }
+
+        .service-block:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .service-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .service-block:hover .service-image {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .service-content {
+            padding: 2rem;
+        }
+
+        .service-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: var(--ev-blue);
+        }
+
+        .service-content h2 {
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: var(--ev-black);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-content p {
+            color: var(--ev-gray-dark);
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .service-features li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--ev-gray-dark);
+        }
+
+        .service-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--ev-blue);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .service-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--ev-black);
+            color: white;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: background 0.3s;
+        }
+
+        .service-button:hover {
+            background: var(--ev-blue);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--ev-gray-light);
+            padding: 5rem 5%;
+            text-align: center;
+            margin-top: 5rem;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--ev-black);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            color: var(--ev-gray);
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--ev-blue);
+            color: white;
+            text-decoration: none;
+            font-weight: 400;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            border: 2px solid var(--ev-blue);
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: var(--ev-blue);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--ev-blue);
+            color: var(--ev-white);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-logo-underline {
+            width: 30px;
+            height: 3px;
+            background: var(--ev-white);
+            margin: 0 auto 2rem;
+        }
+
+        .footer-info {
+            margin-bottom: 2rem;
+        }
+
+        .footer-address {
+            font-weight: 400;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-contact {
+            font-weight: 400;
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .footer-contact a {
+            color: var(--ev-white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-contact a:hover {
+            color: var(--ev-black);
+        }
+
+        .footer-links {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a {
+            color: var(--ev-white);
+            text-decoration: none;
+            opacity: 0.8;
+            margin: 0 1rem;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-copyright {
+            font-weight: 400;
+            opacity: 0.6;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .service-block {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .service-block:nth-child(even) {
+                direction: ltr;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .service-content h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                align-items: flex-end;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 78px;
+                right: -100%;
+                width: 80%;
+                max-width: 320px;
+                height: calc(100vh - 78px);
+                background: var(--ev-white);
+                flex-direction: column;
+                padding: 0 30px 30px;
+                box-shadow: -5px 0 20px rgba(0,0,0,0.15);
+                transition: right 0.3s ease;
+                gap: 0;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                border-bottom: 1px solid #eee;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 15px 0;
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Unsere Dienstleistungen</h1>
-    <div class="grid-container">
-        <div class="service-item">
-            <h2>Erstellung von Plänen</h2>
-            <p>Beschreibung für Erstellung von Plänen.</p>
-            <p>Preis: €100</p>
-            <a href="/services/erstellung-von-plaenen">Mehr erfahren</a>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">LM ESTATES</a>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="properties.html">Immobilien</a></li>
+                <li><a href="services.html">Dienstleistungen</a></li>
+                <li><a href="about.html">Über uns</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
+            </ul>
         </div>
-        <div class="service-item">
-            <h2>Anpassungs- und Optimierungspläne</h2>
-            <p>Beschreibung für Anpassungs- und Optimierungspläne.</p>
-            <p>Preis: €150</p>
-            <a href="/services/anpassungs-und-optimierungsplaene">Mehr erfahren</a>
+    </nav>
+    <div class="menu-overlay" onclick="closeMenu()"></div>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.hamburger').classList.toggle('active');
+            document.querySelector('.nav-links').classList.toggle('active');
+            document.querySelector('.menu-overlay').classList.toggle('active');
+        }
+
+        function closeMenu() {
+            document.querySelector('.hamburger').classList.remove('active');
+            document.querySelector('.nav-links').classList.remove('active');
+            document.querySelector('.menu-overlay').classList.remove('active');
+        }
+    </script>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>Unsere Dienstleistungen</h1>
+        <p>Professionelle Immobilienlösungen für anspruchsvolle Kunden</p>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section">
+        <!-- Service 1: Verkauf -->
+        <div class="service-block">
+            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800" alt="Immobilienverkauf" class="service-image">
+            <div class="service-content">
+                <div class="service-icon">🏠</div>
+                <h2>Immobilienverkauf</h2>
+                <p>Wir vermarkten Ihre Immobilie professionell und diskret. Mit umfassender Marktkenntnis und einem exklusiven Netzwerk erreichen wir die richtigen Käufer für Ihr Objekt.</p>
+                <ul class="service-features">
+                    <li>Professionelle Immobilienbewertung</li>
+                    <li>Hochwertige Fotografie und virtuelle Rundgänge</li>
+                    <li>Zielgerichtetes Marketing und Exposés</li>
+                    <li>Qualifizierte Käufersuche</li>
+                    <li>Begleitung bis zum Notartermin</li>
+                </ul>
+                <a href="contact.html" class="service-button">BERATUNG ANFRAGEN</a>
+            </div>
         </div>
-        <div class="service-item">
-            <h2>Verkaufs- und Nutzungskonzepte</h2>
-            <p>Beschreibung für Verkaufs- und Nutzungskonzepte.</p>
-            <p>Preis: €200</p>
-            <a href="/services/verkaufs-und-nutzungskonzepte">Mehr erfahren</a>
+
+        <!-- Service 2: Vermietung -->
+        <div class="service-block">
+            <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800" alt="Immobilienvermietung" class="service-image">
+            <div class="service-content">
+                <div class="service-icon">🔑</div>
+                <h2>Immobilienvermietung</h2>
+                <p>Ob Wohnung, Haus oder Gewerbeimmobilie – wir finden den idealen Mieter für Ihr Objekt und kümmern uns um alle administrativen Prozesse.</p>
+                <ul class="service-features">
+                    <li>Mietersuche und Bonitätsprüfung</li>
+                    <li>Organisation von Besichtigungen</li>
+                    <li>Professionelle Mietvertragsgestaltung</li>
+                    <li>Übergabeprotokoll und Dokumentation</li>
+                    <li>Verwaltungsservice auf Wunsch</li>
+                </ul>
+                <a href="contact.html" class="service-button">BERATUNG ANFRAGEN</a>
+            </div>
         </div>
-        <div class="service-item">
-            <h2>Kleine Planungs- und Konzeptarbeiten</h2>
-            <p>Beschreibung für kleine Planungs- und Konzeptarbeiten.</p>
-            <p>Preis: €80</p>
-            <a href="/services/kleine-planungs-und-konzeptarbeiten">Mehr erfahren</a>
+
+        <!-- Service 3: Beratung & Bewertung -->
+        <div class="service-block">
+            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800" alt="Beratung & Bewertung" class="service-image">
+            <div class="service-content">
+                <div class="service-icon">📊</div>
+                <h2>Beratung & Bewertung</h2>
+                <p>Unsere Experten bieten fundierte Marktanalysen und präzise Immobilienbewertungen. Wir beraten Sie zu allen Fragen rund um Ihre Immobilie.</p>
+                <ul class="service-features">
+                    <li>Professionelle Immobilienbewertung</li>
+                    <li>Marktanalysen und Preistrends</li>
+                    <li>Investitionsberatung</li>
+                    <li>Strategische Verkaufs- und Vermietungsberatung</li>
+                    <li>Rechtliche und steuerliche Grundlagen</li>
+                </ul>
+                <a href="contact.html" class="service-button">BERATUNG ANFRAGEN</a>
+            </div>
         </div>
-        <div class="service-item">
-            <h2>Beratung und Bewertung</h2>
-            <p>Beschreibung für Beratung und Bewertung.</p>
-            <p>Preis: €120</p>
-            <a href="/services/beratung-und-bewertung">Mehr erfahren</a>
+
+        <!-- Service 4: Grundstücks- & Immobilienrecherche für Investoren -->
+        <div class="service-block">
+            <img src="https://images.unsplash.com/photo-1460472178825-e5240623afd5?w=800" alt="Grundstücks- & Immobilienrecherche" class="service-image">
+            <div class="service-content">
+                <div class="service-icon">🔍</div>
+                <h2>Grundstücks- & Immobilienrecherche für Investoren</h2>
+                <p>Für Investoren, die Kapital, aber wenig Zeit haben! Wir übernehmen Grundstücks- und Immobilienrecherchen. Mit unserer umfassenden Analyse treffen Sie schnelle und fundierte Investitionsentscheidungen.</p>
+                <ul class="service-features">
+                    <li>Baurecht-Check, inklusive Zonenplan</li>
+                    <li>Bewertung der möglichen maximalen Nutzung (Ausnützung)</li>
+                    <li>Vergleichspreise für Ihren Standort</li>
+                    <li>Übersichtliche Zusammenfassung für schnelles Handeln</li>
+                    <li>Detaillierte Markt- und Standortanalyse</li>
+                </ul>
+                <a href="contact.html" class="service-button">BERATUNG ANFRAGEN</a>
+            </div>
         </div>
-        <div class="service-item">
-            <h2>Zusammenarbeit mit Fachstellen</h2>
-            <p>Beschreibung für Zusammenarbeit mit Fachstellen.</p>
-            <p>Preis: €130</p>
-            <a href="/services/zusammenarbeit-mit-fachstellen">Mehr erfahren</a>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Bereit für den nächsten Schritt?</h2>
+        <p>Kontaktieren Sie uns für ein unverbindliches Beratungsgespräch</p>
+        <a href="contact.html" class="cta-button">JETZT KONTAKT AUFNEHMEN</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">LM ESTATES</div>
+            <div class="footer-logo-underline"></div>
+            <div class="footer-info">
+                <p class="footer-address">Seestrasse 20, 8802 Kilchberg, Schweiz</p>
+                <p class="footer-contact">
+                    Tel: <a href="tel:+41763046887">076 304 68 87</a> | 
+                    E-Mail: <a href="mailto:lmestates0@gmail.com">lmestates0@gmail.com</a>
+                </p>
+            </div>
+            <div class="footer-links">
+                <a href="datenschutz.html">Datenschutz</a>
+                <a href="cookies.html">Cookies</a>
+            </div>
+            <p class="footer-copyright">&copy; 2024 LM Estates. Alle Rechte vorbehalten.</p>
         </div>
-    </div>
+    </footer>
 </body>
 </html>
