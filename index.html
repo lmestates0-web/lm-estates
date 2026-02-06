@@ -302,6 +302,11 @@
             background: var(--ev-gray-light);
             overflow: hidden;
         }
+        
+        .services.animate-in .section-title,
+        .services.animate-in .section-subtitle {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
 
         .section-title {
             text-align: center;
@@ -311,7 +316,7 @@
             color: var(--ev-black);
             letter-spacing: 1px;
             opacity: 0;
-            animation: fadeInUp 0.5s ease-out 0.05s forwards;
+            transform: translateY(30px);
         }
 
         .section-subtitle {
@@ -320,7 +325,7 @@
             margin-bottom: 4rem;
             font-weight: 300;
             opacity: 0;
-            animation: fadeInUp 0.5s ease-out 0.1s forwards;
+            transform: translateY(30px);
         }
 
         .services-carousel-container {
@@ -407,9 +412,14 @@
         }
 
         .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0,40,85,0.2);
             border-color: var(--ev-blue);
+        }
+        
+        .service-card:hover .service-icon svg {
+            transform: scale(1.15) rotate(5deg);
+            fill: var(--ev-blue-hover);
         }
 
         .service-icon {
@@ -759,6 +769,13 @@
             const carousel = document.querySelector('.services-carousel');
             let isAutoScrolling = true;
             let autoScrollInterval;
+            
+            // Clone cards for infinite scroll effect
+            const cards = Array.from(carousel.querySelectorAll('.service-card'));
+            cards.forEach(card => {
+                const clone = card.cloneNode(true);
+                carousel.appendChild(clone);
+            });
 
             function scrollCarousel(direction) {
                 const scrollAmount = 350;
@@ -769,19 +786,30 @@
                 }
                 // Pause auto-scroll when user interacts
                 pauseAutoScroll();
+                checkInfiniteScroll();
+            }
+            
+            function checkInfiniteScroll() {
+                const scrollWidth = carousel.scrollWidth;
+                const clientWidth = carousel.clientWidth;
+                const scrollLeft = carousel.scrollLeft;
+                const halfPoint = scrollWidth / 2;
+                
+                // If scrolled past midpoint (original cards), jump back to beginning
+                if (scrollLeft >= halfPoint - clientWidth) {
+                    carousel.scrollLeft = scrollLeft - halfPoint;
+                }
+                // If scrolled before start, jump to clones
+                else if (scrollLeft <= 0) {
+                    carousel.scrollLeft = halfPoint;
+                }
             }
 
             function autoScroll() {
                 if (!isAutoScrolling) return;
                 
-                const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-                const currentScroll = carousel.scrollLeft;
-                
-                if (currentScroll >= maxScroll) {
-                    carousel.scrollTo({ left: 0, behavior: 'smooth' });
-                } else {
-                    carousel.scrollBy({ left: 1, behavior: 'auto' });
-                }
+                carousel.scrollBy({ left: 1, behavior: 'auto' });
+                checkInfiniteScroll();
             }
 
             function pauseAutoScroll() {
@@ -814,6 +842,10 @@
                 const walk = (x - startX) * 2;
                 carousel.scrollLeft = scrollLeft - walk;
             });
+            
+            carousel.addEventListener('touchend', () => {
+                checkInfiniteScroll();
+            });
 
             // Mouse drag support for desktop
             let isDown = false;
@@ -831,11 +863,15 @@
             carousel.addEventListener('mouseleave', () => {
                 isDown = false;
                 carousel.style.cursor = 'grab';
+                if (scrollLeftMouse !== carousel.scrollLeft) {
+                    checkInfiniteScroll();
+                }
             });
 
             carousel.addEventListener('mouseup', () => {
                 isDown = false;
                 carousel.style.cursor = 'grab';
+                checkInfiniteScroll();
             });
 
             carousel.addEventListener('mousemove', (e) => {
@@ -851,7 +887,41 @@
 
             // Start auto-scroll
             carousel.style.cursor = 'grab';
+            
+            // Set initial scroll position to show seamless loop
+            const halfPoint = carousel.scrollWidth / 2;
+            carousel.scrollLeft = 1; // Start slightly offset
+            
             startAutoScroll();
+        });
+        
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe services section
+        const servicesSection = document.querySelector('.services');
+        if (servicesSection) {
+            observer.observe(servicesSection);
+        }
+        
+        // Add parallax effect to hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
         });
     </script>
 </body>
