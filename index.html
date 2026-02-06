@@ -707,99 +707,104 @@
 
     <script>
         // Services Carousel functionality
-        const carousel = document.querySelector('.services-carousel');
-        let isAutoScrolling = true;
-        let autoScrollInterval;
+        document.addEventListener('DOMContentLoaded', function() {
+            const carousel = document.querySelector('.services-carousel');
+            let isAutoScrolling = true;
+            let autoScrollInterval;
 
-        function scrollCarousel(direction) {
-            const scrollAmount = 350;
-            if (direction === 'left') {
-                carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-            } else {
-                carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            function scrollCarousel(direction) {
+                const scrollAmount = 350;
+                if (direction === 'left') {
+                    carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                } else {
+                    carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                }
+                // Pause auto-scroll when user interacts
+                pauseAutoScroll();
             }
-            // Pause auto-scroll when user interacts
-            pauseAutoScroll();
-        }
 
-        function autoScroll() {
-            if (!isAutoScrolling) return;
-            
-            const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-            const currentScroll = carousel.scrollLeft;
-            
-            if (currentScroll >= maxScroll) {
-                carousel.scrollTo({ left: 0, behavior: 'smooth' });
-            } else {
-                carousel.scrollBy({ left: 1, behavior: 'auto' });
+            function autoScroll() {
+                if (!isAutoScrolling) return;
+                
+                const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+                const currentScroll = carousel.scrollLeft;
+                
+                if (currentScroll >= maxScroll) {
+                    carousel.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    carousel.scrollBy({ left: 1, behavior: 'auto' });
+                }
             }
-        }
 
-        function pauseAutoScroll() {
-            isAutoScrolling = false;
-            clearInterval(autoScrollInterval);
-            // Resume after 5 seconds
-            setTimeout(() => {
-                isAutoScrolling = true;
-                startAutoScroll();
-            }, 5000);
-        }
+            function pauseAutoScroll() {
+                isAutoScrolling = false;
+                clearInterval(autoScrollInterval);
+                // Resume after 5 seconds
+                setTimeout(() => {
+                    isAutoScrolling = true;
+                    startAutoScroll();
+                }, 5000);
+            }
 
-        function startAutoScroll() {
-            clearInterval(autoScrollInterval);
-            autoScrollInterval = setInterval(autoScroll, 30);
-        }
+            function startAutoScroll() {
+                clearInterval(autoScrollInterval);
+                autoScrollInterval = setInterval(autoScroll, 30);
+            }
 
-        // Touch/swipe support for mobile
-        let startX = 0;
-        let scrollLeft = 0;
+            // Touch/swipe support for mobile
+            let startX = 0;
+            let scrollLeft = 0;
 
-        carousel.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].pageX - carousel.offsetLeft;
-            scrollLeft = carousel.scrollLeft;
-            pauseAutoScroll();
-        });
+            carousel.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].pageX - carousel.offsetLeft;
+                scrollLeft = carousel.scrollLeft;
+                pauseAutoScroll();
+            });
 
-        carousel.addEventListener('touchmove', (e) => {
-            const x = e.touches[0].pageX - carousel.offsetLeft;
-            const walk = (x - startX) * 2;
-            carousel.scrollLeft = scrollLeft - walk;
-        });
+            carousel.addEventListener('touchmove', (e) => {
+                const x = e.touches[0].pageX - carousel.offsetLeft;
+                const walk = (x - startX) * 2;
+                carousel.scrollLeft = scrollLeft - walk;
+            });
 
-        // Mouse drag support for desktop
-        let isDown = false;
-        let startMouseX;
-        let scrollLeftMouse;
+            // Mouse drag support for desktop
+            let isDown = false;
+            let startMouseX;
+            let scrollLeftMouse;
 
-        carousel.addEventListener('mousedown', (e) => {
-            isDown = true;
-            carousel.style.cursor = 'grabbing';
-            startMouseX = e.pageX - carousel.offsetLeft;
-            scrollLeftMouse = carousel.scrollLeft;
-            pauseAutoScroll();
-        });
+            carousel.addEventListener('mousedown', (e) => {
+                isDown = true;
+                carousel.style.cursor = 'grabbing';
+                startMouseX = e.pageX - carousel.offsetLeft;
+                scrollLeftMouse = carousel.scrollLeft;
+                pauseAutoScroll();
+            });
 
-        carousel.addEventListener('mouseleave', () => {
-            isDown = false;
+            carousel.addEventListener('mouseleave', () => {
+                isDown = false;
+                carousel.style.cursor = 'grab';
+            });
+
+            carousel.addEventListener('mouseup', () => {
+                isDown = false;
+                carousel.style.cursor = 'grab';
+            });
+
+            carousel.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - carousel.offsetLeft;
+                const walk = (x - startMouseX) * 2;
+                carousel.scrollLeft = scrollLeftMouse - walk;
+            });
+
+            // Make scrollCarousel function globally available
+            window.scrollCarousel = scrollCarousel;
+
+            // Start auto-scroll
             carousel.style.cursor = 'grab';
+            startAutoScroll();
         });
-
-        carousel.addEventListener('mouseup', () => {
-            isDown = false;
-            carousel.style.cursor = 'grab';
-        });
-
-        carousel.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - carousel.offsetLeft;
-            const walk = (x - startMouseX) * 2;
-            carousel.scrollLeft = scrollLeftMouse - walk;
-        });
-
-        // Start auto-scroll
-        carousel.style.cursor = 'grab';
-        startAutoScroll();
     </script>
 </body>
 </html>
