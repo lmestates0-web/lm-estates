@@ -167,53 +167,100 @@
         /* Service Detail Page */
         .service-header {
             margin-top: 70px;
-            padding: 4rem 2rem;
+            padding: 4rem 5% 3rem;
             background: var(--ev-black);
-            text-align: center;
             color: var(--ev-white);
+        }
+
+        .service-header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .service-icon-large {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-icon-large svg {
+            width: 80px;
+            height: 80px;
+            fill: white;
         }
 
         .service-header h1 {
             font-size: 2.8rem;
             font-weight: 400;
-            color: var(--ev-white);
             margin-bottom: 1rem;
-            letter-spacing: 1px;
-        }
-
-        .service-header h1::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 3px;
-            background: var(--ev-blue);
-            margin: 1rem auto 0;
-        }
-
-        .service-icon-header {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .service-icon-header svg {
-            width: 80px;
-            height: 80px;
-            fill: var(--ev-blue);
-        }
-
-        .service-price-tag-header {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: 2rem;
             color: var(--ev-white);
-            font-weight: 400;
-            margin-top: 1.5rem;
+        }
+
+        .service-tagline {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+        }
+
+        .service-price-box {
+            background: var(--ev-blue);
+            padding: 2rem;
+            text-align: center;
+            min-width: 250px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .service-price-box:hover {
+            background: var(--ev-blue-hover);
+        }
+
+        .service-price-box:focus {
+            outline: 2px solid var(--ev-white);
+            outline-offset: 2px;
+        }
+
+        .price-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+
+        .price-value {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: var(--ev-white);
         }
 
         /* Service Content */
         .service-content {
-            max-width: 900px;
-            margin: 4rem auto;
-            padding: 0 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 5%;
+        }
+
+        .content-section {
+            margin-bottom: 4rem;
+        }
+
+        .content-section h2 {
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--ev-black);
+            margin-bottom: 1.5rem;
+        }
+
+        .content-section p {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: var(--ev-gray-dark);
+            margin-bottom: 1.5rem;
         }
 
         .service-content h2 {
@@ -240,6 +287,7 @@
             padding-left: 2.5rem;
             position: relative;
             color: var(--ev-gray-dark);
+            font-size: 1.05rem;
             border-bottom: 1px solid #eee;
         }
 
@@ -312,6 +360,87 @@
         .cta-button:hover {
             background: transparent;
             color: var(--ev-blue);
+        }
+
+        /* Contact Form Section */
+        .contact-section {
+            background: var(--ev-gray-light);
+            padding: 5rem 5%;
+            margin-top: 3rem;
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-container h2 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--ev-black);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .contact-intro {
+            text-align: center;
+            color: var(--ev-gray);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--ev-gray-dark);
+            font-weight: 400;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            background: var(--ev-white);
+            color: var(--ev-gray-dark);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--ev-blue);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--ev-blue);
+            color: white;
+            border: none;
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-button:hover {
+            background: var(--ev-blue-hover);
         }
 
         /* Footer */
@@ -396,6 +525,20 @@
         }
 
         /* Responsive */
+        @media (min-width: 1024px) {
+            .service-header-content {
+                grid-template-columns: 1fr auto;
+            }
+
+            .service-price-box {
+                margin: 0 auto;
+            }
+
+            .service-header h1 {
+                font-size: 2.2rem;
+            }
+        }
+
         @media (max-width: 768px) {
             .nav-container {
                 align-items: flex-end;
@@ -476,39 +619,58 @@
             document.querySelector('.nav-links').classList.remove('active');
             document.querySelector('.menu-overlay').classList.remove('active');
         }
+
+        function scrollToContact() {
+            const contactSection = document.querySelector('.contact-section');
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
     </script>
 
     <!-- Service Header -->
     <section class="service-header">
-        <div class="service-icon-header">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-            </svg>
+        <div class="service-header-content">
+            <div>
+                <div class="service-icon-large">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                </div>
+                <h1>Makeln und Vermitteln von Immobilien</h1>
+                <p class="service-tagline">Professionelle Immobilienvermittlung mit persönlichem Service</p>
+            </div>
+            <div class="service-price-box" onclick="scrollToContact()" tabindex="0" onkeypress="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); scrollToContact(); }" role="button" aria-label="Zum Kontaktformular springen">
+                <div class="price-label">Preis</div>
+                <div class="price-value">Auf Anfrage</div>
+            </div>
         </div>
-        <h1>Makeln und Vermitteln von Immobilien</h1>
-        <p class="service-price-tag-header">Auf Anfrage</p>
     </section>
 
     <!-- Service Content -->
-    <div class="service-content">
-        <p><strong>Professionelle Immobilienvermittlung mit persönlichem Service</strong></p>
-        <p>
-            Wir bieten Ihnen einen umfassenden Maklerservice für den Verkauf und die Vermietung Ihrer Immobilie. 
-            Mit unserer Expertise und unserem weitreichenden Netzwerk finden wir die perfekten Käufer oder Mieter 
-            für Ihre Immobilie und begleiten Sie durch den gesamten Prozess.
-        </p>
+    <section class="service-content">
+        <div class="content-section">
+            <p><strong>Professionelle Immobilienvermittlung mit persönlichem Service</strong></p>
+            <p>
+                Wir bieten Ihnen einen umfassenden Maklerservice für den Verkauf und die Vermietung Ihrer Immobilie. 
+                Mit unserer Expertise und unserem weitreichenden Netzwerk finden wir die perfekten Käufer oder Mieter 
+                für Ihre Immobilie und begleiten Sie durch den gesamten Prozess.
+            </p>
+        </div>
 
-        <h2>Unsere Leistungen</h2>
-        <ul class="service-features">
-            <li>Professionelle Marktwertermittlung Ihrer Immobilie</li>
-            <li>Erstellung aussagekräftiger Exposés mit hochwertigen Fotos</li>
-            <li>Gezielte Vermarktung über verschiedene Kanäle</li>
-            <li>Qualifizierung und Betreuung interessierter Käufer/Mieter</li>
-            <li>Organisation und Durchführung von Besichtigungen</li>
-            <li>Verhandlungsführung bis zum Vertragsabschluss</li>
-            <li>Unterstützung bei rechtlichen und administrativen Fragen</li>
-            <li>Koordination mit Notaren, Banken und Behörden</li>
-        </ul>
+        <div class="content-section">
+            <h2>Unsere Leistungen</h2>
+            <ul class="service-features">
+                <li>Professionelle Marktwertermittlung Ihrer Immobilie</li>
+                <li>Erstellung aussagekräftiger Exposés mit hochwertigen Fotos</li>
+                <li>Gezielte Vermarktung über verschiedene Kanäle</li>
+                <li>Qualifizierung und Betreuung interessierter Käufer/Mieter</li>
+                <li>Organisation und Durchführung von Besichtigungen</li>
+                <li>Verhandlungsführung bis zum Vertragsabschluss</li>
+                <li>Unterstützung bei rechtlichen und administrativen Fragen</li>
+                <li>Koordination mit Notaren, Banken und Behörden</li>
+            </ul>
+        </div>
 
         <div class="process-steps">
             <h3>Unser Vermittlungsprozess</h3>
@@ -522,30 +684,74 @@
             </ol>
         </div>
 
-        <h2>Warum LM Estates?</h2>
-        <p>
-            Mit unserer langjährigen Erfahrung im Immobilienmarkt der Deutschschweiz kennen wir die regionalen 
-            Besonderheiten und wissen, wie Ihre Immobilie optimal vermarktet wird. Wir legen großen Wert auf 
-            persönliche Betreuung und transparente Kommunikation während des gesamten Vermittlungsprozesses.
-        </p>
-        <p>
-            Unser Ziel ist es, für Sie den besten Preis zu erzielen und einen reibungslosen, stressfreien 
-            Verkaufs- oder Vermietungsprozess zu gewährleisten.
-        </p>
+        <div class="content-section">
+            <h2>Warum LM Estates?</h2>
+            <p>
+                Mit unserer langjährigen Erfahrung im Immobilienmarkt der Deutschschweiz kennen wir die regionalen 
+                Besonderheiten und wissen, wie Ihre Immobilie optimal vermarktet wird. Wir legen großen Wert auf 
+                persönliche Betreuung und transparente Kommunikation während des gesamten Vermittlungsprozesses.
+            </p>
+            <p>
+                Unser Ziel ist es, für Sie den besten Preis zu erzielen und einen reibungslosen, stressfreien 
+                Verkaufs- oder Vermietungsprozess zu gewährleisten.
+            </p>
+        </div>
 
-        <h2>Individuelle Konditionen</h2>
-        <p>
-            Die Konditionen für unsere Maklerdienste besprechen wir gerne persönlich mit Ihnen. Sie richten sich 
-            nach Art, Lage und Wert der Immobilie sowie dem gewünschten Leistungsumfang. Kontaktieren Sie uns 
-            für ein unverbindliches Erstgespräch.
-        </p>
-    </div>
+        <div class="content-section">
+            <h2>Individuelle Konditionen</h2>
+            <p>
+                Die Konditionen für unsere Maklerdienste besprechen wir gerne persönlich mit Ihnen. Sie richten sich 
+                nach Art, Lage und Wert der Immobilie sowie dem gewünschten Leistungsumfang. Kontaktieren Sie uns 
+                für ein unverbindliches Erstgespräch.
+            </p>
+        </div>
+    </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <h2>Interesse an unseren Maklerleistungen?</h2>
-        <p>Kontaktieren Sie uns für ein unverbindliches Beratungsgespräch</p>
-        <a href="contact.html" class="cta-button">JETZT KONTAKT AUFNEHMEN</a>
+    <!-- Contact Form -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <h2>Jetzt Anfrage stellen</h2>
+            <p class="contact-intro">Füllen Sie das Formular aus und wir melden uns innerhalb von 24 Stunden bei Ihnen.</p>
+            
+            <form id="contactForm" action="https://formspree.io/f/xovopqel" method="POST">
+                <input type="hidden" name="_subject" value="Anfrage: Makeln und Vermitteln">
+                
+                <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-Mail *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Telefon</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+
+                <div class="form-group">
+                    <label for="property-type">Art der Immobilie</label>
+                    <select id="property-type" name="property-type">
+                        <option value="">Bitte wählen</option>
+                        <option value="Wohnung">Wohnung</option>
+                        <option value="Einfamilienhaus">Einfamilienhaus</option>
+                        <option value="Mehrfamilienhaus">Mehrfamilienhaus</option>
+                        <option value="Gewerbeimmobilie">Gewerbeimmobilie</option>
+                        <option value="Grundstück">Grundstück</option>
+                        <option value="Andere">Andere</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Ihre Nachricht *</label>
+                    <textarea id="message" name="message" required placeholder="Beschreiben Sie bitte Ihr Anliegen und Ihre Immobilie"></textarea>
+                </div>
+
+                <button type="submit" class="submit-button">ANFRAGE SENDEN</button>
+            </form>
+        </div>
     </section>
 
     <!-- Footer -->
