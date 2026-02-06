@@ -309,6 +309,19 @@
             padding: 0 60px;
         }
 
+        /* Visual horizontal line for carousel */
+        .services-carousel-container::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 60px;
+            right: 60px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--ev-blue) 10%, var(--ev-blue) 90%, transparent);
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
         .services-carousel {
             display: flex;
             gap: 2rem;
@@ -316,7 +329,8 @@
             scroll-behavior: smooth;
             scrollbar-width: none;
             -ms-overflow-style: none;
-            padding: 1rem 0;
+            padding: 1rem 0 3rem 0;
+            position: relative;
         }
 
         .services-carousel::-webkit-scrollbar {
@@ -471,6 +485,19 @@
             padding: 0 60px;
         }
 
+        /* Visual horizontal line for properties carousel */
+        .properties-carousel-container::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 60px;
+            right: 60px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--ev-blue) 10%, var(--ev-blue) 90%, transparent);
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
         .properties-carousel {
             display: flex;
             gap: 2rem;
@@ -478,7 +505,8 @@
             scroll-behavior: smooth;
             scrollbar-width: none;
             -ms-overflow-style: none;
-            padding: 1rem 0;
+            padding: 1rem 0 3rem 0;
+            position: relative;
         }
 
         .properties-carousel::-webkit-scrollbar {
