@@ -1053,7 +1053,14 @@
     </footer>
 
     <script>
-        // Momentum scrolling configuration constants
+        /**
+         * Momentum scrolling configuration constants
+         * @const {number} DRAG_MULTIPLIER - Multiplier for drag distance (higher = more sensitive)
+         * @const {number} VELOCITY_MULTIPLIER - Converts velocity from px/ms to px/s
+         * @const {number} DECELERATION_RATE - Deceleration factor per frame (0-1, lower = faster stop)
+         * @const {number} MIN_VELOCITY_THRESHOLD - Minimum velocity (px/ms) to trigger momentum
+         * @const {number} MIN_MOMENTUM_SPEED - Minimum speed (px/s) before momentum stops
+         */
         const DRAG_MULTIPLIER = 3;
         const VELOCITY_MULTIPLIER = -600;
         const DECELERATION_RATE = 0.95;
@@ -1172,7 +1179,8 @@
                         const deltaTime = (now - lastFrameTime) / 1000; // Convert to seconds
                         lastFrameTime = now;
                         
-                        currentVelocity *= DECELERATION_RATE;
+                        // Frame-rate independent deceleration
+                        currentVelocity *= Math.pow(DECELERATION_RATE, deltaTime * 60);
                         carousel.scrollLeft += currentVelocity * deltaTime;
                         
                         if (Math.abs(currentVelocity) > MIN_MOMENTUM_SPEED) {
@@ -1224,7 +1232,7 @@
                             const deltaTime = (now - lastFrameTime) / 1000;
                             lastFrameTime = now;
                             
-                            currentVelocity *= DECELERATION_RATE;
+                            currentVelocity *= Math.pow(DECELERATION_RATE, deltaTime * 60);
                             carousel.scrollLeft += currentVelocity * deltaTime;
                             
                             if (Math.abs(currentVelocity) > MIN_MOMENTUM_SPEED) {
@@ -1255,7 +1263,7 @@
                         const deltaTime = (now - lastFrameTime) / 1000;
                         lastFrameTime = now;
                         
-                        currentVelocity *= DECELERATION_RATE;
+                        currentVelocity *= Math.pow(DECELERATION_RATE, deltaTime * 60);
                         carousel.scrollLeft += currentVelocity * deltaTime;
                         
                         if (Math.abs(currentVelocity) > MIN_MOMENTUM_SPEED) {
@@ -1416,7 +1424,7 @@
                         const deltaTime = (now - lastFrameTime) / 1000;
                         lastFrameTime = now;
                         
-                        currentVelocity *= DECELERATION_RATE;
+                        currentVelocity *= Math.pow(DECELERATION_RATE, deltaTime * 60);
                         propertiesCarousel.scrollLeft += currentVelocity * deltaTime;
                         
                         if (Math.abs(currentVelocity) > MIN_MOMENTUM_SPEED) {
@@ -1468,7 +1476,7 @@
                             const deltaTime = (now - lastFrameTime) / 1000;
                             lastFrameTime = now;
                             
-                            currentVelocity *= DECELERATION_RATE;
+                            currentVelocity *= Math.pow(DECELERATION_RATE, deltaTime * 60);
                             propertiesCarousel.scrollLeft += currentVelocity * deltaTime;
                             
                             if (Math.abs(currentVelocity) > MIN_MOMENTUM_SPEED) {
@@ -1499,7 +1507,7 @@
                         const deltaTime = (now - lastFrameTime) / 1000;
                         lastFrameTime = now;
                         
-                        currentVelocity *= DECELERATION_RATE;
+                        currentVelocity *= Math.pow(DECELERATION_RATE, deltaTime * 60);
                         propertiesCarousel.scrollLeft += currentVelocity * deltaTime;
                         
                         if (Math.abs(currentVelocity) > MIN_MOMENTUM_SPEED) {
