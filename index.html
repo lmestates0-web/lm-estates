@@ -303,8 +303,8 @@
             overflow: hidden;
         }
         
-        .services.animate-in .section-title,
-        .services.animate-in .section-subtitle {
+        .services .section-title,
+        .services .section-subtitle {
             animation: fadeInUp 0.8s ease-out forwards;
         }
 
@@ -315,8 +315,8 @@
             margin-bottom: 1rem;
             color: var(--ev-black);
             letter-spacing: 1px;
-            opacity: 0;
-            transform: translateY(30px);
+            position: relative;
+            z-index: 10;
         }
 
         .section-subtitle {
@@ -324,8 +324,8 @@
             color: var(--ev-gray);
             margin-bottom: 4rem;
             font-weight: 300;
-            opacity: 0;
-            transform: translateY(30px);
+            position: relative;
+            z-index: 10;
         }
 
         .services-carousel-container {
@@ -465,6 +465,193 @@
             margin-top: auto;
             padding-top: 1rem;
             border-top: 1px solid #e5e5e5;
+        }
+
+        /* Properties Section */
+        .properties {
+            padding: 6rem 5%;
+            background: var(--ev-white);
+            overflow: hidden;
+        }
+
+        .properties-carousel-container {
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 60px;
+        }
+
+        .properties-carousel {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding: 1rem 0;
+        }
+
+        .properties-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .property-card {
+            flex: 0 0 380px;
+            background: var(--ev-white);
+            border: 1px solid #e5e5e5;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            cursor: pointer;
+            scroll-snap-align: start;
+        }
+
+        .property-card:hover {
+            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+            transform: translateY(-8px);
+        }
+
+        .property-image-container {
+            position: relative;
+            width: 100%;
+            height: 260px;
+            overflow: hidden;
+            background: var(--ev-gray-light);
+        }
+
+        .property-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .property-card:hover .property-image-container img {
+            transform: scale(1.1);
+        }
+
+        .property-badge {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: var(--ev-blue);
+            color: var(--ev-white);
+            padding: 8px 14px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 10;
+        }
+
+        .property-info {
+            padding: 1.5rem;
+        }
+
+        .property-price {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5rem;
+            color: var(--ev-black);
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .property-price-detail {
+            font-size: 0.85rem;
+            color: var(--ev-gray);
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .property-location {
+            color: var(--ev-gray);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .property-location svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--ev-blue);
+            flex-shrink: 0;
+        }
+
+        .property-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.15rem;
+            color: var(--ev-black);
+            margin-bottom: 1rem;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        /* Placeholder Property Card */
+        .property-card-placeholder {
+            flex: 0 0 380px;
+            background: var(--ev-gray-light);
+            border: 2px dashed var(--ev-blue);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 3rem 2rem;
+            min-height: 450px;
+        }
+
+        .property-card-placeholder:hover {
+            background: var(--ev-white);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+            transform: translateY(-8px);
+        }
+
+        .placeholder-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .placeholder-icon svg {
+            width: 80px;
+            height: 80px;
+            fill: var(--ev-blue);
+        }
+
+        .placeholder-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5rem;
+            color: var(--ev-black);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .placeholder-text {
+            color: var(--ev-gray);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .placeholder-cta {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--ev-blue);
+            color: var(--ev-white);
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            border: 2px solid var(--ev-blue);
+        }
+
+        .placeholder-cta:hover {
+            background: transparent;
+            color: var(--ev-blue);
         }
 
         /* Footer */
@@ -743,18 +930,76 @@
                     <p>Fundierte Marktanalysen und präzise Immobilienbewertungen durch unsere erfahrenen Experten.</p>
                     <div class="service-price">Auf Anfrage</div>
                 </div>
-                <div class="service-card" onclick="window.location.href='service-zusammenarbeit.html'">
+                <div class="service-card" onclick="window.location.href='service-makeln.html'">
                     <div class="service-icon">
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                         </svg>
                     </div>
-                    <h3>Zusammenarbeit mit Fachstellen</h3>
-                    <p>Kooperation mit Maklern, Architekten und weiteren Fachstellen für umfassende Lösungen.</p>
+                    <h3>Makeln und Vermitteln von Immobilien</h3>
+                    <p>Professionelle Immobilienvermittlung mit persönlichem Service für optimale Ergebnisse.</p>
                     <div class="service-price">Auf Anfrage</div>
                 </div>
             </div>
             <button class="carousel-control next" onclick="scrollCarousel('right')" aria-label="Nächste Dienstleistungen">›</button>
+        </div>
+    </section>
+
+    <!-- Properties Section -->
+    <section class="properties">
+        <h2 class="section-title">Aktuelle Immobilien</h2>
+        <p class="section-subtitle">Entdecken Sie unsere ausgewählten Objekte</p>
+        
+        <div class="properties-carousel-container">
+            <button class="carousel-control prev" onclick="scrollPropertiesCarousel('left')" aria-label="Vorherige Immobilien">‹</button>
+            <div class="properties-carousel">
+                <!-- Café & Shop Bazenheid -->
+                <div class="property-card" onclick="window.location.href='property-detail-cafe.html'">
+                    <div class="property-image-container">
+                        <span class="property-badge">Geschäftsübernahme</span>
+                        <img src="images/IMG_0935.jpeg" alt="Café & Shop Bazenheid">
+                    </div>
+                    <div class="property-info">
+                        <div class="property-price">Auf Anfrage</div>
+                        <div class="property-price-detail">Geschäftsübernahme</div>
+                        <div class="property-location">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                            <span>Wilerstrasse 7, 9602 Bazenheid</span>
+                        </div>
+                        <h3 class="property-title">Vielseitiges Café & Shop Lokal</h3>
+                    </div>
+                </div>
+
+                <!-- Parkplatz Pfäffikon -->
+                <div class="property-card" onclick="window.location.href='property-detail.html'">
+                    <div class="property-image-container">
+                        <span class="property-badge">Zu vermieten</span>
+                        <img src="images/parkplatz Pfäffikon 5.jpg" alt="Parkplatz Pfäffikon">
+                    </div>
+                    <div class="property-info">
+                        <div class="property-price">CHF 60.–</div>
+                        <div class="property-price-detail">pro Monat, inkl. Nebenkosten</div>
+                        <div class="property-location">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                            <span>Tumbelenstrasse 60, 8330 Pfäffikon ZH</span>
+                        </div>
+                        <h3 class="property-title">Parkplatz in privater Tiefgarage</h3>
+                    </div>
+                </div>
+
+                <!-- Placeholder Card -->
+                <div class="property-card-placeholder" onclick="window.location.href='service-makeln.html'">
+                    <div class="placeholder-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                    </div>
+                    <h3 class="placeholder-title">Hier könnte Ihre Immobilie sein</h3>
+                    <p class="placeholder-text">Wir makeln und vermitteln auch Immobilien. Lassen Sie uns Ihre Immobilie erfolgreich vermarkten.</p>
+                    <span class="placeholder-cta">MEHR ERFAHREN</span>
+                </div>
+            </div>
+            <button class="carousel-control next" onclick="scrollPropertiesCarousel('right')" aria-label="Nächste Immobilien">›</button>
         </div>
     </section>
 
@@ -908,6 +1153,137 @@
             carousel.scrollLeft = 1; // Start slightly offset
             
             startAutoScroll();
+        });
+
+        // Properties Carousel functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const propertiesCarousel = document.querySelector('.properties-carousel');
+            if (!propertiesCarousel) return;
+            
+            let isAutoScrollingProps = true;
+            let autoScrollIntervalProps;
+            
+            // Clone cards for infinite scroll effect
+            const propCards = Array.from(propertiesCarousel.querySelectorAll('.property-card, .property-card-placeholder'));
+            propCards.forEach(card => {
+                const clone = card.cloneNode(true);
+                // Re-attach click handlers for cloned elements
+                if (card.classList.contains('property-card')) {
+                    clone.onclick = card.onclick;
+                } else if (card.classList.contains('property-card-placeholder')) {
+                    clone.onclick = card.onclick;
+                }
+                propertiesCarousel.appendChild(clone);
+            });
+
+            function scrollPropertiesCarousel(direction) {
+                const scrollAmount = 400;
+                if (direction === 'left') {
+                    propertiesCarousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                } else {
+                    propertiesCarousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                }
+                pauseAutoScrollProps();
+                checkInfiniteScrollProps();
+            }
+            
+            function checkInfiniteScrollProps() {
+                const scrollWidth = propertiesCarousel.scrollWidth;
+                const clientWidth = propertiesCarousel.clientWidth;
+                const scrollLeft = propertiesCarousel.scrollLeft;
+                const halfPoint = scrollWidth / 2;
+                
+                if (scrollLeft >= halfPoint - clientWidth) {
+                    propertiesCarousel.scrollLeft = scrollLeft - halfPoint;
+                }
+                else if (scrollLeft <= 0) {
+                    propertiesCarousel.scrollLeft = halfPoint;
+                }
+            }
+
+            function autoScrollProps() {
+                if (!isAutoScrollingProps) return;
+                
+                propertiesCarousel.scrollBy({ left: 1, behavior: 'auto' });
+                checkInfiniteScrollProps();
+            }
+
+            function pauseAutoScrollProps() {
+                isAutoScrollingProps = false;
+                clearInterval(autoScrollIntervalProps);
+                setTimeout(() => {
+                    isAutoScrollingProps = true;
+                    startAutoScrollProps();
+                }, 5000);
+            }
+
+            function startAutoScrollProps() {
+                clearInterval(autoScrollIntervalProps);
+                autoScrollIntervalProps = setInterval(autoScrollProps, 30);
+            }
+
+            // Touch/swipe support
+            let startXProps = 0;
+            let scrollLeftProps = 0;
+
+            propertiesCarousel.addEventListener('touchstart', (e) => {
+                startXProps = e.touches[0].pageX - propertiesCarousel.offsetLeft;
+                scrollLeftProps = propertiesCarousel.scrollLeft;
+                pauseAutoScrollProps();
+            });
+
+            propertiesCarousel.addEventListener('touchmove', (e) => {
+                const x = e.touches[0].pageX - propertiesCarousel.offsetLeft;
+                const walk = (x - startXProps) * 2;
+                propertiesCarousel.scrollLeft = scrollLeftProps - walk;
+            });
+            
+            propertiesCarousel.addEventListener('touchend', () => {
+                checkInfiniteScrollProps();
+            });
+
+            // Mouse drag support
+            let isDownProps = false;
+            let startMouseXProps;
+            let scrollLeftMouseProps;
+
+            propertiesCarousel.addEventListener('mousedown', (e) => {
+                isDownProps = true;
+                propertiesCarousel.style.cursor = 'grabbing';
+                startMouseXProps = e.pageX - propertiesCarousel.offsetLeft;
+                scrollLeftMouseProps = propertiesCarousel.scrollLeft;
+                pauseAutoScrollProps();
+            });
+
+            propertiesCarousel.addEventListener('mouseleave', () => {
+                isDownProps = false;
+                propertiesCarousel.style.cursor = 'grab';
+                if (scrollLeftMouseProps !== propertiesCarousel.scrollLeft) {
+                    checkInfiniteScrollProps();
+                }
+            });
+
+            propertiesCarousel.addEventListener('mouseup', () => {
+                isDownProps = false;
+                propertiesCarousel.style.cursor = 'grab';
+                checkInfiniteScrollProps();
+            });
+
+            propertiesCarousel.addEventListener('mousemove', (e) => {
+                if (!isDownProps) return;
+                e.preventDefault();
+                const x = e.pageX - propertiesCarousel.offsetLeft;
+                const walk = (x - startMouseXProps) * 2;
+                propertiesCarousel.scrollLeft = scrollLeftMouseProps - walk;
+            });
+
+            // Make function globally available
+            window.scrollPropertiesCarousel = scrollPropertiesCarousel;
+
+            // Start auto-scroll
+            propertiesCarousel.style.cursor = 'grab';
+            propertiesCarousel.scrollLeft = 1;
+            startAutoScrollProps();
         });
         
         // Intersection Observer for scroll animations
