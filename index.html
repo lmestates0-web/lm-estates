@@ -194,7 +194,6 @@
             background-size: cover;
             background-position: center 40%;
             background-repeat: no-repeat;
-            background-attachment: fixed;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -202,26 +201,6 @@
             color: white;
             position: relative;
             overflow: hidden;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: inherit;
-            animation: zoomIn 20s ease-in-out infinite alternate;
-        }
-        
-        @keyframes zoomIn {
-            from {
-                transform: scale(1);
-            }
-            to {
-                transform: scale(1.1);
-            }
         }
 
         .hero-content {
@@ -467,6 +446,22 @@
             padding: 6rem 5%;
             background: var(--ev-white);
             overflow: hidden;
+        }
+        
+        .properties .section-title {
+            text-align: left;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 60px;
+        }
+        
+        .properties .section-subtitle {
+            text-align: left;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 60px;
         }
 
         .properties-carousel-container {
@@ -1562,15 +1557,6 @@
         if (servicesSection) {
             observer.observe(servicesSection);
         }
-        
-        // Add parallax effect to hero
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            if (hero && scrolled < window.innerHeight) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-            }
-        });
     </script>
 </body>
 </html>
