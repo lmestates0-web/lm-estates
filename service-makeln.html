@@ -186,6 +186,12 @@
             margin-bottom: 1rem;
         }
 
+        .service-icon-large svg {
+            width: 80px;
+            height: 80px;
+            fill: white;
+        }
+
         .service-header h1 {
             font-size: 2.8rem;
             font-weight: 400;
@@ -210,6 +216,11 @@
 
         .service-price-box:hover {
             background: var(--ev-blue-hover);
+        }
+
+        .service-price-box:focus {
+            outline: 2px solid var(--ev-white);
+            outline-offset: 2px;
         }
 
         .price-label {
@@ -622,14 +633,14 @@
         <div class="service-header-content">
             <div>
                 <div class="service-icon-large">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 80px; height: 80px; fill: white;">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                     </svg>
                 </div>
                 <h1>Makeln und Vermitteln von Immobilien</h1>
                 <p class="service-tagline">Professionelle Immobilienvermittlung mit persönlichem Service</p>
             </div>
-            <div class="service-price-box" onclick="scrollToContact()">
+            <div class="service-price-box" onclick="scrollToContact()" tabindex="0" onkeypress="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); scrollToContact(); }" role="button" aria-label="Zum Kontaktformular springen">
                 <div class="price-label">Preis</div>
                 <div class="price-value">Auf Anfrage</div>
             </div>
