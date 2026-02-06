@@ -809,22 +809,51 @@
             }
 
             .service-card {
-                flex: 0 0 180px;
-                padding: 1.5rem 1rem;
+                flex: 0 0 150px;
+                padding: 1.2rem 0.8rem;
             }
             
             .service-icon svg {
-                width: 45px;
-                height: 45px;
+                width: 40px;
+                height: 40px;
             }
             
             .service-card h3 {
-                font-size: 1.1rem;
+                font-size: 1rem;
                 min-height: auto;
             }
             
             .service-card p {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
+            }
+            
+            .properties-carousel-container {
+                padding: 0 50px;
+            }
+            
+            .property-card {
+                flex: 0 0 240px;
+            }
+            
+            .property-image-container {
+                height: 180px;
+            }
+            
+            .property-info {
+                padding: 1rem;
+            }
+            
+            .property-info h3 {
+                font-size: 1.1rem;
+            }
+            
+            .property-price {
+                font-size: 1rem;
+            }
+            
+            .property-location,
+            .property-specs {
+                font-size: 0.85rem;
             }
         }
     </style>
@@ -1087,59 +1116,156 @@
                 autoScrollInterval = setInterval(autoScroll, 30);
             }
 
-            // Touch/swipe support for mobile
+            // Touch/swipe support for mobile with momentum
             let startX = 0;
             let scrollLeft = 0;
+            let lastX = 0;
+            let lastTime = 0;
+            let velocityX = 0;
+            let momentumAnimation = null;
 
             carousel.addEventListener('touchstart', (e) => {
                 startX = e.touches[0].pageX - carousel.offsetLeft;
                 scrollLeft = carousel.scrollLeft;
+                lastX = startX;
+                lastTime = Date.now();
+                velocityX = 0;
+                if (momentumAnimation) {
+                    cancelAnimationFrame(momentumAnimation);
+                    momentumAnimation = null;
+                }
                 pauseAutoScroll();
             });
 
             carousel.addEventListener('touchmove', (e) => {
                 const x = e.touches[0].pageX - carousel.offsetLeft;
-                const walk = (x - startX) * 2;
+                const walk = (x - startX) * 3; // Increased multiplier for faster response
                 carousel.scrollLeft = scrollLeft - walk;
+                
+                // Track velocity
+                const now = Date.now();
+                const dt = now - lastTime;
+                if (dt > 0) {
+                    velocityX = (x - lastX) / dt;
+                }
+                lastX = x;
+                lastTime = now;
             });
             
             carousel.addEventListener('touchend', () => {
                 checkInfiniteScroll();
+                
+                // Apply momentum scrolling
+                if (Math.abs(velocityX) > 0.1) {
+                    let currentVelocity = velocityX * -600; // Convert to pixels per second
+                    const deceleration = 0.95; // Deceleration factor
+                    
+                    const animate = () => {
+                        currentVelocity *= deceleration;
+                        carousel.scrollLeft += currentVelocity / 60; // 60fps
+                        
+                        if (Math.abs(currentVelocity) > 0.5) {
+                            momentumAnimation = requestAnimationFrame(animate);
+                        } else {
+                            checkInfiniteScroll();
+                        }
+                    };
+                    animate();
+                }
             });
 
-            // Mouse drag support for desktop
+            // Mouse drag support for desktop with momentum
             let isDown = false;
             let startMouseX;
             let scrollLeftMouse;
+            let lastMouseX = 0;
+            let lastMouseTime = 0;
+            let velocityMouseX = 0;
+            let momentumMouseAnimation = null;
 
             carousel.addEventListener('mousedown', (e) => {
                 isDown = true;
                 carousel.style.cursor = 'grabbing';
                 startMouseX = e.pageX - carousel.offsetLeft;
                 scrollLeftMouse = carousel.scrollLeft;
+                lastMouseX = startMouseX;
+                lastMouseTime = Date.now();
+                velocityMouseX = 0;
+                if (momentumMouseAnimation) {
+                    cancelAnimationFrame(momentumMouseAnimation);
+                    momentumMouseAnimation = null;
+                }
                 pauseAutoScroll();
             });
 
             carousel.addEventListener('mouseleave', () => {
-                isDown = false;
-                carousel.style.cursor = 'grab';
-                if (scrollLeftMouse !== carousel.scrollLeft) {
-                    checkInfiniteScroll();
+                if (isDown) {
+                    isDown = false;
+                    carousel.style.cursor = 'grab';
+                    
+                    // Apply momentum on mouse leave if dragging
+                    if (Math.abs(velocityMouseX) > 0.1) {
+                        let currentVelocity = velocityMouseX * -600;
+                        const deceleration = 0.95;
+                        
+                        const animate = () => {
+                            currentVelocity *= deceleration;
+                            carousel.scrollLeft += currentVelocity / 60;
+                            
+                            if (Math.abs(currentVelocity) > 0.5) {
+                                momentumMouseAnimation = requestAnimationFrame(animate);
+                            } else {
+                                checkInfiniteScroll();
+                            }
+                        };
+                        animate();
+                    } else {
+                        checkInfiniteScroll();
+                    }
                 }
             });
 
             carousel.addEventListener('mouseup', () => {
+                const wasDown = isDown;
                 isDown = false;
                 carousel.style.cursor = 'grab';
-                checkInfiniteScroll();
+                
+                // Apply momentum on mouse up
+                if (wasDown && Math.abs(velocityMouseX) > 0.1) {
+                    let currentVelocity = velocityMouseX * -600;
+                    const deceleration = 0.95;
+                    
+                    const animate = () => {
+                        currentVelocity *= deceleration;
+                        carousel.scrollLeft += currentVelocity / 60;
+                        
+                        if (Math.abs(currentVelocity) > 0.5) {
+                            momentumMouseAnimation = requestAnimationFrame(animate);
+                        } else {
+                            checkInfiniteScroll();
+                        }
+                    };
+                    animate();
+                } else {
+                    checkInfiniteScroll();
+                }
             });
 
             carousel.addEventListener('mousemove', (e) => {
                 if (!isDown) return;
                 e.preventDefault();
                 const x = e.pageX - carousel.offsetLeft;
-                const walk = (x - startMouseX) * 2;
+                const walk = (x - startMouseX) * 3; // Increased multiplier for faster response
                 carousel.scrollLeft = scrollLeftMouse - walk;
+                
+                // Track velocity
+                const now = Date.now();
+                const dt = now - lastMouseTime;
+                if (dt > 0) {
+                    velocityMouseX = (x - lastMouseX) / dt;
+                }
+                lastMouseX = x;
+                lastMouseTime = now;
             });
 
             // Make scrollCarousel function globally available
@@ -1222,59 +1348,156 @@
                 autoScrollIntervalProps = setInterval(autoScrollProps, 30);
             }
 
-            // Touch/swipe support
+            // Touch/swipe support with momentum
             let startXProps = 0;
             let scrollLeftProps = 0;
+            let lastXProps = 0;
+            let lastTimeProps = 0;
+            let velocityXProps = 0;
+            let momentumAnimationProps = null;
 
             propertiesCarousel.addEventListener('touchstart', (e) => {
                 startXProps = e.touches[0].pageX - propertiesCarousel.offsetLeft;
                 scrollLeftProps = propertiesCarousel.scrollLeft;
+                lastXProps = startXProps;
+                lastTimeProps = Date.now();
+                velocityXProps = 0;
+                if (momentumAnimationProps) {
+                    cancelAnimationFrame(momentumAnimationProps);
+                    momentumAnimationProps = null;
+                }
                 pauseAutoScrollProps();
             });
 
             propertiesCarousel.addEventListener('touchmove', (e) => {
                 const x = e.touches[0].pageX - propertiesCarousel.offsetLeft;
-                const walk = (x - startXProps) * 2;
+                const walk = (x - startXProps) * 3; // Increased multiplier for faster response
                 propertiesCarousel.scrollLeft = scrollLeftProps - walk;
+                
+                // Track velocity
+                const now = Date.now();
+                const dt = now - lastTimeProps;
+                if (dt > 0) {
+                    velocityXProps = (x - lastXProps) / dt;
+                }
+                lastXProps = x;
+                lastTimeProps = now;
             });
             
             propertiesCarousel.addEventListener('touchend', () => {
                 checkInfiniteScrollProps();
+                
+                // Apply momentum scrolling
+                if (Math.abs(velocityXProps) > 0.1) {
+                    let currentVelocity = velocityXProps * -600;
+                    const deceleration = 0.95;
+                    
+                    const animate = () => {
+                        currentVelocity *= deceleration;
+                        propertiesCarousel.scrollLeft += currentVelocity / 60;
+                        
+                        if (Math.abs(currentVelocity) > 0.5) {
+                            momentumAnimationProps = requestAnimationFrame(animate);
+                        } else {
+                            checkInfiniteScrollProps();
+                        }
+                    };
+                    animate();
+                }
             });
 
-            // Mouse drag support
+            // Mouse drag support with momentum
             let isDownProps = false;
             let startMouseXProps;
             let scrollLeftMouseProps;
+            let lastMouseXProps = 0;
+            let lastMouseTimeProps = 0;
+            let velocityMouseXProps = 0;
+            let momentumMouseAnimationProps = null;
 
             propertiesCarousel.addEventListener('mousedown', (e) => {
                 isDownProps = true;
                 propertiesCarousel.style.cursor = 'grabbing';
                 startMouseXProps = e.pageX - propertiesCarousel.offsetLeft;
                 scrollLeftMouseProps = propertiesCarousel.scrollLeft;
+                lastMouseXProps = startMouseXProps;
+                lastMouseTimeProps = Date.now();
+                velocityMouseXProps = 0;
+                if (momentumMouseAnimationProps) {
+                    cancelAnimationFrame(momentumMouseAnimationProps);
+                    momentumMouseAnimationProps = null;
+                }
                 pauseAutoScrollProps();
             });
 
             propertiesCarousel.addEventListener('mouseleave', () => {
-                isDownProps = false;
-                propertiesCarousel.style.cursor = 'grab';
-                if (scrollLeftMouseProps !== propertiesCarousel.scrollLeft) {
-                    checkInfiniteScrollProps();
+                if (isDownProps) {
+                    isDownProps = false;
+                    propertiesCarousel.style.cursor = 'grab';
+                    
+                    // Apply momentum on mouse leave if dragging
+                    if (Math.abs(velocityMouseXProps) > 0.1) {
+                        let currentVelocity = velocityMouseXProps * -600;
+                        const deceleration = 0.95;
+                        
+                        const animate = () => {
+                            currentVelocity *= deceleration;
+                            propertiesCarousel.scrollLeft += currentVelocity / 60;
+                            
+                            if (Math.abs(currentVelocity) > 0.5) {
+                                momentumMouseAnimationProps = requestAnimationFrame(animate);
+                            } else {
+                                checkInfiniteScrollProps();
+                            }
+                        };
+                        animate();
+                    } else {
+                        checkInfiniteScrollProps();
+                    }
                 }
             });
 
             propertiesCarousel.addEventListener('mouseup', () => {
+                const wasDown = isDownProps;
                 isDownProps = false;
                 propertiesCarousel.style.cursor = 'grab';
-                checkInfiniteScrollProps();
+                
+                // Apply momentum on mouse up
+                if (wasDown && Math.abs(velocityMouseXProps) > 0.1) {
+                    let currentVelocity = velocityMouseXProps * -600;
+                    const deceleration = 0.95;
+                    
+                    const animate = () => {
+                        currentVelocity *= deceleration;
+                        propertiesCarousel.scrollLeft += currentVelocity / 60;
+                        
+                        if (Math.abs(currentVelocity) > 0.5) {
+                            momentumMouseAnimationProps = requestAnimationFrame(animate);
+                        } else {
+                            checkInfiniteScrollProps();
+                        }
+                    };
+                    animate();
+                } else {
+                    checkInfiniteScrollProps();
+                }
             });
 
             propertiesCarousel.addEventListener('mousemove', (e) => {
                 if (!isDownProps) return;
                 e.preventDefault();
                 const x = e.pageX - propertiesCarousel.offsetLeft;
-                const walk = (x - startMouseXProps) * 2;
+                const walk = (x - startMouseXProps) * 3; // Increased multiplier for faster response
                 propertiesCarousel.scrollLeft = scrollLeftMouseProps - walk;
+                
+                // Track velocity
+                const now = Date.now();
+                const dt = now - lastMouseTimeProps;
+                if (dt > 0) {
+                    velocityMouseXProps = (x - lastMouseXProps) / dt;
+                }
+                lastMouseXProps = x;
+                lastMouseTimeProps = now;
             });
 
             // Make function globally available
