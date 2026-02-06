@@ -1533,22 +1533,29 @@
             window.scrollPropertiesCarousel = scrollPropertiesCarousel;
 
             // Add keyboard navigation for properties carousel
+            let isHoveringProperties = false;
+            
+            const propertiesContainer = document.querySelector('.properties-carousel-container');
+            if (propertiesContainer) {
+                propertiesContainer.addEventListener('mouseenter', () => {
+                    isHoveringProperties = true;
+                });
+                
+                propertiesContainer.addEventListener('mouseleave', () => {
+                    isHoveringProperties = false;
+                });
+            }
+            
             document.addEventListener('keydown', (e) => {
-                // Check if we're in the properties section or focus is on properties carousel
-                const propertiesSection = document.querySelector('.properties');
-                if (!propertiesSection) return;
+                // Only handle arrow keys when hovering over the properties carousel
+                if (!isHoveringProperties) return;
                 
-                const rect = propertiesSection.getBoundingClientRect();
-                const isInView = rect.top < window.innerHeight && rect.bottom > 0;
-                
-                if (isInView) {
-                    if (e.key === 'ArrowLeft') {
-                        e.preventDefault();
-                        scrollPropertiesCarousel('left');
-                    } else if (e.key === 'ArrowRight') {
-                        e.preventDefault();
-                        scrollPropertiesCarousel('right');
-                    }
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    scrollPropertiesCarousel('left');
+                } else if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    scrollPropertiesCarousel('right');
                 }
             });
 
