@@ -1053,6 +1053,13 @@
     </footer>
 
     <script>
+        // Momentum scrolling configuration constants
+        const DRAG_MULTIPLIER = 3;
+        const VELOCITY_MULTIPLIER = -600;
+        const DECELERATION_RATE = 0.95;
+        const MIN_VELOCITY_THRESHOLD = 0.1;
+        const MIN_MOMENTUM_SPEED = 0.5;
+
         // Services Carousel functionality
         document.addEventListener('DOMContentLoaded', function() {
             const carousel = document.querySelector('.services-carousel');
@@ -1139,7 +1146,7 @@
 
             carousel.addEventListener('touchmove', (e) => {
                 const x = e.touches[0].pageX - carousel.offsetLeft;
-                const walk = (x - startX) * 3; // Increased multiplier for faster response
+                const walk = (x - startX) * DRAG_MULTIPLIER;
                 carousel.scrollLeft = scrollLeft - walk;
                 
                 // Track velocity
@@ -1155,16 +1162,20 @@
             carousel.addEventListener('touchend', () => {
                 checkInfiniteScroll();
                 
-                // Apply momentum scrolling
-                if (Math.abs(velocityX) > 0.1) {
-                    let currentVelocity = velocityX * -600; // Convert to pixels per second
-                    const deceleration = 0.95; // Deceleration factor
+                // Apply momentum scrolling with frame-rate independent animation
+                if (Math.abs(velocityX) > MIN_VELOCITY_THRESHOLD) {
+                    let currentVelocity = velocityX * VELOCITY_MULTIPLIER;
+                    let lastFrameTime = Date.now();
                     
                     const animate = () => {
-                        currentVelocity *= deceleration;
-                        carousel.scrollLeft += currentVelocity / 60; // 60fps
+                        const now = Date.now();
+                        const deltaTime = (now - lastFrameTime) / 1000; // Convert to seconds
+                        lastFrameTime = now;
                         
-                        if (Math.abs(currentVelocity) > 0.5) {
+                        currentVelocity *= DECELERATION_RATE;
+                        carousel.scrollLeft += currentVelocity * deltaTime;
+                        
+                        if (Math.abs(currentVelocity) > MIN_MOMENTUM_SPEED) {
                             momentumAnimation = requestAnimationFrame(animate);
                         } else {
                             checkInfiniteScroll();
@@ -1204,15 +1215,19 @@
                     carousel.style.cursor = 'grab';
                     
                     // Apply momentum on mouse leave if dragging
-                    if (Math.abs(velocityMouseX) > 0.1) {
-                        let currentVelocity = velocityMouseX * -600;
-                        const deceleration = 0.95;
+                    if (Math.abs(velocityMouseX) > MIN_VELOCITY_THRESHOLD) {
+                        let currentVelocity = velocityMouseX * VELOCITY_MULTIPLIER;
+                        let lastFrameTime = Date.now();
                         
                         const animate = () => {
-                            currentVelocity *= deceleration;
-                            carousel.scrollLeft += currentVelocity / 60;
+                            const now = Date.now();
+                            const deltaTime = (now - lastFrameTime) / 1000;
+                            lastFrameTime = now;
                             
-                            if (Math.abs(currentVelocity) > 0.5) {
+                            currentVelocity *= DECELERATION_RATE;
+                            carousel.scrollLeft += currentVelocity * deltaTime;
+                            
+                            if (Math.abs(currentVelocity) > MIN_MOMENTUM_SPEED) {
                                 momentumMouseAnimation = requestAnimationFrame(animate);
                             } else {
                                 checkInfiniteScroll();
@@ -1231,15 +1246,19 @@
                 carousel.style.cursor = 'grab';
                 
                 // Apply momentum on mouse up
-                if (wasDown && Math.abs(velocityMouseX) > 0.1) {
-                    let currentVelocity = velocityMouseX * -600;
-                    const deceleration = 0.95;
+                if (wasDown && Math.abs(velocityMouseX) > MIN_VELOCITY_THRESHOLD) {
+                    let currentVelocity = velocityMouseX * VELOCITY_MULTIPLIER;
+                    let lastFrameTime = Date.now();
                     
                     const animate = () => {
-                        currentVelocity *= deceleration;
-                        carousel.scrollLeft += currentVelocity / 60;
+                        const now = Date.now();
+                        const deltaTime = (now - lastFrameTime) / 1000;
+                        lastFrameTime = now;
                         
-                        if (Math.abs(currentVelocity) > 0.5) {
+                        currentVelocity *= DECELERATION_RATE;
+                        carousel.scrollLeft += currentVelocity * deltaTime;
+                        
+                        if (Math.abs(currentVelocity) > MIN_MOMENTUM_SPEED) {
                             momentumMouseAnimation = requestAnimationFrame(animate);
                         } else {
                             checkInfiniteScroll();
@@ -1255,7 +1274,7 @@
                 if (!isDown) return;
                 e.preventDefault();
                 const x = e.pageX - carousel.offsetLeft;
-                const walk = (x - startMouseX) * 3; // Increased multiplier for faster response
+                const walk = (x - startMouseX) * DRAG_MULTIPLIER;
                 carousel.scrollLeft = scrollLeftMouse - walk;
                 
                 // Track velocity
@@ -1371,7 +1390,7 @@
 
             propertiesCarousel.addEventListener('touchmove', (e) => {
                 const x = e.touches[0].pageX - propertiesCarousel.offsetLeft;
-                const walk = (x - startXProps) * 3; // Increased multiplier for faster response
+                const walk = (x - startXProps) * DRAG_MULTIPLIER;
                 propertiesCarousel.scrollLeft = scrollLeftProps - walk;
                 
                 // Track velocity
@@ -1387,16 +1406,20 @@
             propertiesCarousel.addEventListener('touchend', () => {
                 checkInfiniteScrollProps();
                 
-                // Apply momentum scrolling
-                if (Math.abs(velocityXProps) > 0.1) {
-                    let currentVelocity = velocityXProps * -600;
-                    const deceleration = 0.95;
+                // Apply momentum scrolling with frame-rate independent animation
+                if (Math.abs(velocityXProps) > MIN_VELOCITY_THRESHOLD) {
+                    let currentVelocity = velocityXProps * VELOCITY_MULTIPLIER;
+                    let lastFrameTime = Date.now();
                     
                     const animate = () => {
-                        currentVelocity *= deceleration;
-                        propertiesCarousel.scrollLeft += currentVelocity / 60;
+                        const now = Date.now();
+                        const deltaTime = (now - lastFrameTime) / 1000;
+                        lastFrameTime = now;
                         
-                        if (Math.abs(currentVelocity) > 0.5) {
+                        currentVelocity *= DECELERATION_RATE;
+                        propertiesCarousel.scrollLeft += currentVelocity * deltaTime;
+                        
+                        if (Math.abs(currentVelocity) > MIN_MOMENTUM_SPEED) {
                             momentumAnimationProps = requestAnimationFrame(animate);
                         } else {
                             checkInfiniteScrollProps();
@@ -1436,15 +1459,19 @@
                     propertiesCarousel.style.cursor = 'grab';
                     
                     // Apply momentum on mouse leave if dragging
-                    if (Math.abs(velocityMouseXProps) > 0.1) {
-                        let currentVelocity = velocityMouseXProps * -600;
-                        const deceleration = 0.95;
+                    if (Math.abs(velocityMouseXProps) > MIN_VELOCITY_THRESHOLD) {
+                        let currentVelocity = velocityMouseXProps * VELOCITY_MULTIPLIER;
+                        let lastFrameTime = Date.now();
                         
                         const animate = () => {
-                            currentVelocity *= deceleration;
-                            propertiesCarousel.scrollLeft += currentVelocity / 60;
+                            const now = Date.now();
+                            const deltaTime = (now - lastFrameTime) / 1000;
+                            lastFrameTime = now;
                             
-                            if (Math.abs(currentVelocity) > 0.5) {
+                            currentVelocity *= DECELERATION_RATE;
+                            propertiesCarousel.scrollLeft += currentVelocity * deltaTime;
+                            
+                            if (Math.abs(currentVelocity) > MIN_MOMENTUM_SPEED) {
                                 momentumMouseAnimationProps = requestAnimationFrame(animate);
                             } else {
                                 checkInfiniteScrollProps();
@@ -1463,15 +1490,19 @@
                 propertiesCarousel.style.cursor = 'grab';
                 
                 // Apply momentum on mouse up
-                if (wasDown && Math.abs(velocityMouseXProps) > 0.1) {
-                    let currentVelocity = velocityMouseXProps * -600;
-                    const deceleration = 0.95;
+                if (wasDown && Math.abs(velocityMouseXProps) > MIN_VELOCITY_THRESHOLD) {
+                    let currentVelocity = velocityMouseXProps * VELOCITY_MULTIPLIER;
+                    let lastFrameTime = Date.now();
                     
                     const animate = () => {
-                        currentVelocity *= deceleration;
-                        propertiesCarousel.scrollLeft += currentVelocity / 60;
+                        const now = Date.now();
+                        const deltaTime = (now - lastFrameTime) / 1000;
+                        lastFrameTime = now;
                         
-                        if (Math.abs(currentVelocity) > 0.5) {
+                        currentVelocity *= DECELERATION_RATE;
+                        propertiesCarousel.scrollLeft += currentVelocity * deltaTime;
+                        
+                        if (Math.abs(currentVelocity) > MIN_MOMENTUM_SPEED) {
                             momentumMouseAnimationProps = requestAnimationFrame(animate);
                         } else {
                             checkInfiniteScrollProps();
@@ -1487,7 +1518,7 @@
                 if (!isDownProps) return;
                 e.preventDefault();
                 const x = e.pageX - propertiesCarousel.offsetLeft;
-                const walk = (x - startMouseXProps) * 3; // Increased multiplier for faster response
+                const walk = (x - startMouseXProps) * DRAG_MULTIPLIER;
                 propertiesCarousel.scrollLeft = scrollLeftMouseProps - walk;
                 
                 // Track velocity
