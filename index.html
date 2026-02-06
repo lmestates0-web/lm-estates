@@ -300,6 +300,7 @@
         .services {
             padding: 6rem 5%;
             background: var(--ev-gray-light);
+            overflow: hidden;
         }
 
         .section-title {
@@ -322,49 +323,81 @@
             animation: fadeInUp 0.5s ease-out 0.1s forwards;
         }
 
-        .services-grid {
-            max-width: 1200px;
+        .services-carousel-container {
+            position: relative;
+            max-width: 1400px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
+            padding: 0 60px;
+        }
+
+        .services-carousel {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding: 1rem 0;
+        }
+
+        .services-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--ev-white);
+            border: 1px solid var(--ev-gray-light);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 2rem;
+            color: var(--ev-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .carousel-control:hover {
+            background: var(--ev-blue);
+            color: var(--ev-white);
+            box-shadow: 0 4px 20px rgba(0,40,85,0.3);
+        }
+
+        .carousel-control.prev {
+            left: 0;
+        }
+
+        .carousel-control.next {
+            right: 0;
         }
 
         .service-card {
+            flex: 0 0 320px;
             text-align: center;
-            padding: 2rem;
+            padding: 2.5rem 2rem;
             background: var(--ev-white);
-            transition: transform 0.3s, box-shadow 0.3s;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.4s ease-out forwards;
-        }
-        
-        .service-card:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-        
-        .service-card:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-        
-        .service-card:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-        
-        .service-card:nth-child(4) {
-            animation-delay: 0.4s;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 1px solid #e5e5e5;
+            scroll-snap-align: start;
         }
 
         .service-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border-color: var(--ev-blue);
         }
 
         .service-icon {
             font-size: 3rem;
             margin-bottom: 1.5rem;
-            color: var(--ev-blue);
             transition: transform 0.3s ease;
             display: inline-block;
         }
@@ -374,16 +407,30 @@
         }
 
         .service-card h3 {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 400;
             margin-bottom: 1rem;
             color: var(--ev-black);
+            min-height: 2.6rem;
         }
 
         .service-card p {
             color: var(--ev-gray);
             font-weight: 300;
             line-height: 1.8;
+            margin-bottom: 1.5rem;
+            min-height: 5.4rem;
+            font-size: 0.95rem;
+        }
+
+        .service-price {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.3rem;
+            color: var(--ev-blue);
+            font-weight: 500;
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e5e5;
         }
 
         /* Footer */
@@ -529,6 +576,20 @@
             .section-title {
                 font-size: 2rem;
             }
+
+            .services-carousel-container {
+                padding: 0 50px;
+            }
+
+            .carousel-control {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+
+            .service-card {
+                flex: 0 0 280px;
+            }
         }
     </style>
 </head>
@@ -578,28 +639,49 @@
     <!-- Services Section -->
     <section class="services">
         <h2 class="section-title">Unsere Dienstleistungen</h2>
-        <p class="section-subtitle">Professionelle Beratung für Ihre Immobilienanliegen</p>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">🏠</div>
-                <h3>Immobilienverkauf</h3>
-                <p>Professionelle Vermarktung Ihrer Immobilie zum optimalen Preis. Wir begleiten Sie von der Bewertung bis zum erfolgreichen Verkauf.</p>
+        <p class="section-subtitle">Flexible Immobilien-Dienstleistungen – direkt buchbar oder auf Anfrage</p>
+        
+        <div class="services-carousel-container">
+            <button class="carousel-control prev" onclick="scrollCarousel('left')" aria-label="Vorherige Dienstleistungen">‹</button>
+            <div class="services-carousel">
+                <div class="service-card" onclick="window.location.href='service-planerstellung.html'">
+                    <div class="service-icon">📐</div>
+                    <h3>Erstellung von Plänen</h3>
+                    <p>Grundrisspläne, einfache Visualisierungen und professionelle Planzeichnungen für Ihre Immobilie.</p>
+                    <div class="service-price">ab CHF 59.–</div>
+                </div>
+                <div class="service-card" onclick="window.location.href='service-anpassungsplaene.html'">
+                    <div class="service-icon">✏️</div>
+                    <h3>Anpassungs- und Optimierungspläne</h3>
+                    <p>Raumanpassungen, kleinere Änderungen und kreative Nutzungsideen für Ihre Räumlichkeiten.</p>
+                    <div class="service-price">ab CHF 39.–</div>
+                </div>
+                <div class="service-card" onclick="window.location.href='service-verkaufskonzepte.html'">
+                    <div class="service-icon">📊</div>
+                    <h3>Verkaufs- und Nutzungskonzepte</h3>
+                    <p>Einfache Verkaufspläne, Präsentations- und Nutzungskonzepte für optimale Vermarktung.</p>
+                    <div class="service-price">ab CHF 49.–</div>
+                </div>
+                <div class="service-card" onclick="window.location.href='service-planungsarbeiten.html'">
+                    <div class="service-icon">📝</div>
+                    <h3>Kleine Planungs- und Konzeptarbeiten</h3>
+                    <p>Kurze, klar definierte Einzelaufträge – schnell und professionell umgesetzt.</p>
+                    <div class="service-price">ab CHF 49.–</div>
+                </div>
+                <div class="service-card" onclick="window.location.href='service-beratung.html'">
+                    <div class="service-icon">🏡</div>
+                    <h3>Beratung und Bewertung von Immobilien</h3>
+                    <p>Fundierte Marktanalysen und präzise Immobilienbewertungen durch unsere erfahrenen Experten.</p>
+                    <div class="service-price">Auf Anfrage</div>
+                </div>
+                <div class="service-card" onclick="window.location.href='service-zusammenarbeit.html'">
+                    <div class="service-icon">🤝</div>
+                    <h3>Zusammenarbeit mit Fachstellen</h3>
+                    <p>Kooperation mit Maklern, Architekten und weiteren Fachstellen für umfassende Lösungen.</p>
+                    <div class="service-price">Auf Anfrage</div>
+                </div>
             </div>
-            <div class="service-card">
-                <div class="service-icon">🔑</div>
-                <h3>Immobilienvermietung</h3>
-                <p>Wir vermitteln Immobilien mit Expertise und persönlichem Service. Wir kümmern uns um Besichtigungen, Verträge und alle administrativen Belange.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">📊</div>
-                <h3>Beratung & Bewertung</h3>
-                <p>Fundierte Marktanalysen und präzise Immobilienbewertungen durch unsere erfahrenen Experten im Deutschschweizer Markt.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🔍</div>
-                <h3>Grundstücks- & Immobilienrecherche für Investoren</h3>
-                <p>Für Investoren mit Kapital, aber wenig Zeit! Wir bieten Baurecht-Check (Zonenplan), Ausnützungsbewertung, Vergleichspreise und eine übersichtliche Zusammenfassung für schnelles Handeln.</p>
-            </div>
+            <button class="carousel-control next" onclick="scrollCarousel('right')" aria-label="Nächste Dienstleistungen">›</button>
         </div>
     </section>
 
@@ -622,5 +704,107 @@
             <p class="footer-copyright">&copy; 2024 LM Estates. Alle Rechte vorbehalten.</p>
         </div>
     </footer>
+
+    <script>
+        // Services Carousel functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const carousel = document.querySelector('.services-carousel');
+            let isAutoScrolling = true;
+            let autoScrollInterval;
+
+            function scrollCarousel(direction) {
+                const scrollAmount = 350;
+                if (direction === 'left') {
+                    carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                } else {
+                    carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                }
+                // Pause auto-scroll when user interacts
+                pauseAutoScroll();
+            }
+
+            function autoScroll() {
+                if (!isAutoScrolling) return;
+                
+                const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+                const currentScroll = carousel.scrollLeft;
+                
+                if (currentScroll >= maxScroll) {
+                    carousel.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    carousel.scrollBy({ left: 1, behavior: 'auto' });
+                }
+            }
+
+            function pauseAutoScroll() {
+                isAutoScrolling = false;
+                clearInterval(autoScrollInterval);
+                // Resume after 5 seconds
+                setTimeout(() => {
+                    isAutoScrolling = true;
+                    startAutoScroll();
+                }, 5000);
+            }
+
+            function startAutoScroll() {
+                clearInterval(autoScrollInterval);
+                autoScrollInterval = setInterval(autoScroll, 30);
+            }
+
+            // Touch/swipe support for mobile
+            let startX = 0;
+            let scrollLeft = 0;
+
+            carousel.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].pageX - carousel.offsetLeft;
+                scrollLeft = carousel.scrollLeft;
+                pauseAutoScroll();
+            });
+
+            carousel.addEventListener('touchmove', (e) => {
+                const x = e.touches[0].pageX - carousel.offsetLeft;
+                const walk = (x - startX) * 2;
+                carousel.scrollLeft = scrollLeft - walk;
+            });
+
+            // Mouse drag support for desktop
+            let isDown = false;
+            let startMouseX;
+            let scrollLeftMouse;
+
+            carousel.addEventListener('mousedown', (e) => {
+                isDown = true;
+                carousel.style.cursor = 'grabbing';
+                startMouseX = e.pageX - carousel.offsetLeft;
+                scrollLeftMouse = carousel.scrollLeft;
+                pauseAutoScroll();
+            });
+
+            carousel.addEventListener('mouseleave', () => {
+                isDown = false;
+                carousel.style.cursor = 'grab';
+            });
+
+            carousel.addEventListener('mouseup', () => {
+                isDown = false;
+                carousel.style.cursor = 'grab';
+            });
+
+            carousel.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - carousel.offsetLeft;
+                const walk = (x - startMouseX) * 2;
+                carousel.scrollLeft = scrollLeftMouse - walk;
+            });
+
+            // Make scrollCarousel function globally available
+            window.scrollCarousel = scrollCarousel;
+
+            // Start auto-scroll
+            carousel.style.cursor = 'grab';
+            startAutoScroll();
+        });
+    </script>
 </body>
 </html>

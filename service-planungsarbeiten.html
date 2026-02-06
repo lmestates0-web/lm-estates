@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="description" content="Kleine Planungs- und Konzeptarbeiten – Klar definierte Einzelaufträge ab CHF 49.– | LM Estates">
+    <title>Kleine Planungs- und Konzeptarbeiten – LM Estates</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ev-blue: #002855;
+            --ev-blue-hover: #001a35;
+            --ev-black: #1a1a1a;
+            --ev-white: #ffffff;
+            --ev-gray-light: #f5f5f5;
+            --ev-gray: #666666;
+            --ev-gray-dark: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--ev-gray-dark);
+            background: var(--ev-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--ev-white);
+            z-index: 1000;
+            border-bottom: 1px solid #eee;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            color: var(--ev-black);
+            text-decoration: none;
+            position: relative;
+            z-index: 1002;
+        }
+
+        .logo::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 3px;
+            background: var(--ev-blue);
+            margin-top: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--ev-gray-dark);
+            font-weight: 400;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--ev-blue);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--ev-blue);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--ev-black);
+            transition: all 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Menu Overlay */
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .menu-overlay.active {
+            display: block;
+        }
+
+        /* Service Header */
+        .service-header {
+            margin-top: 70px;
+            padding: 4rem 5% 3rem;
+            background: var(--ev-black);
+            color: var(--ev-white);
+        }
+
+        .service-header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .service-icon-large {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-header h1 {
+            font-size: 2.8rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: var(--ev-white);
+        }
+
+        .service-tagline {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+        }
+
+        .service-price-box {
+            background: var(--ev-blue);
+            padding: 2rem;
+            text-align: center;
+            min-width: 250px;
+        }
+
+        .price-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+
+        .price-value {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: var(--ev-white);
+        }
+
+        /* Service Content */
+        .service-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 5%;
+        }
+
+        .content-section {
+            margin-bottom: 4rem;
+        }
+
+        .content-section h2 {
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--ev-black);
+            margin-bottom: 1.5rem;
+        }
+
+        .content-section p {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: var(--ev-gray-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .features-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .features-list li {
+            padding: 1rem 0;
+            padding-left: 2.5rem;
+            position: relative;
+            color: var(--ev-gray-dark);
+            font-size: 1.05rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .features-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--ev-blue);
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+
+        .use-cases {
+            background: var(--ev-gray-light);
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .use-cases h3 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--ev-black);
+            margin-bottom: 1.5rem;
+        }
+
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .use-case {
+            background: var(--ev-white);
+            padding: 2rem;
+            border-left: 3px solid var(--ev-blue);
+        }
+
+        .use-case h4 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--ev-black);
+            margin-bottom: 0.8rem;
+        }
+
+        .use-case p {
+            font-size: 0.95rem;
+            color: var(--ev-gray);
+        }
+
+        /* Contact Form Section */
+        .contact-section {
+            background: var(--ev-gray-light);
+            padding: 5rem 5%;
+            margin-top: 3rem;
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-container h2 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--ev-black);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .contact-intro {
+            text-align: center;
+            color: var(--ev-gray);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--ev-gray-dark);
+            font-weight: 400;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            background: var(--ev-white);
+            color: var(--ev-gray-dark);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--ev-blue);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--ev-blue);
+            color: white;
+            border: none;
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-button:hover {
+            background: var(--ev-blue-hover);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--ev-blue);
+            color: var(--ev-white);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-logo-underline {
+            width: 30px;
+            height: 3px;
+            background: var(--ev-white);
+            margin: 0 auto 2rem;
+        }
+
+        .footer-info {
+            margin-bottom: 2rem;
+        }
+
+        .footer-address {
+            font-weight: 400;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-contact {
+            font-weight: 400;
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .footer-contact a {
+            color: var(--ev-white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-contact a:hover {
+            color: var(--ev-black);
+        }
+
+        .footer-links {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a {
+            color: var(--ev-white);
+            text-decoration: none;
+            opacity: 0.8;
+            margin: 0 1rem;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-copyright {
+            font-weight: 400;
+            opacity: 0.6;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .service-header-content {
+                grid-template-columns: 1fr;
+            }
+
+            .service-price-box {
+                margin: 0 auto;
+            }
+
+            .service-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .use-case-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                align-items: flex-end;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 78px;
+                right: -100%;
+                width: 80%;
+                max-width: 320px;
+                height: calc(100vh - 78px);
+                background: var(--ev-white);
+                flex-direction: column;
+                padding: 0 30px 30px;
+                box-shadow: -5px 0 20px rgba(0,0,0,0.15);
+                transition: right 0.3s ease;
+                gap: 0;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                border-bottom: 1px solid #eee;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 15px 0;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">LM ESTATES</a>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="properties.html">Immobilien</a></li>
+                <li><a href="services.html">Dienstleistungen</a></li>
+                <li><a href="about.html">Über uns</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="menu-overlay" onclick="closeMenu()"></div>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.hamburger').classList.toggle('active');
+            document.querySelector('.nav-links').classList.toggle('active');
+            document.querySelector('.menu-overlay').classList.toggle('active');
+        }
+
+        function closeMenu() {
+            document.querySelector('.hamburger').classList.remove('active');
+            document.querySelector('.nav-links').classList.remove('active');
+            document.querySelector('.menu-overlay').classList.remove('active');
+        }
+    </script>
+
+    <!-- Service Header -->
+    <section class="service-header">
+        <div class="service-header-content">
+            <div>
+                <div class="service-icon-large">📝</div>
+                <h1>Kleine Planungs- und Konzeptarbeiten</h1>
+                <p class="service-tagline">Kurze, klar definierte Einzelaufträge – schnell und professionell</p>
+            </div>
+            <div class="service-price-box">
+                <div class="price-label">Preis</div>
+                <div class="price-value">ab CHF 49.–</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Content -->
+    <section class="service-content">
+        <div class="content-section">
+            <h2>Schnelle Lösungen für konkrete Aufgaben</h2>
+            <p>
+                Sie haben eine klar definierte Planungsaufgabe, die professionelle Unterstützung erfordert? Wir übernehmen kleine Planungs- und Konzeptarbeiten schnell, effizient und zu fairen Preisen. Perfekt für Einzelaufträge ohne großen Aufwand.
+            </p>
+        </div>
+
+        <div class="content-section">
+            <h2>Was Sie erhalten</h2>
+            <ul class="features-list">
+                <li>Schnelle Bearbeitung (1-3 Werktage)</li>
+                <li>Klare Preisgestaltung</li>
+                <li>Keine versteckten Kosten</li>
+                <li>Professionelle Qualität</li>
+                <li>Digitale Lieferung</li>
+                <li>Direkte Kommunikation</li>
+            </ul>
+        </div>
+
+        <div class="use-cases">
+            <h3>Anwendungsbeispiele</h3>
+            <div class="use-case-grid">
+                <div class="use-case">
+                    <h4>Raumaufteilung</h4>
+                    <p>Schnelle Ideen für optimale Raumnutzung und Gestaltungsmöglichkeiten.</p>
+                </div>
+                <div class="use-case">
+                    <h4>Möblierungsplan</h4>
+                    <p>Einrichtungsvorschläge für eine funktionale und ansprechende Raumgestaltung.</p>
+                </div>
+                <div class="use-case">
+                    <h4>Parkplatzplanung</h4>
+                    <p>Optimale Parkplatzverteilung für Ihre Immobilie oder Ihr Grundstück.</p>
+                </div>
+                <div class="use-case">
+                    <h4>Außenanlagen</h4>
+                    <p>Einfache Gartenkonzepte und Gestaltungsideen für Außenbereiche.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>So funktioniert's</h2>
+            <p>
+                <strong>1. Anfrage:</strong> Kontaktieren Sie uns über das untenstehende Formular und beschreiben Sie Ihr Vorhaben.<br><br>
+                <strong>2. Offerte:</strong> Sie erhalten von uns eine unverbindliche Offerte mit konkreter Preisangabe und Lieferfrist.<br><br>
+                <strong>3. Auftrag:</strong> Nach Ihrer Bestätigung beginnen wir mit der Erstellung Ihrer Pläne.<br><br>
+                <strong>4. Lieferung:</strong> Sie erhalten Ihre fertigen Pläne in den gewünschten Formaten.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <h2>Jetzt Anfrage stellen</h2>
+            <p class="contact-intro">Füllen Sie das Formular aus und wir melden uns innerhalb von 24 Stunden bei Ihnen.</p>
+            
+            <form id="contactForm" action="https://formspree.io/f/xovopqel" method="POST">
+                <input type="hidden" name="_subject" value="Anfrage: Kleine Planungs- und Konzeptarbeiten">
+                
+                <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-Mail *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Telefon</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+
+                <div class="form-group">
+                    <label for="property-type">Art der Immobilie</label>
+                    <select id="property-type" name="property-type">
+                        <option value="">Bitte wählen</option>
+                        <option value="Wohnung">Wohnung</option>
+                        <option value="Einfamilienhaus">Einfamilienhaus</option>
+                        <option value="Mehrfamilienhaus">Mehrfamilienhaus</option>
+                        <option value="Gewerbeimmobilie">Gewerbeimmobilie</option>
+                        <option value="Grundstück">Grundstück</option>
+                        <option value="Andere">Andere</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Ihre Nachricht *</label>
+                    <textarea id="message" name="message" required placeholder="Beschreiben Sie bitte Ihre konkrete Planungsaufgabe"></textarea>
+                </div>
+
+                <button type="submit" class="submit-button">ANFRAGE SENDEN</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">LM ESTATES</div>
+            <div class="footer-logo-underline"></div>
+            <div class="footer-info">
+                <p class="footer-address">Seestrasse 20, 8802 Kilchberg, Schweiz</p>
+                <p class="footer-contact">
+                    Tel: <a href="tel:+41763046887">076 304 68 87</a> | 
+                    E-Mail: <a href="mailto:lmestates0@gmail.com">lmestates0@gmail.com</a>
+                </p>
+            </div>
+            <div class="footer-links">
+                <a href="datenschutz.html">Datenschutz</a>
+                <a href="cookies.html">Cookies</a>
+            </div>
+            <p class="footer-copyright">&copy; 2024 LM Estates. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+</body>
+</html>
