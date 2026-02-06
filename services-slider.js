@@ -100,15 +100,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-    
-    // Add interactive hover effects to cards
-    cards.forEach(function(card) {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px) scale(1.02)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = '';
-        });
-    });
 });
