@@ -204,6 +204,12 @@
             padding: 2rem;
             text-align: center;
             min-width: 250px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .service-price-box:hover {
+            background: var(--ev-blue-hover);
         }
 
         .price-label {
@@ -560,6 +566,13 @@
             document.querySelector('.nav-links').classList.remove('active');
             document.querySelector('.menu-overlay').classList.remove('active');
         }
+
+        function scrollToContact() {
+            const contactSection = document.querySelector('.contact-section');
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
     </script>
 
     <!-- Service Header -->
@@ -570,7 +583,7 @@
                 <h1>Erstellung von Plänen</h1>
                 <p class="service-tagline">Professionelle Grundrisspläne, Visualisierungen und Planzeichnungen</p>
             </div>
-            <div class="service-price-box">
+            <div class="service-price-box" onclick="scrollToContact()">
                 <div class="price-label">Preis</div>
                 <div class="price-value">ab CHF 59.–</div>
             </div>
