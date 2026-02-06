@@ -1127,6 +1127,7 @@
             function autoScroll() {
                 if (!isAutoScrolling) return;
                 
+                // Scroll right: negative left value moves content to the right
                 carousel.scrollBy({ left: -1, behavior: 'auto' });
                 checkInfiniteScroll();
             }
@@ -1373,6 +1374,7 @@
             function autoScrollProps() {
                 if (!isAutoScrollingProps) return;
                 
+                // Scroll left: positive left value moves content to the left
                 propertiesCarousel.scrollBy({ left: 1, behavior: 'auto' });
                 checkInfiniteScrollProps();
             }
