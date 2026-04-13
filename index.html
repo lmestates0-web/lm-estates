@@ -306,20 +306,7 @@
             position: relative;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 60px;
-        }
-
-        /* Visual horizontal line for carousel */
-        .services-carousel-container::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 60px;
-            right: 60px;
-            height: 2px;
-            background: linear-gradient(to right, transparent, var(--ev-blue) 10%, var(--ev-blue) 90%, transparent);
-            opacity: 0.2;
-            pointer-events: none;
+            padding: 0;
         }
 
         .services-carousel {
@@ -329,45 +316,55 @@
             scroll-behavior: smooth;
             scrollbar-width: none;
             -ms-overflow-style: none;
-            padding: 1rem 0 3rem 0;
+            padding: 1rem 2rem 1.5rem 2rem;
+            scroll-snap-type: x mandatory;
         }
 
         .services-carousel::-webkit-scrollbar {
             display: none;
         }
 
+        /* Bottom arrow controls */
+        .carousel-controls-bottom {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.2rem;
+            margin-top: 2rem;
+        }
+
         .carousel-control {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
             background: var(--ev-white);
-            border: 1px solid var(--ev-gray-light);
-            width: 48px;
-            height: 48px;
+            border: 2px solid var(--ev-blue);
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 2rem;
             color: var(--ev-blue);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 10;
-            transition: all 0.3s;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 12px rgba(0,40,85,0.12);
+            flex-shrink: 0;
+        }
+
+        .carousel-control svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+            display: block;
         }
 
         .carousel-control:hover {
             background: var(--ev-blue);
             color: var(--ev-white);
-            box-shadow: 0 4px 20px rgba(0,40,85,0.3);
+            box-shadow: 0 6px 20px rgba(0,40,85,0.3);
+            transform: scale(1.08);
         }
 
-        .carousel-control.prev {
-            left: 0;
-        }
-
-        .carousel-control.next {
-            right: 0;
+        .carousel-control:active {
+            transform: scale(0.96);
         }
 
         .service-card {
@@ -481,20 +478,7 @@
             position: relative;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 60px;
-        }
-
-        /* Visual horizontal line for properties carousel */
-        .properties-carousel-container::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 60px;
-            right: 60px;
-            height: 2px;
-            background: linear-gradient(to right, transparent, var(--ev-blue) 10%, var(--ev-blue) 90%, transparent);
-            opacity: 0.2;
-            pointer-events: none;
+            padding: 0;
         }
 
         .properties-carousel {
@@ -504,7 +488,8 @@
             scroll-behavior: smooth;
             scrollbar-width: none;
             -ms-overflow-style: none;
-            padding: 1rem 0 3rem 0;
+            padding: 1rem 2rem 1.5rem 2rem;
+            scroll-snap-type: x mandatory;
         }
 
         .properties-carousel::-webkit-scrollbar {
@@ -815,13 +800,21 @@
             }
 
             .services-carousel-container {
-                padding: 0 50px;
+                padding: 0;
+            }
+
+            .services-carousel {
+                padding: 1rem 1rem 1.5rem 1rem;
             }
 
             .carousel-control {
-                width: 40px;
-                height: 40px;
-                font-size: 1.5rem;
+                width: 44px;
+                height: 44px;
+            }
+
+            .carousel-control svg {
+                width: 18px;
+                height: 18px;
             }
 
             .service-card {
@@ -844,7 +837,11 @@
             }
             
             .properties-carousel-container {
-                padding: 0 50px;
+                padding: 0;
+            }
+            
+            .properties-carousel {
+                padding: 1rem 1rem 1.5rem 1rem;
             }
             
             .property-card {
@@ -906,6 +903,125 @@
             document.querySelector('.nav-links').classList.remove('active');
             document.querySelector('.menu-overlay').classList.remove('active');
         }
+
+        /**
+         * Smooth Carousel Factory
+         * Creates a fully self-contained carousel with:
+         * - Snap-to-card scrolling via arrow buttons
+         * - Smooth touch/swipe with momentum
+         * - Mouse drag support
+         * - No infinite-loop cloning (simpler, no jump glitches)
+         */
+        function createCarousel(carouselEl, scrollStep) {
+            if (!carouselEl) return;
+
+            let isDragging = false;
+            let startX = 0;
+            let startScrollLeft = 0;
+            let lastX = 0;
+            let lastTime = 0;
+            let velocity = 0;
+            let momentumRAF = null;
+
+            function cancelMomentum() {
+                if (momentumRAF) { cancelAnimationFrame(momentumRAF); momentumRAF = null; }
+            }
+
+            function applyMomentum() {
+                cancelMomentum();
+                if (Math.abs(velocity) < 0.05) return;
+                let v = velocity * -500; // px/s
+                let lastT = performance.now();
+
+                function step(now) {
+                    const dt = Math.min((now - lastT) / 1000, 0.05);
+                    lastT = now;
+                    v *= Math.pow(0.92, dt * 60);
+                    carouselEl.scrollLeft += v * dt;
+                    if (Math.abs(v) > 1) {
+                        momentumRAF = requestAnimationFrame(step);
+                    }
+                }
+                momentumRAF = requestAnimationFrame(step);
+            }
+
+            function trackVelocity(x) {
+                const now = performance.now();
+                const dt = now - lastTime;
+                if (dt > 0) velocity = (x - lastX) / dt;
+                lastX = x;
+                lastTime = now;
+            }
+
+            // Touch
+            carouselEl.addEventListener('touchstart', (e) => {
+                cancelMomentum();
+                startX = e.touches[0].clientX;
+                startScrollLeft = carouselEl.scrollLeft;
+                lastX = startX;
+                lastTime = performance.now();
+                velocity = 0;
+            }, { passive: true });
+
+            carouselEl.addEventListener('touchmove', (e) => {
+                const x = e.touches[0].clientX;
+                carouselEl.scrollLeft = startScrollLeft - (x - startX);
+                trackVelocity(x);
+            }, { passive: true });
+
+            carouselEl.addEventListener('touchend', () => {
+                applyMomentum();
+            }, { passive: true });
+
+            // Mouse drag
+            carouselEl.addEventListener('mousedown', (e) => {
+                cancelMomentum();
+                isDragging = true;
+                startX = e.clientX;
+                startScrollLeft = carouselEl.scrollLeft;
+                lastX = startX;
+                lastTime = performance.now();
+                velocity = 0;
+                carouselEl.style.cursor = 'grabbing';
+                carouselEl.style.userSelect = 'none';
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                carouselEl.scrollLeft = startScrollLeft - (e.clientX - startX);
+                trackVelocity(e.clientX);
+            });
+
+            window.addEventListener('mouseup', () => {
+                if (!isDragging) return;
+                isDragging = false;
+                carouselEl.style.cursor = 'grab';
+                carouselEl.style.userSelect = '';
+                applyMomentum();
+            });
+
+            carouselEl.style.cursor = 'grab';
+
+            // Arrow scroll: snap to nearest card boundary
+            function scrollBy(direction) {
+                cancelMomentum();
+                const amount = direction === 'left' ? -scrollStep : scrollStep;
+                carouselEl.scrollBy({ left: amount, behavior: 'smooth' });
+            }
+
+            return scrollBy;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const servicesCarousel = document.getElementById('servicesCarousel');
+            const propertiesCarousel = document.getElementById('propertiesCarousel');
+
+            const scrollServices = createCarousel(servicesCarousel, 340);
+            const scrollProperties = createCarousel(propertiesCarousel, 400);
+
+            window.scrollCarousel = (dir) => scrollServices && scrollServices(dir);
+            window.scrollPropertiesCarousel = (dir) => scrollProperties && scrollProperties(dir);
+        });
     </script>
 
     <!-- Hero Section -->
@@ -923,8 +1039,7 @@
         <p class="section-subtitle">Flexible Immobilien-Dienstleistungen – direkt buchbar oder auf Anfrage</p>
         
         <div class="services-carousel-container">
-            <button class="carousel-control prev" onclick="scrollCarousel('left')" aria-label="Vorherige Dienstleistungen">‹</button>
-            <div class="services-carousel">
+            <div class="services-carousel" id="servicesCarousel">
                 <div class="service-card" onclick="window.location.href='service-planerstellung.html'">
                     <div class="service-icon">
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -986,7 +1101,14 @@
                     <div class="service-price">Auf Anfrage</div>
                 </div>
             </div>
-            <button class="carousel-control next" onclick="scrollCarousel('right')" aria-label="Nächste Dienstleistungen">›</button>
+            <div class="carousel-controls-bottom">
+                <button class="carousel-control" onclick="scrollCarousel('left')" aria-label="Vorherige Dienstleistungen">
+                    <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                </button>
+                <button class="carousel-control" onclick="scrollCarousel('right')" aria-label="Nächste Dienstleistungen">
+                    <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                </button>
+            </div>
         </div>
     </section>
 
@@ -996,8 +1118,7 @@
         <p class="section-subtitle">Entdecken Sie unsere ausgewählten Objekte</p>
         
         <div class="properties-carousel-container">
-            <button class="carousel-control prev" onclick="scrollPropertiesCarousel('left')" aria-label="Vorherige Immobilien">‹</button>
-            <div class="properties-carousel">
+            <div class="properties-carousel" id="propertiesCarousel">
                 <!-- Café & Shop Bazenheid -->
                 <div class="property-card" onclick="window.location.href='property-detail-cafe.html'">
                     <div class="property-image-container">
@@ -1044,7 +1165,14 @@
                     <span class="placeholder-cta">MEHR ERFAHREN</span>
                 </div>
             </div>
-            <button class="carousel-control next" onclick="scrollPropertiesCarousel('right')" aria-label="Nächste Immobilien">›</button>
+            <div class="carousel-controls-bottom">
+                <button class="carousel-control" onclick="scrollPropertiesCarousel('left')" aria-label="Vorherige Immobilien">
+                    <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                </button>
+                <button class="carousel-control" onclick="scrollPropertiesCarousel('right')" aria-label="Nächste Immobilien">
+                    <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                </button>
+            </div>
         </div>
     </section>
 
@@ -1069,549 +1197,141 @@
     </footer>
 
     <script>
-        /**
-         * Momentum scrolling configuration constants
-         * @const {number} DRAG_MULTIPLIER - Multiplier for drag distance (higher = more sensitive)
-         * @const {number} VELOCITY_MULTIPLIER - Converts velocity from px/ms to px/s
-         * @const {number} DECELERATION_RATE - Deceleration factor per frame (0-1, lower = faster stop)
-         * @const {number} MIN_VELOCITY_THRESHOLD - Minimum velocity (px/ms) to trigger momentum
-         * @const {number} MIN_MOMENTUM_SPEED - Minimum speed (px/s) before momentum stops
-         */
-        const DRAG_MULTIPLIER = 3;
-        const VELOCITY_MULTIPLIER = -600;
-        const DECELERATION_RATE = 0.95;
-        const MIN_VELOCITY_THRESHOLD = 0.1;
-        const MIN_MOMENTUM_SPEED = 0.5;
+        /* ── Menu ── */
+        function toggleMenu() {
+            document.querySelector('.hamburger').classList.toggle('active');
+            document.querySelector('.nav-links').classList.toggle('active');
+            document.querySelector('.menu-overlay').classList.toggle('active');
+        }
+        function closeMenu() {
+            document.querySelector('.hamburger').classList.remove('active');
+            document.querySelector('.nav-links').classList.remove('active');
+            document.querySelector('.menu-overlay').classList.remove('active');
+        }
 
-        // Services Carousel functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const carousel = document.querySelector('.services-carousel');
-            let isAutoScrolling = true;
-            let autoScrollInterval;
-            
-            // Clone cards for infinite scroll effect
-            const cards = Array.from(carousel.querySelectorAll('.service-card'));
-            cards.forEach(card => {
-                const clone = card.cloneNode(true);
-                carousel.appendChild(clone);
+        /* ── Carousel Factory (infinite loop) ── */
+        function createCarousel(carouselEl, scrollStep) {
+            if (!carouselEl) return () => {};
+
+            // Clone all children so we have [A B C | A B C]
+            // We start in the middle set; on overflow we silently teleport back.
+            const originals = Array.from(carouselEl.children);
+            originals.forEach(el => carouselEl.appendChild(el.cloneNode(true)));
+
+            requestAnimationFrame(() => {
+                carouselEl.scrollLeft = carouselEl.scrollWidth / 2;
             });
 
-            function scrollCarousel(direction) {
-                const scrollAmount = 500;
-                if (direction === 'left') {
-                    carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-                } else {
-                    carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-                }
-                // Pause auto-scroll when user interacts
-                pauseAutoScroll();
-                checkInfiniteScroll();
-            }
-            
-            function checkInfiniteScroll() {
-                const scrollWidth = carousel.scrollWidth;
-                const clientWidth = carousel.clientWidth;
-                const scrollLeft = carousel.scrollLeft;
-                const halfPoint = scrollWidth / 2;
-                
-                // If scrolled past midpoint (original cards), jump back to beginning
-                if (scrollLeft >= halfPoint - clientWidth) {
-                    carousel.scrollLeft = scrollLeft - halfPoint;
-                }
-                // If scrolled before start, jump to clones
-                else if (scrollLeft <= 0) {
-                    carousel.scrollLeft = halfPoint;
+            function loopCheck() {
+                const half = carouselEl.scrollWidth / 2;
+                if (carouselEl.scrollLeft >= half) {
+                    carouselEl.scrollLeft -= half;
+                } else if (carouselEl.scrollLeft <= 0) {
+                    carouselEl.scrollLeft += half;
                 }
             }
 
-            function autoScroll() {
-                if (!isAutoScrolling) return;
-                
-                // Scroll right: negative left value moves content to the right
-                carousel.scrollBy({ left: -1, behavior: 'auto' });
-                checkInfiniteScroll();
-            }
-
-            function pauseAutoScroll() {
-                isAutoScrolling = false;
-                clearInterval(autoScrollInterval);
-                // Resume after 5 seconds
-                setTimeout(() => {
-                    isAutoScrolling = true;
-                    startAutoScroll();
-                }, 5000);
-            }
-
-            function startAutoScroll() {
-                clearInterval(autoScrollInterval);
-                autoScrollInterval = setInterval(autoScroll, 30);
-            }
-
-            // Touch/swipe support for mobile with momentum
+            let isDragging = false;
             let startX = 0;
-            let scrollLeft = 0;
+            let startScrollLeft = 0;
             let lastX = 0;
             let lastTime = 0;
-            let velocityX = 0;
-            let momentumAnimation = null;
+            let velocity = 0;
+            let momentumRAF = null;
 
-            carousel.addEventListener('touchstart', (e) => {
-                startX = e.touches[0].pageX - carousel.offsetLeft;
-                scrollLeft = carousel.scrollLeft;
-                lastX = startX;
-                lastTime = Date.now();
-                velocityX = 0;
-                if (momentumAnimation) {
-                    cancelAnimationFrame(momentumAnimation);
-                    momentumAnimation = null;
+            function cancelMomentum() {
+                if (momentumRAF) { cancelAnimationFrame(momentumRAF); momentumRAF = null; }
+            }
+
+            function applyMomentum() {
+                cancelMomentum();
+                if (Math.abs(velocity) < 0.05) return;
+                let v = velocity * -500;
+                let lastT = performance.now();
+                function step(now) {
+                    const dt = Math.min((now - lastT) / 1000, 0.05);
+                    lastT = now;
+                    v *= Math.pow(0.92, dt * 60);
+                    carouselEl.scrollLeft += v * dt;
+                    loopCheck();
+                    if (Math.abs(v) > 1) momentumRAF = requestAnimationFrame(step);
                 }
-                pauseAutoScroll();
-            });
+                momentumRAF = requestAnimationFrame(step);
+            }
 
-            carousel.addEventListener('touchmove', (e) => {
-                const x = e.touches[0].pageX - carousel.offsetLeft;
-                const walk = (x - startX) * DRAG_MULTIPLIER;
-                carousel.scrollLeft = scrollLeft - walk;
-                
-                // Track velocity
-                const now = Date.now();
+            function trackVelocity(x) {
+                const now = performance.now();
                 const dt = now - lastTime;
-                if (dt > 0) {
-                    velocityX = (x - lastX) / dt;
-                }
+                if (dt > 0) velocity = (x - lastX) / dt;
                 lastX = x;
                 lastTime = now;
-            });
-            
-            carousel.addEventListener('touchend', () => {
-                checkInfiniteScroll();
-                
-                // Apply momentum scrolling with frame-rate independent animation
-                if (Math.abs(velocityX) > MIN_VELOCITY_THRESHOLD) {
-                    let currentVelocity = velocityX * VELOCITY_MULTIPLIER;
-                    let lastFrameTime = Date.now();
-                    
-                    const animate = () => {
-                        const now = Date.now();
-                        const deltaTime = (now - lastFrameTime) / 1000; // Convert to seconds
-                        lastFrameTime = now;
-                        
-                        // Frame-rate independent deceleration
-                        currentVelocity *= Math.pow(DECELERATION_RATE, deltaTime * 60);
-                        carousel.scrollLeft += currentVelocity * deltaTime;
-                        
-                        if (Math.abs(currentVelocity) > MIN_MOMENTUM_SPEED) {
-                            momentumAnimation = requestAnimationFrame(animate);
-                        } else {
-                            checkInfiniteScroll();
-                        }
-                    };
-                    animate();
-                }
-            });
-
-            // Mouse drag support for desktop with momentum
-            let isDown = false;
-            let startMouseX;
-            let scrollLeftMouse;
-            let lastMouseX = 0;
-            let lastMouseTime = 0;
-            let velocityMouseX = 0;
-            let momentumMouseAnimation = null;
-
-            carousel.addEventListener('mousedown', (e) => {
-                isDown = true;
-                carousel.style.cursor = 'grabbing';
-                startMouseX = e.pageX - carousel.offsetLeft;
-                scrollLeftMouse = carousel.scrollLeft;
-                lastMouseX = startMouseX;
-                lastMouseTime = Date.now();
-                velocityMouseX = 0;
-                if (momentumMouseAnimation) {
-                    cancelAnimationFrame(momentumMouseAnimation);
-                    momentumMouseAnimation = null;
-                }
-                pauseAutoScroll();
-            });
-
-            carousel.addEventListener('mouseleave', () => {
-                if (isDown) {
-                    isDown = false;
-                    carousel.style.cursor = 'grab';
-                    
-                    // Apply momentum on mouse leave if dragging
-                    if (Math.abs(velocityMouseX) > MIN_VELOCITY_THRESHOLD) {
-                        let currentVelocity = velocityMouseX * VELOCITY_MULTIPLIER;
-                        let lastFrameTime = Date.now();
-                        
-                        const animate = () => {
-                            const now = Date.now();
-                            const deltaTime = (now - lastFrameTime) / 1000;
-                            lastFrameTime = now;
-                            
-                            currentVelocity *= Math.pow(DECELERATION_RATE, deltaTime * 60);
-                            carousel.scrollLeft += currentVelocity * deltaTime;
-                            
-                            if (Math.abs(currentVelocity) > MIN_MOMENTUM_SPEED) {
-                                momentumMouseAnimation = requestAnimationFrame(animate);
-                            } else {
-                                checkInfiniteScroll();
-                            }
-                        };
-                        animate();
-                    } else {
-                        checkInfiniteScroll();
-                    }
-                }
-            });
-
-            carousel.addEventListener('mouseup', () => {
-                const wasDown = isDown;
-                isDown = false;
-                carousel.style.cursor = 'grab';
-                
-                // Apply momentum on mouse up
-                if (wasDown && Math.abs(velocityMouseX) > MIN_VELOCITY_THRESHOLD) {
-                    let currentVelocity = velocityMouseX * VELOCITY_MULTIPLIER;
-                    let lastFrameTime = Date.now();
-                    
-                    const animate = () => {
-                        const now = Date.now();
-                        const deltaTime = (now - lastFrameTime) / 1000;
-                        lastFrameTime = now;
-                        
-                        currentVelocity *= Math.pow(DECELERATION_RATE, deltaTime * 60);
-                        carousel.scrollLeft += currentVelocity * deltaTime;
-                        
-                        if (Math.abs(currentVelocity) > MIN_MOMENTUM_SPEED) {
-                            momentumMouseAnimation = requestAnimationFrame(animate);
-                        } else {
-                            checkInfiniteScroll();
-                        }
-                    };
-                    animate();
-                } else {
-                    checkInfiniteScroll();
-                }
-            });
-
-            carousel.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - carousel.offsetLeft;
-                const walk = (x - startMouseX) * DRAG_MULTIPLIER;
-                carousel.scrollLeft = scrollLeftMouse - walk;
-                
-                // Track velocity
-                const now = Date.now();
-                const dt = now - lastMouseTime;
-                if (dt > 0) {
-                    velocityMouseX = (x - lastMouseX) / dt;
-                }
-                lastMouseX = x;
-                lastMouseTime = now;
-            });
-
-            // Make scrollCarousel function globally available
-            window.scrollCarousel = scrollCarousel;
-
-            // Start auto-scroll
-            carousel.style.cursor = 'grab';
-            
-            // Set initial scroll position to show seamless loop
-            const halfPoint = carousel.scrollWidth / 2;
-            carousel.scrollLeft = halfPoint - 100; // Start from middle to allow scrolling right
-            
-            startAutoScroll();
-        });
-
-        // Properties Carousel functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const propertiesCarousel = document.querySelector('.properties-carousel');
-            if (!propertiesCarousel) return;
-            
-            let isAutoScrollingProps = true;
-            let autoScrollIntervalProps;
-            
-            // Clone cards for infinite scroll effect
-            const propCards = Array.from(propertiesCarousel.querySelectorAll('.property-card, .property-card-placeholder'));
-            propCards.forEach(card => {
-                const clone = card.cloneNode(true);
-                // Re-attach click handlers for cloned elements
-                if (card.classList.contains('property-card')) {
-                    clone.onclick = card.onclick;
-                } else if (card.classList.contains('property-card-placeholder')) {
-                    clone.onclick = card.onclick;
-                }
-                propertiesCarousel.appendChild(clone);
-            });
-
-            function scrollPropertiesCarousel(direction) {
-                const scrollAmount = 550;
-                if (direction === 'left') {
-                    propertiesCarousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-                } else {
-                    propertiesCarousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-                }
-                pauseAutoScrollProps();
-                checkInfiniteScrollProps();
-            }
-            
-            function checkInfiniteScrollProps() {
-                const scrollWidth = propertiesCarousel.scrollWidth;
-                const clientWidth = propertiesCarousel.clientWidth;
-                const scrollLeft = propertiesCarousel.scrollLeft;
-                const halfPoint = scrollWidth / 2;
-                
-                if (scrollLeft >= halfPoint - clientWidth) {
-                    propertiesCarousel.scrollLeft = scrollLeft - halfPoint;
-                }
-                else if (scrollLeft <= 0) {
-                    propertiesCarousel.scrollLeft = halfPoint;
-                }
             }
 
-            function autoScrollProps() {
-                if (!isAutoScrollingProps) return;
-                
-                // Scroll left: positive left value moves content to the left
-                propertiesCarousel.scrollBy({ left: 1, behavior: 'auto' });
-                checkInfiniteScrollProps();
-            }
+            /* Touch */
+            carouselEl.addEventListener('touchstart', (e) => {
+                cancelMomentum();
+                startX = e.touches[0].clientX;
+                startScrollLeft = carouselEl.scrollLeft;
+                lastX = startX; lastTime = performance.now(); velocity = 0;
+            }, { passive: true });
 
-            function pauseAutoScrollProps() {
-                isAutoScrollingProps = false;
-                clearInterval(autoScrollIntervalProps);
-                setTimeout(() => {
-                    isAutoScrollingProps = true;
-                    startAutoScrollProps();
-                }, 5000);
-            }
+            carouselEl.addEventListener('touchmove', (e) => {
+                const x = e.touches[0].clientX;
+                carouselEl.scrollLeft = startScrollLeft - (x - startX);
+                loopCheck();
+                trackVelocity(x);
+            }, { passive: true });
 
-            function startAutoScrollProps() {
-                clearInterval(autoScrollIntervalProps);
-                autoScrollIntervalProps = setInterval(autoScrollProps, 30);
-            }
+            carouselEl.addEventListener('touchend', applyMomentum, { passive: true });
 
-            // Touch/swipe support with momentum
-            let startXProps = 0;
-            let scrollLeftProps = 0;
-            let lastXProps = 0;
-            let lastTimeProps = 0;
-            let velocityXProps = 0;
-            let momentumAnimationProps = null;
-
-            propertiesCarousel.addEventListener('touchstart', (e) => {
-                startXProps = e.touches[0].pageX - propertiesCarousel.offsetLeft;
-                scrollLeftProps = propertiesCarousel.scrollLeft;
-                lastXProps = startXProps;
-                lastTimeProps = Date.now();
-                velocityXProps = 0;
-                if (momentumAnimationProps) {
-                    cancelAnimationFrame(momentumAnimationProps);
-                    momentumAnimationProps = null;
-                }
-                pauseAutoScrollProps();
+            /* Mouse drag */
+            carouselEl.addEventListener('mousedown', (e) => {
+                cancelMomentum();
+                isDragging = true;
+                startX = e.clientX;
+                startScrollLeft = carouselEl.scrollLeft;
+                lastX = startX; lastTime = performance.now(); velocity = 0;
+                carouselEl.style.cursor = 'grabbing';
+                carouselEl.style.userSelect = 'none';
             });
 
-            propertiesCarousel.addEventListener('touchmove', (e) => {
-                const x = e.touches[0].pageX - propertiesCarousel.offsetLeft;
-                const walk = (x - startXProps) * DRAG_MULTIPLIER;
-                propertiesCarousel.scrollLeft = scrollLeftProps - walk;
-                
-                // Track velocity
-                const now = Date.now();
-                const dt = now - lastTimeProps;
-                if (dt > 0) {
-                    velocityXProps = (x - lastXProps) / dt;
-                }
-                lastXProps = x;
-                lastTimeProps = now;
-            });
-            
-            propertiesCarousel.addEventListener('touchend', () => {
-                checkInfiniteScrollProps();
-                
-                // Apply momentum scrolling with frame-rate independent animation
-                if (Math.abs(velocityXProps) > MIN_VELOCITY_THRESHOLD) {
-                    let currentVelocity = velocityXProps * VELOCITY_MULTIPLIER;
-                    let lastFrameTime = Date.now();
-                    
-                    const animate = () => {
-                        const now = Date.now();
-                        const deltaTime = (now - lastFrameTime) / 1000;
-                        lastFrameTime = now;
-                        
-                        currentVelocity *= Math.pow(DECELERATION_RATE, deltaTime * 60);
-                        propertiesCarousel.scrollLeft += currentVelocity * deltaTime;
-                        
-                        if (Math.abs(currentVelocity) > MIN_MOMENTUM_SPEED) {
-                            momentumAnimationProps = requestAnimationFrame(animate);
-                        } else {
-                            checkInfiniteScrollProps();
-                        }
-                    };
-                    animate();
-                }
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                carouselEl.scrollLeft = startScrollLeft - (e.clientX - startX);
+                loopCheck();
+                trackVelocity(e.clientX);
             });
 
-            // Mouse drag support with momentum
-            let isDownProps = false;
-            let startMouseXProps;
-            let scrollLeftMouseProps;
-            let lastMouseXProps = 0;
-            let lastMouseTimeProps = 0;
-            let velocityMouseXProps = 0;
-            let momentumMouseAnimationProps = null;
-
-            propertiesCarousel.addEventListener('mousedown', (e) => {
-                isDownProps = true;
-                propertiesCarousel.style.cursor = 'grabbing';
-                startMouseXProps = e.pageX - propertiesCarousel.offsetLeft;
-                scrollLeftMouseProps = propertiesCarousel.scrollLeft;
-                lastMouseXProps = startMouseXProps;
-                lastMouseTimeProps = Date.now();
-                velocityMouseXProps = 0;
-                if (momentumMouseAnimationProps) {
-                    cancelAnimationFrame(momentumMouseAnimationProps);
-                    momentumMouseAnimationProps = null;
-                }
-                pauseAutoScrollProps();
+            window.addEventListener('mouseup', () => {
+                if (!isDragging) return;
+                isDragging = false;
+                carouselEl.style.cursor = 'grab';
+                carouselEl.style.userSelect = '';
+                applyMomentum();
             });
 
-            propertiesCarousel.addEventListener('mouseleave', () => {
-                if (isDownProps) {
-                    isDownProps = false;
-                    propertiesCarousel.style.cursor = 'grab';
-                    
-                    // Apply momentum on mouse leave if dragging
-                    if (Math.abs(velocityMouseXProps) > MIN_VELOCITY_THRESHOLD) {
-                        let currentVelocity = velocityMouseXProps * VELOCITY_MULTIPLIER;
-                        let lastFrameTime = Date.now();
-                        
-                        const animate = () => {
-                            const now = Date.now();
-                            const deltaTime = (now - lastFrameTime) / 1000;
-                            lastFrameTime = now;
-                            
-                            currentVelocity *= Math.pow(DECELERATION_RATE, deltaTime * 60);
-                            propertiesCarousel.scrollLeft += currentVelocity * deltaTime;
-                            
-                            if (Math.abs(currentVelocity) > MIN_MOMENTUM_SPEED) {
-                                momentumMouseAnimationProps = requestAnimationFrame(animate);
-                            } else {
-                                checkInfiniteScrollProps();
-                            }
-                        };
-                        animate();
-                    } else {
-                        checkInfiniteScrollProps();
-                    }
-                }
-            });
+            carouselEl.style.cursor = 'grab';
 
-            propertiesCarousel.addEventListener('mouseup', () => {
-                const wasDown = isDownProps;
-                isDownProps = false;
-                propertiesCarousel.style.cursor = 'grab';
-                
-                // Apply momentum on mouse up
-                if (wasDown && Math.abs(velocityMouseXProps) > MIN_VELOCITY_THRESHOLD) {
-                    let currentVelocity = velocityMouseXProps * VELOCITY_MULTIPLIER;
-                    let lastFrameTime = Date.now();
-                    
-                    const animate = () => {
-                        const now = Date.now();
-                        const deltaTime = (now - lastFrameTime) / 1000;
-                        lastFrameTime = now;
-                        
-                        currentVelocity *= Math.pow(DECELERATION_RATE, deltaTime * 60);
-                        propertiesCarousel.scrollLeft += currentVelocity * deltaTime;
-                        
-                        if (Math.abs(currentVelocity) > MIN_MOMENTUM_SPEED) {
-                            momentumMouseAnimationProps = requestAnimationFrame(animate);
-                        } else {
-                            checkInfiniteScrollProps();
-                        }
-                    };
-                    animate();
-                } else {
-                    checkInfiniteScrollProps();
-                }
-            });
-
-            propertiesCarousel.addEventListener('mousemove', (e) => {
-                if (!isDownProps) return;
-                e.preventDefault();
-                const x = e.pageX - propertiesCarousel.offsetLeft;
-                const walk = (x - startMouseXProps) * DRAG_MULTIPLIER;
-                propertiesCarousel.scrollLeft = scrollLeftMouseProps - walk;
-                
-                // Track velocity
-                const now = Date.now();
-                const dt = now - lastMouseTimeProps;
-                if (dt > 0) {
-                    velocityMouseXProps = (x - lastMouseXProps) / dt;
-                }
-                lastMouseXProps = x;
-                lastMouseTimeProps = now;
-            });
-
-            // Make function globally available
-            window.scrollPropertiesCarousel = scrollPropertiesCarousel;
-
-            // Add keyboard navigation for properties carousel
-            let isHoveringProperties = false;
-            
-            const propertiesContainer = document.querySelector('.properties-carousel-container');
-            if (propertiesContainer) {
-                propertiesContainer.addEventListener('mouseenter', () => {
-                    isHoveringProperties = true;
-                });
-                
-                propertiesContainer.addEventListener('mouseleave', () => {
-                    isHoveringProperties = false;
-                });
-            }
-            
-            document.addEventListener('keydown', (e) => {
-                // Only handle arrow keys when hovering over the properties carousel
-                if (!isHoveringProperties) return;
-                
-                if (e.key === 'ArrowLeft') {
-                    e.preventDefault();
-                    scrollPropertiesCarousel('left');
-                } else if (e.key === 'ArrowRight') {
-                    e.preventDefault();
-                    scrollPropertiesCarousel('right');
-                }
-            });
-
-            // Start auto-scroll
-            propertiesCarousel.style.cursor = 'grab';
-            propertiesCarousel.scrollLeft = 1;
-            startAutoScrollProps();
-        });
-        
-        // Intersection Observer for scroll animations
-        const observerOptions = {
-            threshold: 0.15,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-in');
-                }
-            });
-        }, observerOptions);
-
-        // Observe services section
-        const servicesSection = document.querySelector('.services');
-        if (servicesSection) {
-            observer.observe(servicesSection);
+            /* Arrow scroll */
+            return function scrollBy(direction) {
+                cancelMomentum();
+                const amount = direction === 'left' ? -scrollStep : scrollStep;
+                carouselEl.scrollLeft += amount;
+                loopCheck();
+            };
         }
+
+        /* ── Init ── */
+        document.addEventListener('DOMContentLoaded', function () {
+            const servicesCarousel   = document.getElementById('servicesCarousel');
+            const propertiesCarousel = document.getElementById('propertiesCarousel');
+
+            const scrollServices   = createCarousel(servicesCarousel,   340);
+            const scrollProperties = createCarousel(propertiesCarousel, 400);
+
+            window.scrollCarousel           = (dir) => scrollServices(dir);
+            window.scrollPropertiesCarousel = (dir) => scrollProperties(dir);
+        });
     </script>
 </body>
 </html>
